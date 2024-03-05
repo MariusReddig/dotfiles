@@ -7,26 +7,28 @@ my personal repo for all my current dotfiles.
 
 following is required for this configuration
 
-### distro-required
-- bluez
-- blueman
-- thunar
-- hyrpland
-- swww
-- waybar
-- swaylock-effects-git
-- swayidle
-- xdg-desktop-portal
-- xdg-desktop-portal-hyprland
-- git
-- stow
-- brightnessctl
-- wofi
-- kitty
-- iio-hyprland
-- firewalld
+> ### distro-required
+>
+> - bluez
+> - blueman
+> - thunar
+> - hyrpland
+> - swww
+> - waybar
+> - swaylock-effects-git
+> - swayidle
+> - xdg-desktop-portal
+> - xdg-desktop-portal-hyprland
+> - git
+> - stow
+> - brightnessctl
+> - wofi
+> - kitty
+> - iio-hyprland
+> - firewalld
 
 ### thememing
+
 - nwg-look
 - adwaita-icon-theme
 - capitaine-cursors
@@ -34,6 +36,7 @@ following is required for this configuration
 - yaru-gtk-theme
 
 ### applications
+
 - xournalpp
 - signal
 - spotify
@@ -49,28 +52,37 @@ following is required for this configuration
 - waydroid
 
 ### usefull commands
+
 - upower
 - iio-hyprland
 
 ## Installation
 
 ### One-liner for important packages
+
+
 ```
 yay -S thunar thunar-volman thunar-media-tags-plugin thunar-archive-plugin hyrpland swww waybar swaylock-effects-git swayidle xdg-desktop-portal xdg-desktop-portal-hyprland git stow wofi kitty networkmanager
 
 ```
 
 ### Networkmanager
+
+
 ```
 sudo pacman -S networkmanager
 systemctl enable NetworkManager.service --now
 ```
 
 ### Thememing
+
+
 ```
 yay -S nwg-look adwaita-icon-theme capitaine-cursors ttf-jetbrains-mono-nerd yaru-gtk-theme
 ```
+
 ### Yay
+
 one liner:
 ```
 sudo pacman -S --needed base-devel git
@@ -80,6 +92,8 @@ makepkg -si
 ```
 
 ### oh-my-zsh
+
+
 ```
 pacman -S curl zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -88,6 +102,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ###
 
 ## TODO
-[ ] complete Requirements
-[ ] custom / multiple Themes
-[ ] (propper)multi-monitor support
+
+- [ ] complete Requirements  
+- [ ] custom / multiple Themes  
+- [ ] (propper)multi-monitor support  
