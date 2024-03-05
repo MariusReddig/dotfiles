@@ -7,25 +7,24 @@ my personal repo for all my current dotfiles.
 
 following is required for this configuration
 
-> ### distro-required
->
-> - bluez
-> - blueman
-> - thunar
-> - hyrpland
-> - swww
-> - waybar
-> - swaylock-effects-git
-> - swayidle
-> - xdg-desktop-portal
-> - xdg-desktop-portal-hyprland
-> - git
-> - stow
-> - brightnessctl
-> - wofi
-> - kitty
-> - iio-hyprland
-> - firewalld
+### distro-required
+- bluez
+- blueman
+- thunar
+- hyrpland
+- swww
+- waybar
+- swaylock-effects-git
+- swayidle
+- xdg-desktop-portal
+- xdg-desktop-portal-hyprland
+- git
+- stow
+- brightnessctl
+- wofi
+- kitty
+- iio-hyprland
+- firewalld
 
 ### thememing
 
