@@ -1,0 +1,24 @@
+@define-color background        #1e1e2e; /*cobalt-blue*/
+@define-color font-color-1      #ffffff; /*white*/
+@define-color font-color-2      #0f0f0f; /*black*/
+@define-color active            #f38ba8; /*pink*/
+@define-color focused           #ff0966; /*neon-pink*/
+@define-color urgent            #f9e2af; /*orange*/
+@define-color hover             #9ec3c4; /*blueish-grey*/
+
+@define-color fine              #a6e3a1; /*lime-green*/
+@define-color warning           #f9e2af; /*orange*/
+@define-color critical          #f38ba8; /*magenta*/
+
+@define-color base01            #9ec3c4; /*blueish-grey*/
+@define-color base02            #f38ba8; /*pink*/
+@define-color base03            #a6e3a1; /*lime-green*/
+@define-color base04            #89dceb; /*light-blue*/
+@define-color base05            #f9e2af; /*yellow-brown*/
+@define-color base06            #f9e2af; /*orange*/
+@define-color base07            #ff0966; /*neon-pink*/
+@define-color base08            #cba6f7; /*purple*/
+
+
+
+

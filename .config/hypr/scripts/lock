@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# TODO implement now flag for immediate lock for e.g idle-mode  
+
+# default values
+grace=10    # grace after lock in seconds
+fade_in=1   # fade-in of lock in seconds
+
+
+immediate_lock() {
+grace=0
+fade_in=0
+}
+
+dislay_help() {
+  cat << EOF
+Usage: lock [-n] [-h]
+
+lock the session with swaylock
+
+options:
+  -n      Lock the system immidiately (-> without fade_in or grace period)
+  -h      Display this help massage
+
+EOF
+}
+
+while getopts ":nh" opt; do
+  case ${opt} in
+    n)
+      immediate_lock
+      ;;
+    h)
+      display
+      exit 0;
+      ;;
+    \?)
+      echo "Invalid option:"
+      ;;
+    *)
+      ;;
+  esac
+done
+
+exec swaylock \
+      -f \
+      --image ~/.config/hypr/lockscreen \
+      --clock \
+      --indicator \
+      --grace "$grace" \
+      --indicator-idle-visible \
+      --grace-no-mouse \
+      --grace-no-touch \
+      --fade-in "$fade_in" \
+      --effect-blur 4x2

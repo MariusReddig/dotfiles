@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Display help message
+display_help() {
+    echo "Usage: $0 <command>"
+    echo "Commands:"
+    echo "  on        - Start iio-hyprland"
+    echo "  off       - Stop iio-hyprland"
+    echo "  switch    - Toggle iio-hyprland on/off"
+    exit 1
+}
+
+on() {
+  exec iio-hyprland
+  echo ""text": "$text", "tooltip": "$tooltip", "class": "$class", "percentage": $percentage }"
+}
+
+off() {
+  pkill -f iio-hyprland 
+}
+
+switch() {
+  if pgrep -x iio-hyprland > /dev/null; then
+    rotation-mode off
+  else
+    rotation-mode on
+  fi
+}
+
+state() {
+  if pgrep -x iio-hyprland > /dev/null; then
+    echo "on"
+  else
+    echo "off"
+  fi
+}
+
+waybar-state() {
+  if pgrep -x iio-hyprland > /dev/null; then
+    tooltip="rotation is currently on"
+    alt="on"
+  else
+    tooltip="rotation is currently off"
+    alt="off"
+  fi
+  notify-send hey
+  echo "{"text": "$text", "alt": "$alt", "tooltip": "$tooltip", "class": "$class", "percentage": $percentage }"
+}
+
+# Check if a filename is provided as an argument
+if [ $# -eq 0 ]; then
+  display_help
+fi
+
+case $1 in
+  "on")             on            ;;
+  "off")            off           ;;
+  "switch")         switch        ;;
+  "state")          state         ;;
+  "waybar-state")   waybar-state  ;;
+  *)                display_help  ;;
+esac
+exit 0
+

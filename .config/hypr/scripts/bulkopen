@@ -1,0 +1,154 @@
+#!/bin/bash
+
+# Function to check if Tor Browser is running
+is_tor_browser_running() {
+  pgrep -f tor-browser &> /dev/null
+}
+
+# Display help message
+display_help() {
+    echo "Usage: $0 [-d] [-t] [-r] [-c] [-s] [-p] <filename>"
+    echo "Options:"
+    echo "  -d          Use a specific Firefox profile (e.g., -d dark)"
+    echo "  -t          Use Tor Browser"
+    echo "  -r          Randomize the order of URLs"
+    echo "  -c          Comment out processed lines in the file with '##'"
+    echo "  -s          Open only one tab at a time, wait for the last one to close"
+    echo "  -p          Calculate the percentage of out-commented code to total non-empty lines"
+    echo "  -l          output number of nonopened links links"
+    echo "  -h, --help  Display this help message"
+    exit 0
+}
+
+# Default values
+firefox_profile=""
+use_tor=false
+randomize=false
+comment_lines=false
+single_tab=false
+calculate_percentage=false
+output_unusedlines=false
+
+# Check if a filename is provided as an argument
+if [ $# -eq 0 ]; then
+    display_help
+    exit 1
+fi
+
+# Parse command line options
+while getopts ":dtrcshpl" opt; do
+    case ${opt} in
+        d)
+            firefox_profile="dark"
+            ;;
+        t)
+            use_tor=true
+            ;;
+        r)
+            randomize=true
+            ;;
+        c)
+            comment_lines=true
+            ;;
+        s)
+            single_tab=true
+            ;;
+        p)
+            calculate_percentage=true
+            ;;
+        l)
+            output_unusedlines=true
+            ;;
+        h)
+            display_help
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Check if Tor Browser is installed
+if [ ! command -v tor-browser &> /dev/null && "$use_tor" = true ]; then
+    echo "Tor Browser is not installed. Please install Tor Browser and try again."
+    exit 1
+fi
+
+# Shift command line arguments to get the filename
+shift $((OPTIND - 1))
+
+# Check if the file exists
+filename=$1
+if [ ! -f "$filename" ]; then
+    echo "File $filename not found."
+    exit 1
+fi
+
+if [ "$output_unusedlines" = true ]; then
+  noncommentedLines=$(grep -vE '^\s*#' "$filename" | wc -l)
+  echo "links left: $noncommentedLines"
+  exit 0
+fi
+
+# Calculate percentage if -p flag is set and exit
+if [ "$calculate_percentage" = true ]; then
+  total_lines=$(cat "$filename" | wc -l)
+  commented_lines=$(grep -E '^\s*#' "$filename" | wc -l)
+  if [ "$total_lines" -gt 0 ]; then
+    percentage=$(( (commented_lines * 100) / total_lines ))
+    echo "already watched: $percentage%"
+  else
+    echo "No non-empty lines found to calculate percentage."
+  fi
+  exit 0
+fi
+
+# Determine the command to use (Tor Browser or Firefox with a specific profile)
+if [ "$use_tor" = true ]; then
+    browser_command="tor-browser"
+    echo "Tor Browser can only open one instance at a time, next URL is loaded after the first instance is closed"
+else
+    # Use a specific Firefox profile if provided
+    if [ -n "$firefox_profile" ]; then
+        browser_command="firefox -P $firefox_profile"
+    else
+        browser_command="firefox"
+    fi
+fi
+
+# Read and shuffle URLs if randomize is true
+if [ "$randomize" = true ]; then
+    urls=($(grep -vE '^\s*(#|-|$)' "$filename" | shuf))
+else
+    urls=($(grep -vE '^\s*(#|-|$)' "$filename"))
+fi
+
+# Open URLs in the specified browser or calculate percentage
+for line in "${urls[@]}"; do
+    if [ "$calculate_percentage" = false ]; then
+        if [ "$use_tor" = true ]; then
+            while is_tor_browser_running; do
+                sleep 1
+            done
+            echo "Tor Browser is not running. Starting a new instance."
+            tor-browser "$line"
+        else
+            $browser_command "$line" &
+        fi
+
+        # Comment out the processed line in the file if -c flag is set
+        if [ "$comment_lines" = true ]; then
+            sed -i "s|^$line|#$line|" "$filename"
+        fi
+
+        # Wait for the last tab to close before opening the next one if -s flag is set
+        if [ "$single_tab" = true ]; then
+            wait
+        fi
+    fi
+done
+
+if [ "$calculate_percentage" = false ]; then
+    echo "Browser tabs opened based on the specified order or randomly (if -r flag is used) in $filename"
+fi

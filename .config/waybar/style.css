@@ -1,0 +1,165 @@
+@import "colors.css";
+
+/*========Waybar=Configuration========*/
+
+* {
+  border: none;
+  border-radius:    0;
+  font-family:      JetBrainsMono Nerd Font;
+  font-size:        14px;
+  min-height:       0;
+}
+
+/*----------Waybar-window-----------*/ 
+
+window#waybar {
+    background:     transparent;
+    color:          @font-color-1;
+}
+
+/*--------------Modules--------------*/
+
+#custom-date,
+#custom-notification,
+#custom-powermenu,
+#custom-rotate_toggle,
+#custom-audio_idle_inhibitor,
+#custom-webcam,
+#custom-spacer_m,
+#custom-spacer_r,
+#custom-spacer_l,
+#workspaces,
+#clock,
+#battery,
+#pulseaudio,
+#wireplumber,
+#network,
+#bluetooth,
+#idle_inhibitor,
+#backlight,
+#taskbar,
+#tray {
+	background:       @background;
+	padding:          5px 10px;
+	margin:           10px 0px 0px 0px;
+}
+
+/*-----------Workspaces-----------*/
+
+#workspaces button {
+    padding:        5px 5px;
+    background:     transparent;
+}
+
+#workspaces button.active {
+    padding:        5px 5px;
+    background:     @active;
+    color:          @font-color-2;
+	  border-radius:  15px;
+}
+
+#workspaces button.focused {
+    background:     @focused;
+    color:          @font-color-1;
+}
+
+#workspaces button.urgent {
+    background:     @urgent;
+    color:          @font-color-1;
+    border-radius:  15px;
+}
+
+#workspaces button:hover {
+	background:       @hover;
+	color:            @font-color-1;
+	border-radius:    15px;
+}
+
+/*-------------Tooltips-------------*/
+
+tooltip {
+	background:       @background;
+	border-radius:    15px;
+	border-width:     2px;
+	border-style:     solid;
+	border-color:     @active;
+}
+
+
+/*----------Notifications----------*/
+
+#custom-notification,
+#custom-webcam {
+	background-color: @critical;
+	color:            @font-color;
+}
+
+/*----------base-coloring----------*/
+
+#bluetooth {
+  color:            @base01;
+}
+
+#custom-rotate_toggle,
+#custom-audio_idle_inhibitor,
+#idle_inhibitor,
+#custom-powermenu{
+	color:            @base02;
+}
+
+#clock {
+  color:            @base03;  
+}
+
+#battery {
+  color:            @base04;
+}
+
+#pulseaudio,
+#wireplumber {
+	color:            @base05;
+}
+
+#network {
+	color:            @base06;
+}
+
+#custom-date {
+	color:            @base08;
+}
+
+/*--------------Taskbar--------------*/
+#taskbar {
+  border-radius:    15px 15px 15px 15px;
+}
+
+/*----------Battery-levels----------*/
+
+#battery.charging {
+  color:            @base04;
+}
+
+#battery.warning:not(.charging) {
+  background:       @warning;
+  color:            @font-color-2;
+}
+
+#battery.critical:not(.charging) {
+  background:       @critical;
+  color:            @font-color-2;
+}
+
+/*-------------Spacers-------------*/
+
+#custom-spacer_r {
+	border-radius:    0px 15px 15px 0px;
+	margin-right:     10px;
+	margin-left:      -5px;
+}
+
+#custom-spacer_l {
+	border-radius:    15px 0px 0px 15px;
+	margin-left:      10px;
+	margin-right:     -5px;
+}
+
