@@ -1,6 +1,6 @@
 # My dotfiles for arch-hyprland
 
-my personal repo for all my current dotfiles
+my personal repo for all my current dotfiles.
 ! README is still WIP !
 
 ## Requirements
@@ -51,7 +51,6 @@ following is required for this configuration
 ### usefull commands
 - upower
 - iio-hyprland
-- 
 
 ## Installation
 
@@ -86,4 +85,9 @@ pacman -S curl zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-### 
+###
+
+## TODO
+[ ] complete Requirements
+[ ] custom / multiple Themes
+[ ] (propper)multi-monitor support
