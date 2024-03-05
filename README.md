@@ -1,6 +1,6 @@
 # My dotfiles for arch-hyprland
 
-my personal repo for all my current dotfiles.
+my personal repo for all my current dotfiles.  
 ! README is still WIP !
 
 ## Requirements
