@@ -38,6 +38,7 @@ window#waybar {
 #idle_inhibitor,
 #backlight,
 #taskbar,
+#custom-updates,
 #tray {
 	background:       @background;
 	padding:          5px 10px;
@@ -100,13 +101,11 @@ tooltip {
   color:            @base01;
 }
 
-#custom-rotate_toggle,
-#custom-audio_idle_inhibitor,
-#idle_inhibitor,
 #custom-powermenu{
 	color:            @base02;
 }
 
+#custom-updates,
 #clock {
   color:            @base03;  
 }
@@ -122,6 +121,12 @@ tooltip {
 
 #network {
 	color:            @base06;
+}
+
+#custom-rotate_toggle,
+#custom-audio_idle_inhibitor,
+#idle_inhibitor {
+  color:            @base07;
 }
 
 #custom-date {

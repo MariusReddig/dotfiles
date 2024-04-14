@@ -4,7 +4,7 @@
   "height": 60,
   "reload_style_on_change": true,
   "modules-left": ["custom/spacer_l", "hyprland/workspaces", "custom/spacer_r"],
-  "modules-center": ["custom/spacer_l", "custom/notification", "custom/webcam", "clock", "custom/spacer_r"],
+  "modules-center": ["custom/spacer_l", "custom/updates", "custom/notification", "custom/webcam", "clock", "custom/spacer_r"],
   "modules-right": ["custom/spacer_l", "tray", "backlight", "bluetooth", "network","pulseaudio#microphone" ,"wireplumber", "battery", "custom/audio_idle_inhibitor", "custom/rotate_toggle" ,"idle_inhibitor", "custom/powermenu", "custom/spacer_r"],
 
   "hyprland/workspaces": {
@@ -30,9 +30,8 @@
       "10":             "十",
     },
     "persistent-workspaces": {
-      "1": ["eDP-1","HDMI-A-1"],
-      "2": ["eDP-1","HDMI-A-1"],
-      "3": ["eDP-1","HDMI-A-1"],
+      "eDP-1": [1, 2, 3],
+      "HDMI-A-1": [1, 2, 3]
     }
   },
   
@@ -151,11 +150,12 @@
   },
 
   "custom/updates": {
-    "format": "{}",
-    "exec": "~/.config/hypr/scripts/update-sys",
+    "format":   "{}",
+    "exec":     "~/.config/hypr/scripts/update-sys",
     "on-click": "~/.config/hypr/scripts/update-sys update",
-    "interval": 300,
-    "tooltip": true
+    "interval": 120,
+    "signal":   8,
+    "tooltip":  true
   },
   
   "custom/rotate_toggle": {
