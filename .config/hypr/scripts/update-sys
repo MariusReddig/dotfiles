@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # Calculate updates for each service
+A=$(yay -Sy)
 UPDATES=$(yay -Qu | wc -l)
+
 
 # If the parameter is "update", update all services
 if [ "$1" = "update" ]; then
