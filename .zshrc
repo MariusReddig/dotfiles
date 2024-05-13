@@ -102,11 +102,23 @@ export ARCHFLAGS="-arch x86_64"
 # Example aliases
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
-alias v="lvim"
-alias vv="sudo lvim"
+alias v="nvim "
+alias vv="sudo nvim"
 alias sd="shutdown 0"
 alias tree="tree -a -L 3 --gitignore"
 alias ftree="tree -a"
 alias gtree="tree -a -L 3"
 alias dtree="tree -d -L 3 --gitignore"
 alias fdtree="tree -d --gitignore"
+alias keyboard="fcitx5 -f"
+
+bindkey -r '^[0'
+bindkey -r '^[1'
+bindkey -r '^[2'
+bindkey -r '^[3'
+bindkey -r '^[4'
+bindkey -r '^[5'
+bindkey -r '^[6'
+bindkey -r '^[7'
+bindkey -r '^[8'
+bindkey -r '^[9'

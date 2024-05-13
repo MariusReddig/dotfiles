@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+A=$(pgrep fcitx5 | wc -l)
+echo $A
+
+if [ $A = "0" ]; then
+	fcitx5 -d
+	echo "opened fcitx5"
+else
+	pkill fcitx5
+	echo "killed fcitx5"
+fi
