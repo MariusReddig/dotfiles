@@ -1,0 +1,16 @@
+$laptopScreen	= eDP-1
+$HDMI			= HDMI-A-1
+
+# laptopScreen
+monitor = $HDMI			,disable												# disable Monitor
+exec = sleep 1 && hyprctl dispatch dpms off eDP-1								# turn Monitor off
+#monitor = $laptopScreen	,1920x1080@60	,0x0		,1	,transform	,0		# laptopScreen
+#monitor = $HDMI			,1920x1080@60	,1920x0		,1						# second monitor to the Right
+#monitor = $HDMI			,1920x1080@60	,-1920x0	,1						# second monitor to the Left
+
+# Second Monitor 
+#monitor = $HDMI	,disable											# disable Monitor
+monitor = $HDMI		,preferred	,0x0		,1							# as main Monitor
+#monitor = $HDMI	,preferred	,1920x0		,1							# second monitor to the Right
+#monitor = $HDMI	,preferred	,-1920x0	,1							# second monitor to the Left
+#monitor =			,preferred	,auto		,1  ,mirror ,$laptopScreen	# Mirror laptopScreen to Monitor

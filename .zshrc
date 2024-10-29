@@ -122,3 +122,10 @@ bindkey -r '^[6'
 bindkey -r '^[7'
 bindkey -r '^[8'
 bindkey -r '^[9'
+
+# bun completions
+[ -s "/home/marius/.bun/_bun" ] && source "/home/marius/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

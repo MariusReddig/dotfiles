@@ -1,20 +1,19 @@
 @import "colors.css";
-
 /*========Waybar=Configuration========*/
 
 * {
-  border: none;
-  border-radius:    0;
-  font-family:      JetBrainsMono Nerd Font;
-  font-size:        14px;
-  min-height:       0;
+	border: none;
+	border-radius: 0;
+	font-family: JetBrainsMono Nerd Font;
+	font-size: 14px;
+	min-height: 0;
 }
 
-/*----------Waybar-window-----------*/ 
+/*----------Waybar-window-----------*/
 
 window#waybar {
-    background:     transparent;
-    color:          @font-color-1;
+	background: transparent;
+	color: #ffffff;
 }
 
 /*--------------Modules--------------*/
@@ -24,6 +23,7 @@ window#waybar {
 #custom-powermenu,
 #custom-rotate_toggle,
 #custom-audio_idle_inhibitor,
+#custom-idle_mode,
 #custom-webcam,
 #custom-spacer_m,
 #custom-spacer_r,
@@ -35,55 +35,57 @@ window#waybar {
 #wireplumber,
 #network,
 #bluetooth,
-#idle_inhibitor,
 #backlight,
 #taskbar,
 #custom-updates,
+#idle_inhibitor,
 #tray {
-	background:       @background;
-	padding:          5px 10px;
-	margin:           10px 0px 0px 0px;
+	background: @background;
+	padding: 5px 10px;
+	margin: 10px 0px 0px 0px;
 }
 
 /*-----------Workspaces-----------*/
 
 #workspaces button {
-    padding:        5px 5px;
-    background:     transparent;
+	padding: 5px 5px;
+	background: transparent;
+	border-radius: 15px;
 }
 
 #workspaces button.active {
-    padding:        5px 5px;
-    background:     @active;
-    color:          @font-color-2;
-	  border-radius:  15px;
+	padding: 5px 5px;
+	background: @color3;
+	color: @color1;
+	border-radius: 10px;
 }
 
 #workspaces button.focused {
-    background:     @focused;
-    color:          @font-color-1;
+	background: @color7;
+	color: @color1;
+	border-radius: 10px;
 }
 
 #workspaces button.urgent {
-    background:     @urgent;
-    color:          @font-color-1;
-    border-radius:  15px;
+	background: @color6;
+	color: @color1;
+	border-radius: 10px;
 }
 
 #workspaces button:hover {
-	background:       @hover;
-	color:            @font-color-1;
-	border-radius:    15px;
+	background: @color2;
+	color: @color1;
+	border-radius: 10px;
 }
 
 /*-------------Tooltips-------------*/
 
 tooltip {
-	background:       @background;
-	border-radius:    15px;
-	border-width:     2px;
-	border-style:     solid;
-	border-color:     @active;
+	background: @background;
+	border-radius: 12px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: @color3;
 }
 
 
@@ -91,80 +93,80 @@ tooltip {
 
 #custom-notification,
 #custom-webcam {
-	background-color: @critical;
-	color:            @font-color;
+	background-color: @color3;
+	color: @color0;
 }
 
 /*----------base-coloring----------*/
 
 #bluetooth {
-  color:            @base01;
+	color: @color2;
 }
 
-#custom-powermenu{
-	color:            @base02;
+#idle_inhibitor,
+#custom-powermenu {
+	color: @color3;
 }
 
 #custom-updates,
 #clock {
-  color:            @base03;  
+	color: @color4;
 }
 
 #battery {
-  color:            @base04;
+	color: @color5;
 }
 
 #pulseaudio,
 #wireplumber {
-	color:            @base05;
+	color: @color6;
 }
 
 #network {
-	color:            @base06;
+	color: @color6;
 }
 
 #custom-rotate_toggle,
 #custom-audio_idle_inhibitor,
-#idle_inhibitor {
-  color:            @base07;
+#custom-idle_mode {
+	color: @color7;
 }
 
 #custom-date {
-	color:            @base08;
+	color: @color8;
 }
 
 /*--------------Taskbar--------------*/
 #taskbar {
-  border-radius:    15px 15px 15px 15px;
+	border-radius: 15px 15px 15px 15px;
 }
 
 /*----------Battery-levels----------*/
 
 #battery.charging {
-  color:            @base04;
+	color: @color5;
 }
 
 #battery.warning:not(.charging) {
-  background:       @warning;
-  color:            @font-color-2;
+	background: @color6;
+	color: @color1;
 }
 
 #battery.critical:not(.charging) {
-  background:       @critical;
-  color:            @font-color-2;
+	background: @color3;
+	color: @color1;
 }
 
 /*-------------Spacers-------------*/
 
 #custom-spacer_r {
-	border-radius:    0px 15px 15px 0px;
-	margin-right:     10px;
-	margin-left:      -5px;
+	border-radius: 0px 15px 15px 0px;
+	margin-right: 10px;
+	margin-left: -5px;
 }
 
 #custom-spacer_l {
-	border-radius:    15px 0px 0px 15px;
-	margin-left:      10px;
-	margin-right:     -5px;
+	border-radius: 15px 0px 0px 15px;
+	margin-left: 10px;
+	margin-right: -5px;
 }
-

@@ -1,60 +1,89 @@
-#! /bin/bash
+#!/bin/bash
 
-# time yntil suspend in Seconds
+display_help() {
+	cat <<EOF
+Help:
+--------------------------------------
+regex : idle-mode <mode>
+	
+modes:
+ on     : start idle-mode
+ off    : stop  idle-mode
+ switch : switches between on and off
+ info   : outputs the current state
+EOF
+	exit 0
+}
+
+activate_idle_mode() {
+	exec swayidle -w timeout $screensavertime 'hyprctl dispatch dpms off' \
+		resume 'hyprctl dispatch dpms on' \
+		timeout $locktime "$HOME/.config/hypr/scripts/lock" \
+		resume 'hyprctl dispatch dpms on' \
+		timeout $suspendtime 'hyprctl dispatch dpms on & pkill swaylock & systemctl suspend' \
+		after-resume "$HOME/.config/hypr/scripts/lock -n" &
+	notify-send "$(idle-mode info)"
+	exit 1
+}
+
+deactivate_idle_mode() {
+	pkill swayidle
+	notify-send "$(idle-mode info)"
+	exit 1
+}
+
+switch_modes() {
+	if [ -n "$(pgrep swayidle)" ]; then
+		deactivate_idle_mode
+	else
+		activate_idle_mode
+	fi
+}
+
+info() {
+	if [ -n "$(pgrep swayidle)" ]; then
+		echo "idle-mode is currently on"
+	else
+		echo "idle-mode is currently off"
+	fi
+	exit 1
+}
+
+waybar() {
+	while true; do
+		if [ -n "$(pgrep swayidle)" ]; then
+			echo "{\"text\": \"\", \"alt\": \"on\", \"tooltip\": \"Idle mode currently on\", \"class\": \"on\" }"
+		else
+			echo "{\"text\": \"\", \"alt\": \"off\", \"tooltip\": \"Idle mode currently off\", \"class\": \"off\" }"
+		fi
+		sleep 0.5
+	done
+	exit 1
+}
+
+# Default values
 screensavertime=600
 lockdelay=60
 suspeddelay=600
 
-locktime=$(($screensavertime+$lockdelay))
-suspendtime=$(($locktime+$suspeddelay))
+locktime=$(($screensavertime + $lockdelay))
+suspendtime=$(($locktime + $suspeddelay))
 
-if [ -z "$1" ]; then
-  echo "  ERROR: no commands given!             "
-  echo "  --------------------------------------"
-  echo "  regex : idle-mode <mode>              "
-  echo "                                        "
-  echo "  modes:                                "
-  echo "   on     : start idle-mode             "
-  echo "   off    : stop  idle-mode             "
-  echo "   switch : switches between on and off "
-  echo "   info   : outputs the current state   "
+# Check if a mode is provided
+if [ $# -eq 0 ]; then
+	display_help
+fi
 
-elif [[ $1 = "on" ]]; then
-  exec  swayidle -w timeout $screensavertime  'hyprctl dispatch dpms off'     \
-                    resume                    'hyprctl dispatch dpms on'      \
-                    timeout $locktime         '~/.config/hypr/scripts/lock f' \
-                    resume                    'hyprctl dispatch dpms on'      \
-                    timeout $suspendtime      'systemctl suspend'             \
-                    resume                    'hyprctl dispatch dpms on'      \
-                    before-sleep              ' hyprctl dispatch dpms on & ~/.config/hypr/scripts/lock'
-  & notify-send "$(idle-mode info)"
-
+if [[ $1 = "on" ]]; then
+	activate_idle_mode
 elif [[ $1 = "off" ]]; then
-  pkill swayidle
-  notify-send "$(idle-mode info)"
-
+	deactivate_idle_mode
 elif [[ $1 = "switch" ]]; then
-  if [  -n "$(pgrep swayidle)" ]; then
-    exec idle-mode off
-  else
-    exec idle-mode on
-  fi
-
+	switch_modes
 elif [[ $1 = "info" ]]; then
-  if [  -n "$(pgrep swayidle)" ]; then
-    echo "idle-mode is currently on"
-  else
-    echo "idle-mode is currently off"
-  fi
-
+	info
+elif [[ $1 = "waybar" ]]; then
+	waybar
 else
-  echo "ERROR: wrong command!                   "
-  echo "  --------------------------------------"
-  echo "  regex : idle-mode <mode>              "
-  echo "                                        "
-  echo "  modes:                                "
-  echo "   on     : start idle-mode             "
-  echo "   off    : stop  idle-mode             "
-  echo "   switch : switches between on and off "
-
+	display_help
 fi

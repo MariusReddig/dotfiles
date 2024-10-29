@@ -1,124 +1,159 @@
 #!/bin/bash
 
-# Default values
+# Default values #
 reload=false
 loadingscreen=false
-transition_type="any"
+verbose=false
+transition_type="none"
 allowed_transition_types=("none" "simple" "fade" "left" "right" "top" "bottom" "wipe" "wave" "grow" "center" "any" "outer" "random")
+
+## Important paths ##
 loadingscreenPath=~/.config/hypr/loadingscreen
 lockscreenpath=~/.config/hypr/lockscreen
 wallpaperPath=~/.config/hypr/wallpaper
 sddmPath=/usr/share/sddm/themes/sugar-candy/Backgrounds/wallpaper
 cachepath=~/.cache/swww
 
-# Functions
-set_new_wallpaper() {
-  cp "$filepath" "$wallpaperPath" && action="loaded: "
-  
-  if [ $(file -b --mime-type "$filepath") == "image/gif" ]; then
-    convert "$filepath[0]" "$lockscreenpath"
-    sudo rm ~/.cache/swww/*
-  else
-    cp "$filepath" "$lockscreenpath"
-  fi
-  cp "$lockscreenpath" "$sddmPath"
-  load_loadingscreen 
-  swww img "$wallpaperPath" --transition-type "$transition_type" && sleep 4
-}
+# Functions #
 
-reload_wallpaper() {
-  swww img "$wallpaperPath" --transition-type "$transition_type"
-  sleep 4
-  action="reloaded with '$transition_type' transition type"
-}
-
-load_loadingscreen() {
-  swww img "$loadingscreenPath" --transition-type "$transition_type"
-  sleep 4
-}
-
-# Display help message
+## Display help message ##
 display_help() {
-  cat << EOF
-Usage: chwp [-r <transition_type>] [-t <transition_type>] [-l] [<filename>]
+	cat <<EOF
+	Usage: chwp [-r <transition_type>] [-t <transition_type>] [-l] [<filename>]
 
-Set a new wallpaper on the system using the swww command.
+	Set a new wallpaper on the system using the swww command.
 
-Options:
-  -r <transition_type>  Set the transition type when reloading the wallpaper (default value: $transition_type)
-                        Supported types are: ${allowed_transition_types[@]}
-  -t <transition_type>  Set the transition type when applying a new wallpaper (default value: $transition_type)
-                        Supported types are: ${allowed_transition_types[@]}
-  -l                    Display the loading screen
-  -h                    Display this help message
+	Options:
+		-r <transition_type>  Set the transition type when reloading the wallpaper (default value: $transition_type)
+				                  Supported types are: ${allowed_transition_types[@]}
+		-t <transition_type>  Set the transition type when applying a new wallpaper (default value: $transition_type)
+			                    Supported types are: ${allowed_transition_types[@]}
+		-l                    Display the loading screen
+		-h                    Display this help message
 
-Arguments:
-  <filename>            Path to the image file to set as the wallpaper
+	Arguments:
+		<filename>            Path to the image file to set as the wallpaper
 
-Default Values:
-  Wallpaper Path: $wallpaperPath
-  SDDM Wallpaper Path: $sddmPath
+	Default Values:
+		Wallpaper Path: $wallpaperPath
+		SDDM Wallpaper Path: $sddmPath
 
-Examples:
-  $0 -r wipe       # Reload with 'wipe' transition type
-  $0 -t wipe image.jpg     # Set 'image.jpg' as the new wallpaper with 'wipe' transition
+	Examples:
+		$0 -r wipe       # Reload with 'wipe' transition type
+		$0 -t wipe image.jpg     # Set 'image.jpg' as the new wallpaper with 'wipe' transition
 EOF
 }
 
-# Validate transition type
-validate_transition_type() {
-  local input_transition_type=$1
-  if [[ ! " ${allowed_transition_types[@]} " =~ " $input_transition_type " ]]; then
-    echo "Invalid transition type: $input_transition_type. Supported types are: ${allowed_transition_types[@]}" >&2
-    exit 1
-  fi
+## Usage-functions ##
+load_loadingscreen() {
+	swww img "$loadingscreenPath" --transition-type "$transition_type"
+
+	if [ $verbose == true ]; then
+		echo "[Info] displaying loading-screen"
+	fi
+	sleep 4
 }
 
-# Parse command line options
-while getopts ":r:t:lh" opt; do
-  case ${opt} in
-    r)
-      reload=true
-      transition_type="${OPTARG:-$transition_type}"
-      validate_transition_type "$transition_type"
-      ;;
-    t)
-      transition_type="${OPTARG:-$transition_type}"
-      validate_transition_type "$transition_type"
-      ;;
-    l)
-      loadingscreen=true
-      ;;
-    h)
-      display_help
-      exit 0
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
+load_wallpaper() {
+	if [ "$2" != "none" ]; then
+		load_loadingscreen
+	fi
+	swww img "$1" --transition-type "$2"
+
+	if [ $verbose == true ]; then
+		echo "[Info] displaying wallpaper"
+	fi
+	sleep 4
+}
+
+set_new_wallpaper() {
+	cp "$filepath" "$wallpaperPath"
+
+	if [ $verbose == true ]; then
+		echo "[Info] copied $filepath to $wallpaperPath"
+	fi
+
+	if [ "$(file -b --mime-type "$filepath")" == "image/gif" ]; then
+		convert "${filepath}[0]" "$lockscreenpath"
+		sudo rm "$cachepath/*"
+
+		if [ $verbose == true ]; then
+			echo "[Info] cleared swww cache at $cachepath"
+		fi
+	else
+		cp "$filepath" "$lockscreenpath"
+
+		if [ $verbose == true ]; then
+			echo "[Info] copied $filepath to $lockscreenpath"
+		fi
+	fi
+	cp "$lockscreenpath" "$sddmPath"
+	load_wallpaper "$wallpaperPath" "$transition_type"
+}
+
+validate_transition_type() {
+	local input_transition_type=$1
+	if [[ ! " ${allowed_transition_types[*]} " =~ $input_transition_type ]]; then
+		echo "Invalid transition type: $input_transition_type. Supported types are: ${allowed_transition_types[*]}" >&2
+		exit 1
+	fi
+}
+
+# Main execution #
+
+## Parse command line options ##
+
+while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do
+	case $1 in
+	-r | --reload)
+		shift
+		reload=true
+		# Check if next argument is a valid transition type or another option
+		if [[ -n $1 ]] && [[ ! $1 =~ ^- ]]; then
+			transition_type=${1-$transition_type}
+		fi
+		validate_transition_type "$transition_type"
+		;;
+	-t | --transition)
+		shift
+		transition_type=${1-$transition_type}
+		validate_transition_type "$transition_type"
+		;;
+	-v | --verbose)
+		verbose=true
+		;;
+	esac
+	shift
 done
+if [[ "$1" == '--' ]]; then shift; fi
+
+## shift optional arguments ##
 shift $((OPTIND - 1))
+filename=${1-wallpaper}
+echo "loadingscreen $loadingscreen"
+echo "reload $reload"
+echo "filename $filename"
 
-# Extract filename
-filename="$1"
-
-# Check if file exists
-filepath=$(readlink -f "$filename")
-if [ "$filename" ] && [ ! -f "$filepath" ]; then
-  echo "File not found: $filename" >&2
-  exit 1
-fi
-
-# Main execution
+## execute functions ##
 if [ "$loadingscreen" = true ]; then
-  load_loadingscreen
+	load_loadingscreen
+	exit 0
 elif [ "$reload" = true ]; then
-  reload_wallpaper
-elif [ "$filename" ]; then
-  set_new_wallpaper
-else
-  display_help
-fi
+	# Reload the wallpaper using the current wallpaper path and selected transition type
+	load_wallpaper "$wallpaperPath" "$transition_type"
+	exit 0
+elif [ -n "$filename" ]; then
+	## Check if file exists if filename is provided ##
+	if [ "$filename" ] && [ ! -f "$filename" ]; then
+		echo "File not found: $filename" >&2
+		exit 1
+	fi
 
+	# If a filename is provided, proceed to set the new wallpaper
+	filepath=$(readlink -f "$filename")
+	set_new_wallpaper
+	exit 0
+else
+	display_help
+	exit 1
+fi

@@ -17,7 +17,7 @@
 	<name>set wallpaper in Hyprland</name>
 	<submenu></submenu>
 	<unique-id>1696453348622066-1</unique-id>
-	<command>/home/marius/.local/bin/chwp %f</command>
+	<command>/home/marius/.local/bin/chwp -t wipe %f</command>
 	<description>set wallpaper in Hyprland</description>
 	<range>*</range>
 	<patterns>*</patterns>
