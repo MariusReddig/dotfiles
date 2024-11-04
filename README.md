@@ -36,11 +36,6 @@ following is required for this configuration
 - zip
 - zsh
 
-One-liner:
-```
-yay -S bluez blueman thunar dunst polkit-gnome hyprland swww waybar hyprlock swww waybar hyprlock hypridle xdg-desktop-portal xdg-desktop-portal-hyprland git stow brightnessctl wofi kitty firewalld conie zip zsh networkmanager-openvpn network-manager-applet-git thunar-media-tags-plugin thunar-volman thunar-archive-plugin
-```
-
 ### thememing
 
 - nwg-look
@@ -50,11 +45,6 @@ yay -S bluez blueman thunar dunst polkit-gnome hyprland swww waybar hyprlock sww
 - yaru-gtk-theme
 - noto-fonts-emoji
 - noto-fonts-extra
-
-One-liner:
-```
-yay -S nwg-look adwaita-icon-theme capitaine-cursors ttf-jetbrains-mono-nerd yaru-gtk-theme noto-fonts-emoji noto-fonts-extra
-```
 
 ### applications
 
@@ -78,10 +68,6 @@ yay -S nwg-look adwaita-icon-theme capitaine-cursors ttf-jetbrains-mono-nerd yar
 - sddm-conf-git
 - qalculate-qt
 
-One-liner:
-```
-yay -S xournalpp signal-desktop spotify mullvad-vpn-beta bitwarden firefox zen-browser anki kdeconnect libreoffice-fresh loupe gwenview cpupower-gui vesktop thunderbird sddm-conf-git qalculate-qt
-```
 ## configuration:
 
 ### Networkmanager
