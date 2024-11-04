@@ -9,13 +9,19 @@ following is required for this configuration
 
 ### distro-required
 - bluez
+- bluez-utils
 - blueman
 - thunar
+	- thunar-archive-plugin
+	- thunar-media-tags-plugin
+	- thunar-volman
+- dunst
+- polkit-gnome
 - hyrpland
 - swww
 - waybar
-- swaylock-effects-git
-- swayidle
+- hyprlock
+- hypridle
 - xdg-desktop-portal
 - xdg-desktop-portal-hyprland
 - git
@@ -23,8 +29,17 @@ following is required for this configuration
 - brightnessctl
 - wofi
 - kitty
-- iio-hyprland
 - firewalld
+- cronie
+- network-manager-applet-git
+	- networkmanager-openvpn
+- zip
+- zsh
+
+One-liner:
+```
+yay -S bluez blueman thunar dunst polkit-gnome hyprland swww waybar hyprlock swww waybar hyprlock hypridle xdg-desktop-portal xdg-desktop-portal-hyprland git stow brightnessctl wofi kitty firewalld conie zip zsh networkmanager-openvpn network-manager-applet-git thunar-media-tags-plugin thunar-volman thunar-archive-plugin
+```
 
 ### thememing
 
@@ -33,56 +48,56 @@ following is required for this configuration
 - capitaine-cursors
 - ttf-jetbrains-mono-nerd
 - yaru-gtk-theme
+- noto-fonts-emoji
+- noto-fonts-extra
+
+One-liner:
+```
+yay -S nwg-look adwaita-icon-theme capitaine-cursors ttf-jetbrains-mono-nerd yaru-gtk-theme noto-fonts-emoji noto-fonts-extra
+```
 
 ### applications
 
 - xournalpp
-- signal
+- signal-desktop
 - spotify
-- protonvpn
+- mullvad-vpn-beta
 - bitwarden
-- houdoku
+- zen-browser
 - firefox
 - tor-browser
 - anki
 - kdeconnect
 - libreoffice-fresh
-- loupe / gwenview
-- waydroid
+- loupe
+- gwenview
+- cpupower-gui
+- vesktop
+- thunderbird
+- steam
+- sddm-conf-git
+- qalculate-qt
 
-### usefull commands
-
-- upower
-- iio-hyprland
-
-## Installation
-
-### One-liner for important packages
-
-
+One-liner:
 ```
-yay -S thunar thunar-volman thunar-media-tags-plugin thunar-archive-plugin hyrpland swww waybar swaylock-effects-git swayidle xdg-desktop-portal xdg-desktop-portal-hyprland git stow wofi kitty networkmanager
-
+yay -S xournalpp signal-desktop spotify mullvad-vpn-beta bitwarden firefox zen-browser anki kdeconnect libreoffice-fresh loupe gwenview cpupower-gui vesktop thunderbird sddm-conf-git qalculate-qt
 ```
+## configuration:
 
 ### Networkmanager
-
-
 ```
 sudo pacman -S networkmanager
 systemctl enable NetworkManager.service --now
 ```
-
-### Thememing
-
-
+### Bluetooth
 ```
-yay -S nwg-look adwaita-icon-theme capitaine-cursors ttf-jetbrains-mono-nerd yaru-gtk-theme
+sudo pacman -S bluez
+systemctl enable bluez
 ```
 
 ### Yay
 
-one liner:
+One-liner:
 ```
 sudo pacman -S --needed base-devel git
 git clone https://aur.archlinux.org/yay.git
@@ -91,17 +106,25 @@ makepkg -si
 ```
 
 ### oh-my-zsh
-
-
 ```
 pacman -S curl zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
+### batsignal
 
-###
+open the crontab:
+```
+crontab -e 
+```
 
-## TODO
+insert:
+```
+*/5 * * * * /bin/bash /home/marius/.config/hypr/scripts/batsignal
+```
+## Installation
+```
+git clone git@github.com:MariusReddig/dotfiles.git
+cd dotfiles
+stow -vRt ~ .
 
-- [ ] complete Requirements  
-- [ ] custom / multiple Themes  
-- [ ] (propper)multi-monitor support  
+```
