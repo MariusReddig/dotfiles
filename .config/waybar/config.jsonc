@@ -23,8 +23,9 @@
 		"pulseaudio#microphone",
 		"wireplumber",
 		"battery",
+		"custom/monitors",
 		"idle_inhibitor",
-		"custom/powermenu",
+		"group/group-power",
 		"custom/spacer_r"
 	],
 	"hyprland/workspaces": {
@@ -170,11 +171,6 @@
 			"off": "B"
 		}
 	},
-	"custom/powermenu": {
-		"format": " ",
-		"tooltip": false,
-		"on-click": "pkill wofi | ~/.config/wofi/menus/powermenu/powermenu.sh"
-	},
 	"custom/notification": {
 		"format": "{}",
 		"interval": 1,
@@ -189,6 +185,45 @@
 			"activated": " ",
 			"deactivated": " "
 		}
+	},
+	"group/group-power": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "not-power",
+			"transition-left-to-right": false
+		},
+		"modules": [
+			"custom/power", // First element is the "group leader" and won't ever be hidden
+			"custom/quit",
+			"custom/lock",
+			"custom/reboot"
+		]
+	},
+	"custom/quit": {
+		"format": "󰗼",
+		"tooltip": false,
+		"on-click": "hyprctl dispatch exit"
+	},
+	"custom/lock": {
+		"format": "󰍁",
+		"tooltip": false,
+		"on-click": "hyprlock"
+	},
+	"custom/reboot": {
+		"format": "󰜉",
+		"tooltip": false,
+		"on-click": "reboot"
+	},
+	"custom/power": {
+		"format": "⏻",
+		"tooltip": false,
+		"on-click": "shutdown now"
+	},
+	"custom/monitors": {
+		"format": "󰍹",
+		"tooltip": false,
+		"on-click": "nwg-displays"
 	},
 	"custom/spacer_m": {
 		"format": " ",

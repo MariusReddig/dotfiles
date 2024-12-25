@@ -23,8 +23,7 @@ yay -S man-db man-pages textinfo
 yay -S hyprland-git
 
 #install the networkmanager
-yay -S networkmanager networkmanager-applet-git networkmanager-openvpn
-systemctl enable -n NetworkManager.service
+yay -S networkmanager-applet-git networkmanager-openvpn
 
 #enable bluetooth
 yay -S bluez bluez-utils blueman
@@ -34,8 +33,8 @@ systemctl enable -n bluetooth.service
 yay -S cups cups-pdf
 systemctl enable -n cups.service
 
-yay -S sddm
 sudo cp -r ./sugar-candy /usr/share/sddm/themes/
+
 # install reqquired packages
 yay -S thunar thunar-volman thunar-media-tags-plugin thunar-archive-plugin dunst polkit-gnome swww waybar hyprlock hypridle xdg-deskop-portal xdg-desktop-portal-hyprland brightnessctl wofi cronie zip
 

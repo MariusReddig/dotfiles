@@ -20,11 +20,15 @@ window#waybar {
 
 #custom-date,
 #custom-notification,
-#custom-powermenu,
 #custom-rotate_toggle,
 #custom-audio_idle_inhibitor,
 #custom-idle_mode,
 #custom-webcam,
+#custom-power,
+#custom-quit,
+#custom-lock,
+#custom-reboot,
+#custom-monitors,
 #custom-spacer_m,
 #custom-spacer_r,
 #custom-spacer_l,
@@ -103,8 +107,12 @@ tooltip {
 	color: @color2;
 }
 
+#custom-monitors,
 #idle_inhibitor,
-#custom-powermenu {
+#custom-power,
+#custom-quit,
+#custom-lock,
+#custom-reboot {
 	color: @color3;
 }
 

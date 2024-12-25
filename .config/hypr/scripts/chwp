@@ -74,8 +74,10 @@ set_new_wallpaper() {
 	fi
 
 	if [ "$(file -b --mime-type "$filepath")" == "image/gif" ]; then
-		convert "${filepath}[0]" "$lockscreenpath"
-		sudo rm "$cachepath/*"
+		(
+			magick "${filepath}[0]" -flatten "PNG32:$lockscreenpath"
+			rm "$cachepath/*"
+		)
 
 		if [ $verbose == true ]; then
 			echo "[Info] cleared swww cache at $cachepath"
