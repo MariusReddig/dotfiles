@@ -10,6 +10,10 @@ in
       default = "mainuser";
       description = ''username'';
     };
+    hostName = lib.mkOption {
+      default = ''${cfg.userName}-pc'';
+      description = ''hostname'';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -19,7 +23,7 @@ in
       extraGroups = [ "wheel" "networkmanager" ];
       shell = pkgs.zsh;
     };
+    networking.hostName = ''${cfg.hostName}'';
     
-    networking.hostName = ''${cfg.userName}-pc'';
   };
 }

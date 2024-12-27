@@ -15,10 +15,14 @@
       default = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/default/configuration.nix
+          ./configuration.nix
 	  ./modules/nixos/nvidia.nix
 	  ./modules/nixos/hyprland.nix
 	  ./modules/nixos/greeter.nix
+	  ./modules/nixos/networkmanager.nix
+	  ./modules/nixos/localisation.nix
+	  ./main-user.nix
+
         ];
       };
     };
