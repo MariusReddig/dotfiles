@@ -72,7 +72,7 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -80,6 +80,9 @@ source $ZSH/oh-my-zsh.sh
 
 # export user binaries
 export PATH=/home/marius/.local/bin:$PATH
+
+# export for custom thunar folders
+export XDG_DATA_HOME=/home/marius/.local/share
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -131,4 +134,5 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export QT_QPA_PLATFORM=wayland
 export QT_QPA_PLATFORMTHEME=qt6ct
-export EDITOR=/usr/bin/nvim
+export EDITOR=nvim
+export GTK_THEME=Adwaita:dark

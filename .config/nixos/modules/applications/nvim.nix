@@ -5,15 +5,15 @@
 		defaultEditor = true;
 	};
 
-	home.packages = with pkgs; {
+  environment.systemPackages = with pkgs; [
 		vimPlugins.fzfWrapper
 		cargo
 		gccgo14
 		cmake
-		lazyvim
+		lazygit
 		vim
 		bash
 		ripgrep
-	};
+	];
 
 }

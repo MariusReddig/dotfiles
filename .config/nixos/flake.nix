@@ -1,26 +1,23 @@
 {
-  description = "Nixos config";
+  description = "NixOs config from Marius";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+		home-manager.inputs.nixpkgs.follows = "nixpkgs";
+		hyprland.url = "github:hyprwm/Hyprland";
+		hyprland.inputs.nixpkgs.follows = "nixpkgs";
+		swww.url = "github:LGFae/swww";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
+      workstation = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./configuration.nix
-					./hosts/pc/main-user.nix
-					./modules/nixos/nvidia.nix
-					./modules/nixos/networkmanager.nix
-					./modules/nixos/localisation.nix
-        ];
+					./hosts/pc
+					./modules
+				];
       };
     };
   };
