@@ -17,6 +17,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+	
+    programs.zsh.enable = true;
     users.users.${cfg.userName} = {
       isNormalUser = true;
       description = "main user";

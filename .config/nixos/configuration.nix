@@ -5,14 +5,14 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hosts/pc/hardware-configuration.nix
-	inputs.home-manager.nixosModules.default
-    ];
+  imports = [
+		./hosts/pc/hardware-configuration.nix
+		inputs.home-manager.nixosModules.default
+  ];
 
  main-user.enable = true;
  main-user.userName = "marius";
+ main-user.hostName = "marius-desktop";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -31,7 +31,6 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     vim
      bash
      python312Packages.pip
      wget
@@ -59,7 +58,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   home-manager = {
    extraSpecialArgs = { inherit inputs; };
    users = {
-     "marius" = import ./home.nix;
+     "marius" = import ./users/marius/home.nix;
    };
   };
 

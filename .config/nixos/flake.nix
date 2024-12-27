@@ -16,13 +16,10 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./configuration.nix
-	  ./modules/nixos/nvidia.nix
-	  ./modules/nixos/hyprland.nix
-	  ./modules/nixos/greeter.nix
-	  ./modules/nixos/networkmanager.nix
-	  ./modules/nixos/localisation.nix
-	  ./main-user.nix
-
+					./hosts/pc/main-user.nix
+					./modules/nixos/nvidia.nix
+					./modules/nixos/networkmanager.nix
+					./modules/nixos/localisation.nix
         ];
       };
     };

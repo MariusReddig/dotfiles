@@ -1,15 +1,16 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "marius";
   home.homeDirectory = "/home/marius";
-  home.stateVersion = "24.11"; 
+  home.stateVersion = "24.11";
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+  stow
   xfce.thunar
   neovim
   firefox
@@ -26,6 +27,14 @@
   imagemagick
   swww
   ];
+	
+	# whished modules
+  imports = [
+		../../modules/nixos/nvim.nix
+		../../modules/nixos/hyprland.nix
+		../../modules/nixos/greeter.nix
+		../../modules/nixos/nvim.nix
+	];
 
   home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
