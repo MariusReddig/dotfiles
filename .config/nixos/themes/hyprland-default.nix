@@ -55,10 +55,9 @@
 
 	qt = {
     enable = true;
-    platformTheme = "gnome";
-    style.name = "adwaita-dark";
+		platformTheme = "qtct";
+    style.name = "Adwaita-dark";
   };
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

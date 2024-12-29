@@ -7,6 +7,8 @@
   home.homeDirectory = "/home/marius";
   home.stateVersion = "24.11";
 
+	nixpkgs.overlays = [ inputs.polymc.overlay ]; # needed to ad polymc to packages
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -27,11 +29,30 @@
 	lxappearance
 	xdg-user-dirs
 	xdg-user-dirs-gtk
-	file-roller
 	baobab
-	nautilus
-	loupe
 	inkscape
+	swappy
+	superfile
+	xplr
+	kdePackages.gwenview
+	btop
+	htop
+	vlc
+	kdePackages.phonon-vlc
+	kdePackages.phonon
+	kdePackages.qtimageformats
+	ryujinx-greemdev
+	qt6ct
+	file-roller
+	scrcpy
+	polymc
+	android-tools
+	grim
+	qview
+	swayimg
+	slurp
+	wl-clipboard
+	feh
   ];
 	
 	imports = [
@@ -41,6 +62,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
 		XDG_DATA_HOME = "/home/marius/.local/share/";
+		XDG_BACKEND = "x11";
   };
 
   # Let Home Manager install and manage itself.

@@ -33,6 +33,7 @@
 
 	home-manager.extraSpecialArgs = { inherit inputs; };
 	home-manager.users = { "marius" = import ./marius; };
+	programs.dconf.enable = true;
 	
   system.stateVersion = "24.11";
 }

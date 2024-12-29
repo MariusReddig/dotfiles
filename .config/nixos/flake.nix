@@ -8,6 +8,9 @@
 		hyprland.url = "github:hyprwm/Hyprland";
 		hyprland.inputs.nixpkgs.follows = "nixpkgs";
 		swww.url = "github:LGFae/swww";
+		swww.inputs.nixpkgs.follows = "nixpkgs";
+		polymc.url = "github:PolyMC/PolyMC";
+		polymc.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
