@@ -9,5 +9,6 @@
 		./nix.nix
 		./openssh.nix
 		./pipewire.nix
+		./bluetooth.nix
 	];
 }
