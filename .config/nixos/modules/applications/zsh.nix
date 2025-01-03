@@ -8,8 +8,8 @@
 
 		shellAliases = {
 		  ll = "ls -l";
-		  update = "sudo nixos-rebuild switch --flake ~/git/personal/dotfiles/.config/nixos#workstation;
-		  upgrade = "sudo nixos-rebuild switch --upgrade --flake ~/git/personal/dotfiles/.config/nixos#workstation;
+		  update = "sudo nixos-rebuild switch --flake ~/git/personal/dotfiles/.config/nixos#workstation";
+		  upgrade = "sudo nixos-rebuild switch --upgrade --flake ~/git/personal/dotfiles/.config/nixos#workstation";
 		  v = "nvim";
 		  vv = "sudo nvim";
 		  sd = "shutdown 0";
