@@ -7,54 +7,53 @@
   home.homeDirectory = "/home/marius";
   home.stateVersion = "24.11";
 
-	nixpkgs.overlays = [ inputs.polymc.overlay ]; # needed to ad polymc to packages
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  # Packages
+  nixpkgs.overlays = [ inputs.polymc.overlay ]; # needed to ad polymc to packages
   home.packages = with pkgs; [
-  stow
-  xfce.thunar
-  firefox
-  thunderbird
-  bitwarden
-  kitty
-  xournalpp
-  vesktop
-  wofi
-  fastfetch
-  git
-  thunderbird
-  nextcloud-client
-  imagemagick
-	lxappearance
-	xdg-user-dirs
-	xdg-user-dirs-gtk
-	baobab
-	inkscape
-	swappy
-	superfile
-	xplr
-	kdePackages.gwenview
-	btop
-	htop
-	vlc
-	kdePackages.phonon-vlc
-	kdePackages.phonon
-	kdePackages.qtimageformats
-	ryujinx-greemdev
-	qt6ct
-	file-roller
-	scrcpy
-	polymc
-	android-tools
-	grim
-	qview
-	swayimg
-	slurp
-	wl-clipboard
-	feh
+    stow
+    xfce.thunar
+    firefox
+    thunderbird
+    bitwarden
+    kitty
+    xournalpp
+    vesktop
+    wofi
+    fastfetch
+    git
+    thunderbird
+    nextcloud-client
+    imagemagick
+    lxappearance
+    xdg-user-dirs
+    xdg-user-dirs-gtk
+    baobab
+    inkscape
+    swappy
+    superfile
+    xplr
+    kdePackages.gwenview
+    btop
+    htop
+    vlc
+    kdePackages.phonon-vlc
+    kdePackages.phonon
+    kdePackages.qtimageformats
+    ryujinx-greemdev
+    qt6ct
+    file-roller
+    scrcpy
+    polymc
+    android-tools
+    grim
+    qview
+    swayimg
+    slurp
+    wl-clipboard
+    feh
+    gcr
   ];
-	
+
 	imports = [
 		../../../themes/hyprland-default.nix
 	];
