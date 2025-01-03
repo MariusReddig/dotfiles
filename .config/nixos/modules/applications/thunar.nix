@@ -1,4 +1,4 @@
-{config, pkgs,... }:
+{config, pkgs, inputs, ... }:
 {
 	programs.thunar.enable = true;
 	programs.xfconf.enable = true;
@@ -13,18 +13,19 @@
 
 	environment.systemPackages = [
 		pkgs.gvfs
+		pkgs.glib
 		pkgs.writeTextFile {
 		name = "folder-thumbnails";
-        	text = ''
+		      	text = ''
 		[Thumbnailer Entry]
 		Version=1.0
 		Encoding=UTF-8
 		Type=X-Thumbnailer
 		Name=Folder Thumbnailer
 		MimeType=inode/directory;
-		Exec=$HOME/.local/bin/folder-thumbnailer %s %i %o %u
-        	'';
-        	destination = "$HOME/.local/share/thumbnailers/folder.thumbnailer";
+		Exec=/bin/folder-thumbnailer %s %i %o %u
+		      	'';
+		      	destination = "/share/thumbnailers/folder.thumbnailer";
 		}
 		pkgs.writeTextFile {
 		name = "";
@@ -45,7 +46,7 @@
 			rm -f "$HOME/.thumbnails/large/$(echo -n "$4" | md5sum | cut -d " " -f1).png"
 		fi
         	'';
-        	destination = "$HOME/.local/bin/folder-thumbnailer";
+        	destination = "/bin/folder-thumbnailer";
 		}
 	];
 }
