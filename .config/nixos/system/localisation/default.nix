@@ -1,0 +1,6 @@
+{ ... }:
+{
+  imports = [
+    ./localisation-de.nix
+  ];
+}
