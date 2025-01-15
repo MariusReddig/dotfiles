@@ -27,7 +27,8 @@
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
-        update = "sudo nixos-rebuild switch --flake ~/git/personal/dotfiles/.config/nixos#workstation";
+        nix-update = "sudo nixos-rebuild switch --flake ~/git/personal/dotfiles/.config/nixos#workstation";
+        nix-build = "sudo nixos-rebuild build --flake ~/git/personal/dotfiles/.config/nixos#workstation";
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";

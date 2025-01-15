@@ -11,13 +11,15 @@ in
 
   ## System configuration ##
   bootloader.enable = true;
-  bluetooth.enable = true;
   #sddm.enable = true;
   greetd-hyprland.enable = true;
-  fonts.enable = true;
-  localisation-de.enable = true;
-  pipewire.enable = true;
+  amd.enable = true;
   hyprland.enable = true;
+  thunar.enable = true;
+  pipewire.enable = true;
+  bluetooth.enable = true;
+  localisation-de.enable = true;
+  fonts.enable = true;
 
   # ## User configuration ##
   main-user.enable = true;

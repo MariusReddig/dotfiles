@@ -5,7 +5,10 @@
   };
   config = lib.mkIf config.thunar.enable {
 
-    home.packages = [
+    programs.thunar.enable = true;
+    programs.xfconf.enable = true;
+
+    programs.thunar.plugins = [
       pkgs.xfce.thunar
       pkgs.xfce.xfconf
       pkgs.xfce.tumbler
@@ -14,13 +17,11 @@
       pkgs.xfce.thunar-media-tags-plugin
       pkgs.gvfs
       pkgs.glib
+
     ];
 
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = [ "thunar.desktop" ];
-      };
-    };
+    services.gvfs.enable = true; # Mount, trash, and other functionalities
+    services.tumbler.enable = true; # Thumbnail support for images
+
   };
 }

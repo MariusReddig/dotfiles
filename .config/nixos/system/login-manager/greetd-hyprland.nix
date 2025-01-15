@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   options = {
     greetd-hyprland.enable = lib.mkEnableOption "enable greetd-login-manager tweaked for hyprland";
@@ -22,7 +22,7 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "Hyprland";
+          command = "${inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland}/bin/Hyprland";
           user = "marius";
         };
         default_session = initial_session;

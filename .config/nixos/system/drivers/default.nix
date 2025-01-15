@@ -1,5 +1,6 @@
-{ pkgs, lib,...}: {
-	imports = [
-		./nvidia.nix
-	];
+{ pkgs, lib, ... }: {
+  imports = [
+    ./nvidia.nix
+    ./amd.nix
+  ];
 }

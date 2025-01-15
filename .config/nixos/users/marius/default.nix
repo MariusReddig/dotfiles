@@ -9,7 +9,6 @@
 
   zsh.enable = true;
   mullvad.enable = true;
-  thunar.enable = true;
   nvim.enable = true;
 
   imports = [
@@ -19,6 +18,7 @@
 
   # Packages
   home.packages = with pkgs; [
+    stow
     anki
     firefox
     thunderbird

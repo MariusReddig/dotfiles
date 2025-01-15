@@ -1,5 +1,5 @@
-{ pkgs, lib,...}: {
-	imports = [
-		./applications
-	];
+{ pkgs, lib, ... }: {
+  imports = [
+    ./applications
+  ];
 }

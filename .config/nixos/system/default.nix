@@ -2,6 +2,7 @@
 {
   imports = [
     ./drivers
+    ./file-managers
     ./localisation
     ./login-manager
     ./packages
