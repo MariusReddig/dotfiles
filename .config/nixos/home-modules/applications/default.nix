@@ -1,7 +1,6 @@
 { pkgs, lib, ... }: {
   imports = [
-    ./nvim.nix
+    ./nvim/nvim.nix
     ./zsh.nix
-    ./mullvad-vpn.nix
   ];
 }

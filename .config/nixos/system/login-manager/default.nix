@@ -2,6 +2,6 @@
 {
   imports = [
     ./greetd-hyprland.nix
-    ./sddm.nix
+    ./sddm/sddm.nix
   ];
 }

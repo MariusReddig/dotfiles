@@ -8,11 +8,11 @@ transition_type="none"
 allowed_transition_types=("none" "simple" "fade" "left" "right" "top" "bottom" "wipe" "wave" "grow" "center" "any" "outer" "random")
 
 ## Important paths ##
-loadingscreenPath=~/.config/hypr/loadingscreen
-lockscreenpath=~/.config/hypr/lockscreen
-wallpaperPath=~/.config/hypr/wallpaper
+loadingscreenPath=/home/${USER}/.config/hypr/loadingscreen
+lockscreenpath=/home/${USER}/.config/hypr/lockscreen
+wallpaperPath=/home/${USER}/.config/hypr/wallpaper
 sddmPath=/usr/share/sddm/themes/sugar-candy/Backgrounds/wallpaper
-cachepath=~/.cache/swww
+cachepath=/home/${USER}/.cache/swww
 
 # Functions #
 

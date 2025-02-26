@@ -11,42 +11,41 @@ in
 
   ## System configuration ##
   bootloader.enable = true;
-  #sddm.enable = true;
-  greetd-hyprland.enable = true;
+  #greetd-hyprland.enable = true;
   amd.enable = true;
-  hyprland.enable = true;
-  thunar.enable = true;
   pipewire.enable = true;
   bluetooth.enable = true;
   localisation-de.enable = true;
   fonts.enable = true;
-
-  # ## User configuration ##
-  main-user.enable = true;
-  main-user.userName = "${user}";
-  main-user.hostName = "${hostname}";
+  keyring.enable = true;
+  firefox.enable = true;
+  steam.enable = true;
   programs.zsh.enable = true;
 
+  # ## User configuration ##
+  hyprland.enable = true;
+  thunar.enable = true;
+  main-user =
+    {
+      enable = true;
+      userName = "${user}";
+      hostName = "${hostname}";
+    };
 
-  ## configuration packages ##
-  #NOTE needs to be modularized for better flexibility!
-  environment.systemPackages = with pkgs; [
-    pavucontrol
-    firewalld
-    nwg-displays
-    easyeffects
-    blueman
-    networkmanagerapplet
-  ];
+  sddm = {
+    enable = true;
+    autoLogin.enable = true;
+  };
 
   home-manager.extraSpecialArgs = { inherit inputs; };
   programs.dconf.enable = true;
   home-manager.users = {
-    "${config.main-user.userName}" = import ./../../users/${config.main-user.userName};
+    "${config.main-user.userName}" = import ./../../users/${config.main-user.userName}.nix;
   };
 
   imports = [
     ./hardware-configuration.nix
+    ./drives.nix
     ./../../system
   ];
 

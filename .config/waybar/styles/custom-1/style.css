@@ -1,0 +1,181 @@
+@import "colors.css";
+/*========Waybar=Configuration========*/
+
+* {
+	border: none;
+	border-radius: 0;
+	font-family: JetBrainsMono Nerd Font;
+	font-size: 14px;
+	min-height: 0;
+}
+
+/*----------Waybar-window-----------*/
+
+window#waybar {
+	background: transparent;
+	color: #ffffff;
+}
+
+/*--------------Modules--------------*/
+
+#custom-date,
+#custom-notification,
+#custom-rotate_toggle,
+#custom-audio_idle_inhibitor,
+#custom-idle_mode,
+#custom-webcam,
+#custom-power,
+#custom-quit,
+#custom-lock,
+#custom-reboot,
+#custom-monitors,
+#custom-spacer_m,
+#custom-spacer_r,
+#custom-spacer_l,
+#workspaces,
+#clock,
+#battery,
+#pulseaudio,
+#wireplumber,
+#network,
+#bluetooth,
+#backlight,
+#taskbar,
+#custom-updates,
+#idle_inhibitor,
+#tray {
+	background: @background;
+	padding: 5px 10px;
+	margin: 10px 0px 0px 0px;
+}
+
+/*-----------Workspaces-----------*/
+
+#workspaces button {
+	padding: 5px 5px;
+	background: transparent;
+	color: @color0;
+	border-radius: 15px;
+}
+
+#workspaces button.active {
+	padding: 5px 5px;
+	background: @color3;
+	color: @color1;
+	border-radius: 10px;
+}
+
+#workspaces button.focused {
+	background: @color7;
+	color: @color1;
+	border-radius: 10px;
+}
+
+#workspaces button.urgent {
+	background: @color6;
+	color: @color1;
+	border-radius: 10px;
+}
+
+#workspaces button:hover {
+	background: @color2;
+	color: @color1;
+	border-radius: 10px;
+}
+
+/*-------------Tooltips-------------*/
+
+tooltip {
+	background: @background;
+	border-radius: 12px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: @color3;
+}
+
+
+/*----------Notifications----------*/
+
+#custom-notification,
+#custom-webcam {
+	background-color: @color3;
+	color: @color0;
+}
+
+/*----------base-coloring----------*/
+
+#bluetooth {
+	color: @color2;
+}
+
+#custom-monitors,
+#idle_inhibitor,
+#custom-power,
+#custom-quit,
+#custom-lock,
+#custom-reboot {
+	color: @color3;
+}
+
+#custom-updates,
+#clock {
+	color: @color4;
+}
+
+#battery {
+	color: @color5;
+}
+
+#pulseaudio,
+#wireplumber {
+	color: @color6;
+}
+
+#network {
+	color: @color6;
+}
+
+#custom-rotate_toggle,
+#custom-audio_idle_inhibitor,
+#custom-idle_mode {
+	color: @color7;
+}
+
+#custom-date {
+	color: @color8;
+}
+
+/*--------------Taskbar--------------*/
+#taskbar {
+	border-radius: 15px 15px 15px 15px;
+}
+
+/*----------Battery-levels----------*/
+
+#battery.charging {
+	color: @color5;
+}
+
+#battery.warning:not(.charging) {
+	background: @color6;
+	color: @color1;
+}
+
+#battery.critical:not(.charging) {
+	background: @color3;
+	color: @color1;
+}
+
+/*-------------Spacers-------------*/
+
+#custom-spacer_r {
+	border-radius: 0px 15px 15px 0px;
+	margin-right: 10px;
+	margin-left: -5px;
+}
+
+#custom-spacer_l {
+	border-radius: 15px 0px 0px 15px;
+	margin-left: 10px;
+	margin-right: -5px;
+}

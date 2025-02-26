@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=custom-theme-1
+Description=Custom theme based on Sugar for SDDM
+Author= Marius Reddig
+Copyright=
+Type=sddm-theme
+Version=1.5
+Screenshot=Previews/PartialBlur.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Theme-Id=custom-theme-1
+Theme-API=2.11

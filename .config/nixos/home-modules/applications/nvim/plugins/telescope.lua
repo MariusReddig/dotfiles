@@ -1,0 +1,83 @@
+local telescope = require("telescope")
+local actions = require("telescope.actions")
+
+telescope.setup({
+	defaults = {
+		-- Default configuration for telescope
+		mappings = {
+			i = {
+				-- Map keys in insert mode
+				["<C-j>"] = actions.move_selection_next, -- Next item
+				["<C-k>"] = actions.move_selection_previous, -- Previous item
+				["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- Send to quickfix list
+				["<Esc>"] = actions.close, -- Close telescope
+			},
+			n = {
+				-- Map keys in normal mode
+				["<C-j>"] = actions.move_selection_next,
+				["<C-k>"] = actions.move_selection_previous,
+				["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+			},
+		},
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--hidden", -- Include hidden files
+			"--glob=!.git/", -- Ignore .git directory
+		},
+		file_ignore_patterns = { "node_modules", ".git", "dist", "build" }, -- Ignore these files/dirs
+		prompt_prefix = "🔍 ", -- Custom prompt prefix
+		selection_caret = " ", -- Custom selection caret
+		entry_prefix = "  ",
+		initial_mode = "insert",
+		selection_strategy = "reset",
+		sorting_strategy = "ascending",
+		layout_strategy = "horizontal",
+		layout_config = {
+			horizontal = {
+				prompt_position = "bottom",
+				preview_width = 0.55,
+				results_width = 0.8,
+			},
+			vertical = {
+				mirror = false,
+			},
+			width = 0.87,
+			height = 0.80,
+			preview_cutoff = 120,
+		},
+		path_display = { "truncate" }, -- How file paths are displayed
+		winblend = 0, -- Transparency for the floating window
+		border = {}, -- Border style for the floating window
+		color_devicons = true, -- Enable color for file icons
+		set_env = { ["COLORTERM"] = "truecolor" }, -- Enable truecolor support
+	},
+	pickers = {
+		-- Custom configuration for built-in pickers
+		find_files = {
+			hidden = true, -- Include hidden files
+			no_ignore = false, -- Respect .gitignore
+		},
+		live_grep = {
+			only_sort_text = true, -- Only sort by text, not file path
+		},
+		buffers = {
+			sort_lastused = true, -- Sort buffers by last used
+			theme = "dropdown", -- Use dropdown theme for buffers
+		},
+	},
+	extensions = {
+		-- Configuration for telescope extensions
+		["ui-select"] = {
+			theme = "dropdown", -- Use dropdown theme for ui-select
+		},
+	},
+})
+
+-- Load telescope extensions
+telescope.load_extension("ui-select") -- Load UI select extension

@@ -8,16 +8,19 @@
   };
 
   zsh.enable = true;
-  mullvad.enable = true;
   nvim.enable = true;
 
   imports = [
-    ./../../home-modules
-    ./hyprland/default-theme.nix
+    ./../home-modules
+    ./../theming
   ];
+
+  theming.enable = true;
+  theming.theme = "hyprland-oni";
 
   # Packages
   home.packages = with pkgs; [
+    lutris-unwrapped
     stow
     anki
     firefox
@@ -26,36 +29,24 @@
     kitty
     xournalpp
     vesktop
-    fastfetch
-    git
     thunderbird
     nextcloud-client
-    lxappearance
-    xdg-user-dirs
-    xdg-user-dirs-gtk
-    baobab
-    swappy
     superfile
-    xplr
     kdePackages.gwenview
-    btop
-    htop
     vlc
     kdePackages.phonon-vlc
     kdePackages.phonon
     kdePackages.qtimageformats
     ryujinx-greemdev
-    qt6ct
-    file-roller
+    grim
     scrcpy
     android-tools
-    grim
     qview
     swayimg
-    slurp
-    wl-clipboard
     feh
-    gcr
+    signal-desktop
+    amdgpu_top
+    lact
   ];
 
   home.sessionVariables = {
