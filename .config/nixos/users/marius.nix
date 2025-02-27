@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-
+{ pkgs, pkgs-unstable, ... }:
 {
   home = {
     username = "marius";
@@ -19,35 +18,39 @@
   theming.theme = "hyprland-oni";
 
   # Packages
-  home.packages = with pkgs; [
-    lutris-unwrapped
-    stow
-    anki
-    firefox
-    thunderbird
-    bitwarden
-    kitty
-    xournalpp
-    vesktop
-    thunderbird
-    nextcloud-client
-    superfile
-    kdePackages.gwenview
-    vlc
-    kdePackages.phonon-vlc
-    kdePackages.phonon
-    kdePackages.qtimageformats
-    ryujinx-greemdev
-    grim
-    scrcpy
-    android-tools
-    qview
-    swayimg
-    feh
-    signal-desktop
-    amdgpu_top
-    lact
-  ];
+  home.packages =
+    (with pkgs; [
+      lutris-unwrapped
+      stow
+      anki
+      firefox
+      thunderbird
+      bitwarden
+      kitty
+      xournalpp
+      vesktop
+      thunderbird
+      nextcloud-client
+      superfile
+      kdePackages.gwenview
+      vlc
+      kdePackages.phonon-vlc
+      kdePackages.phonon
+      kdePackages.qtimageformats
+      grim
+      scrcpy
+      android-tools
+      qview
+      swayimg
+      feh
+      signal-desktop
+      amdgpu_top
+      lact
+    ])
+    ++
+    (with pkgs-unstable; [
+      ryujinx
+    ]);
 
   home.sessionVariables = {
     XDG_DATA_HOME = "/home/marius/.local/share/";

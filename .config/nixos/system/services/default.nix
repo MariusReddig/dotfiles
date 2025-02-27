@@ -8,5 +8,6 @@
     ./pipewire.nix
     ./firewalld.nix
     ./upower.nix
+    ./garbage-collection.nix
   ];
 }

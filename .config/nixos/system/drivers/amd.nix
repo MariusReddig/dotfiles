@@ -18,7 +18,7 @@
     hardware.graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        rocmPackages.clr.icd
+        # rocmPackages.clr.icd
         clinfo
       ];
     };

@@ -12,18 +12,19 @@
       portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # make sure to also set the portal package, so that they are in sync
     };
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
-
-    environment.systemPackages = with pkgs; [
-      hyprpicker
-      hyprlock
-      hypridle
-      hyprland-qtutils
-      kitty
-      hyprpolkitagent
-      hyprland-protocols
-      swww
-    ];
+    environment = {
+      sessionVariables.NIXOS_OZONE_WL = "1";
+      sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+      systemPackages = with pkgs; [
+        hyprpicker
+        hyprlock
+        hypridle
+        # hyprland-qtutils
+        kitty
+        hyprpolkitagent
+        hyprland-protocols
+        swww
+      ];
+    };
   };
 }
