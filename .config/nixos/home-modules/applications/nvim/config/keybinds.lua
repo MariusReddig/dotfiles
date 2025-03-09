@@ -32,4 +32,27 @@ wk.register({
 		d = { "<C-W>c", "Delete window" },
 	},
 	e = { "<cmd>Neotree toggle<cr>", "Toggle File Explorer" }, -- Toggle Neotree
+	d = {
+		name = "Diagnostics",
+		d = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Show Line Diagnostics" }, -- Show diagnostics in a floating window
+		n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" }, -- Jump to the next diagnostic
+		p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous Diagnostic" }, -- Jump to the previous diagnostic
+		l = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Show Diagnostics in Location List" }, -- Open diagnostics in the location list
+	},
+	c = {
+		name = "Code Actions",
+		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" }, -- Trigger code actions
+		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format Buffer" }, -- Format the current buffer
+		r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename Symbol" }, -- Rename symbol under cursor
+		c = { "<cmd>!cargo check<cr>", "cargo check" },
+	},
+	g = {
+		name = "Go To",
+		d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Go to Definition" }, -- Go to definition
+		D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Go to Declaration" }, -- Go to declaration
+		i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Go to Implementation" }, -- Go to implementation
+		r = { "<cmd>lua vim.lsp.buf.references()<cr>", "Go to References" }, -- Go to references
+		t = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Go to Type Definition" }, -- Go to type definition
+	},
+	K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show Documentation" }, -- Show documentation for symbol under cursor
 }, { prefix = "<leader>" })

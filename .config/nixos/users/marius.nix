@@ -46,6 +46,8 @@
       signal-desktop
       amdgpu_top
       lact
+      krita
+      prismlauncher
     ])
     ++
     (with pkgs-unstable; [

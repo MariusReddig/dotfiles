@@ -8,6 +8,21 @@
     environment.systemPackages = with pkgs; [
       mangohud
       protonup
+      (writeShellScriptBin "run-game" ''
+        #!/bin/bash
+        export MANGOHUD=1  #requests mangohud
+        export MANGOHUD_CONFIG=no_display
+        export LD_PRELOAD="" #clears library preloads
+        # export VKD3D_CONFIG=disable_uav_compression
+
+        exec gamemoderun gamescope \
+          --adaptive-sync \
+          --steam \
+          -W 1920 \
+          -H 1080 \
+          --expose-wayland \
+          -- "$@"
+      '')
     ];
 
     programs = {

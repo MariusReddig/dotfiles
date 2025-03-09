@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   options = {
-    nvim.enable = lib.mkEnableOption "enable nvim module";
+        nvim.enable = lib.mkEnableOption "enable nvim module";
   };
 
   config = lib.mkIf config.nvim.enable {
@@ -14,17 +14,25 @@
       lazygit
       wl-clipboard
       tree-sitter
+      git
 
       ### Formater and Diagnostics
+      rust-analyzer # LSP for Rust
+      cargo # Rust package manager (required for some tools)
+      clippy # Rust linter
+      clang-tools
+      rustfmt
+      rustc
       nodejs
+      textlint
+      eslint
       nixpkgs-fmt
       clang-tools
-      shfmt
-      rustfmt
       stylua
       statix
       cppcheck
       shellcheck
+      shfmt
       luajitPackages.luacheck
       nodePackages.jsonlint
       nodePackages.prettier

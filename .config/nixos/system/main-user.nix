@@ -21,7 +21,7 @@ in
     users.users.${cfg.userName} = {
       isNormalUser = true;
       description = "main user";
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" "gamemode" ];
       shell = pkgs.zsh;
     };
 
