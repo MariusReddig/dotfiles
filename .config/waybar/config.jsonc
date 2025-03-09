@@ -101,7 +101,7 @@
   "wireplumber": {
     "format": "{icon}{volume}%",
     "format-muted": " 󰝟 ",
-    "on-click": "pamixer -t",
+    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
     "on-click-middle": "playerctl play-pause",
     "format-icons": [" ", " ", " "]
   },
@@ -134,6 +134,7 @@
 
   "idle_inhibitor": {
     "format": "{icon}",
+    "start-activated": true,
     "format-icons": {
       "activated": "󰈈 ",
       "deactivated": "󰈉 "
