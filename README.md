@@ -1,116 +1,12 @@
-# My dotfiles for arch-hyprland
+# This is my current NIXOS-configuration
 
-my personal repo for all my current dotfiles.  
-! README is still WIP !
-
-## Requirements
-
-following is required for this configuration
-
-### distro-required
-- bluez
-- bluez-utils
-- blueman
-- thunar
-	- thunar-archive-plugin
-	- thunar-media-tags-plugin
-	- thunar-volman
-- dunst
-- polkit-gnome
-- hyrpland
-- swww
-- waybar
-- hyprlock
-- hypridle
-- xdg-desktop-portal
-- xdg-desktop-portal-hyprland
-- git
-- stow
-- brightnessctl
-- wofi
-- kitty
-- firewalld
-- cronie
-- network-manager-applet-git
-	- networkmanager-openvpn
-- zip
-- zsh
-
-### thememing
-
-- nwg-look
-- adwaita-icon-theme
-- capitaine-cursors
-- ttf-jetbrains-mono-nerd
-- yaru-gtk-theme
-- noto-fonts-emoji
-- noto-fonts-extra
-
-### applications
-
-- xournalpp
-- signal-desktop
-- spotify
-- mullvad-vpn-beta
-- bitwarden
-- zen-browser
-- firefox
-- tor-browser
-- anki
-- kdeconnect
-- libreoffice-fresh
-- loupe
-- gwenview
-- cpupower-gui
-- vesktop
-- thunderbird
-- steam
-- sddm-conf-git
-- qalculate-qt
-
-## configuration:
-
-### Networkmanager
+## Installation:
+1. clone repo
 ```
-sudo pacman -S networkmanager
-systemctl enable NetworkManager.service --now
+cd /home/${USER} && git clone https://github.com/MariusReddig/dotfiles.git
 ```
-### Bluetooth
+2. reconfigure host to your liking
+3. rebuild
 ```
-sudo pacman -S bluez
-systemctl enable bluez
-```
-
-### Yay
-
-One-liner:
-```
-sudo pacman -S --needed base-devel git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-```
-
-### oh-my-zsh
-```
-pacman -S curl zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-### batsignal
-
-open the crontab:
-```
-crontab -e 
-```
-
-insert:
-```
-*/5 * * * * /bin/bash /home/marius/.config/hypr/scripts/batsignal
-```
-## Installation
-```
-git clone git@github.com:MariusReddig/dotfiles.git
-cd dotfiles
-stow -vRt ~ .
-
+sudo nixos-rebuild switch --flake /home/${USER}/nix#desktop
 ```
