@@ -1,6 +1,0 @@
-{ ... }:
-{
-  imports = [
-    ./localisation-de.nix
-  ];
-}

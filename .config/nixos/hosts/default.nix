@@ -1,5 +1,0 @@
-{ pkgs, lib,...}: {
-	imports = [
-		./pc
-	];
-}
