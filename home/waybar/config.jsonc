@@ -36,9 +36,9 @@
       "active": ""
     },
     "persistent-workspaces": {
-      "HDMI-A-1": [2],
+      "HDMI-A-2": [3],
       "DP-1": [1],
-      "DP-2": [3]
+      "DP-2": [2]
     }
   },
   "mpris": {

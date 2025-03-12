@@ -7,10 +7,10 @@
   };
 
   zsh.enable = true;
-  # nvim.enable = true;
 
   imports = [
     ./zsh.nix
+    ./nvim/nvim.nix
   ];
 
   # theming.enable = true;
@@ -20,7 +20,6 @@
   home.packages =
     (with pkgs; [
 	# System Utilities
-	# gcc
 	man-pages-posix
 	man-pages
 	usbutils
@@ -41,7 +40,12 @@
 	fastfetch
 
 	# Fonts
-	noto-fonts
+        corefonts
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-emoji
+        noto-fonts-extra
+        ipafont
 
 	# Audio/Video Control
 	pavucontrol
@@ -53,11 +57,11 @@
 	kdePackages.qtimageformats
 
 	# File Management
-	fd
 	superfile
 	qview
 	swayimg
 	feh
+        fd
 
 	# Productivity
 	anki
@@ -66,10 +70,11 @@
 	bitwarden
 	thunderbird
 	nextcloud-client
+        vscodium
 
 	# Web Browsers
 	firefox
-
+      
 	# Gaming
 	prismlauncher
 
@@ -81,7 +86,7 @@
 	kdePackages.gwenview
 	swappy
 	qt6ct
-	lxappearance
+	nwg-look
 	capitaine-cursors
 	morewaita-icon-theme
 	gnome-themes-extra
@@ -102,7 +107,6 @@
 	cliphist
 
 	# Communication
-	discord
 	vesktop
 	element-desktop
 
@@ -139,13 +143,22 @@
   # plain files is through 'home.file'.
   #TODO: Make individual nix configs for the configurations below!
   home.file = {
-    ".config/dunst".source = ./dunst;
-    ".config/hypr".source = ./hyprland;
-    ".config/kitty".source = ./kitty;
-    ".config/Thunar".source = ./thunar;
-    ".config/waybar".source = ./waybar;
-    ".config/wofi".source = ./wofi;
+    # ".config/dunst".source = ./dunst;
+    # ".config/hypr".source = ./hyprland;
+    # ".config/kitty".source = ./kitty;
+    # ".config/Thunar".source = ./thunar;
+    # ".config/waybar".source = ./waybar;
+    # ".config/wofi".source = ./wofi;
   };
+
+    home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfr -T ~/nix/home/dunst     ~/.config/dunst
+    ln -sfr -T ~/nix/home/hyprland  ~/.config/hypr
+    ln -sfr -T ~/nix/home/kitty     ~/.config/kitty
+    ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
+    ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
+    ln -sfr -T ~/nix/home/wofi      ~/.config/wofi
+    '';
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
