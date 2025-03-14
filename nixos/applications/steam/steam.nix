@@ -1,10 +1,15 @@
 { config, pkgs, lib, ... }:
 {
+  imports = [
+    ./gamemode.nix
+  ];
+
   options = {
     steam.enable = lib.mkEnableOption "enable steam module";
   };
 
   config = lib.mkIf config.steam.enable {
+
     environment.systemPackages = with pkgs; [
       mangohud
       protonup

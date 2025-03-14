@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 {
-  programs.gamemode = {
+  programs.gamemode = lib.mkIf config.steam.enable {
     settings = {
       general = {
         # The reaper thread will check every 5 seconds for exited clients, for config file changes, and for the CPU/iGPU power balance
