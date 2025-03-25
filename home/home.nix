@@ -11,6 +11,8 @@
   imports = [
     ./zsh.nix
     ./nvim/nvim.nix
+    ./tmux/tmux.nix
+    ./obs.nix
   ];
 
   # theming.enable = true;
@@ -19,117 +21,120 @@
   # Packages
   home.packages =
     (with pkgs; [
-	# System Utilities
-	man-pages-posix
-	man-pages
-	usbutils
-	unzip
-	stow
-	android-tools
-	scrcpy
-	xdg-user-dirs
-	xdg-user-dirs-gtk
-	firewalld
 
-	# System Monitoring
-	htop
-	btop
-	amdgpu_top
-	lact
-	upower
-	fastfetch
+      # System Utilities
+      man-pages-posix
+      man-pages
+      usbutils
+      unzip
+      android-tools
+      scrcpy
+      xdg-user-dirs
+      xdg-user-dirs-gtk
+      firewalld
 
-	# Fonts
-        corefonts
-        noto-fonts
-        noto-fonts-cjk-sans
-        noto-fonts-emoji
-        noto-fonts-extra
-        ipafont
+      # System Monitoring
+      htop
+      btop
+      amdgpu_top
+      lact
+      upower
+      fastfetch
 
-	# Audio/Video Control
-	pavucontrol
-	pamixer
-	easyeffects
-	vlc
-	kdePackages.phonon-vlc
-	kdePackages.phonon
-	kdePackages.qtimageformats
+      # Fonts
+      corefonts
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      noto-fonts-extra
+      ipafont
 
-	# File Management
-	superfile
-	qview
-	swayimg
-	feh
-        fd
+      # Audio/Video Control
+      helvum
+      pavucontrol
+      pamixer
+      easyeffects
+      vlc
+      kdePackages.phonon-vlc
+      kdePackages.phonon
+      kdePackages.qtimageformats
 
-	# Productivity
-	anki
-	xournalpp
-	signal-desktop
-	bitwarden
-	thunderbird
-	nextcloud-client
-        vscodium
+      # File Management
+      superfile
+      qview
+      swayimg
+      feh
+      fd
 
-	# Web Browsers
-	firefox
-      
-	# Gaming
-	prismlauncher
+      # Productivity
+      anki
+      xournalpp
+      signal-desktop
+      bitwarden
+      thunderbird
+      nextcloud-client
 
-	# Streaming films and series
-	stremio
+      # Web Browsers
+      firefox
 
-	# Graphics and Design
-	krita
-	kdePackages.gwenview
-	swappy
-	qt6ct
-	nwg-look
-	capitaine-cursors
-	morewaita-icon-theme
-	gnome-themes-extra
+      # Gaming
+      prismlauncher
 
-	# Terminal and Shell
-	kitty
+      # Streaming films and series
+      stremio
 
-	# Hyprland 
-	hyprpicker
-	swww
-	grim
-	slurp
-	waybar
-	waybar-mpris
-	wofi
-	dunst
-	wl-clipboard
-	cliphist
+      # Graphics and Design
+      krita
+      kdePackages.gwenview
+      swappy
+      qt6ct
+      nwg-look
+      capitaine-cursors
+      morewaita-icon-theme
+      gnome-themes-extra
 
-	# Communication
-	vesktop
-	element-desktop
+      # Terminal and Shell
+      kitty
 
-	# Development Tools
-	python312Packages.pip
-	clang
-	jdk21
-	# jdk8
+      # Hyprland
+      hyprpicker
+      swww
+      grim
+      slurp
+      waybar
+      waybar-mpris
+      wofi
+      dunst
+      wl-clipboard
+      cliphist
 
-	# Network Management
-	blueman
-	networkmanagerapplet
+      # Communication
+      (discord.override {
+        withOpenASAR = true;
+        withVencord = true;
+      })
+      element-desktop
 
-	# Notifications
-	libnotify
+      # Development Tools
+      python312Packages.pip
+      clang
+      jdk21
+      # jdk8
+
+      # Network Management
+      blueman
+      networkmanagerapplet
+
+      # Notifications
+      libnotify
     ])
     ++
     (with pkgs-unstable; [
-	# Fonts
-	nerd-fonts.jetbrains-mono
-	      
-	# Gaming
-	ryujinx
+      # Fonts
+      nerd-fonts.jetbrains-mono
+
+      # Gaming
+      ryujinx
     ]);
 
   home.sessionVariables = {
@@ -158,6 +163,7 @@
     ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
     ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
     ln -sfr -T ~/nix/home/wofi      ~/.config/wofi
+    ln -sfr -T ~/nix/home/.editorconfig      ~/.editorconfig
     '';
 
   # Let Home Manager install and manage itself.

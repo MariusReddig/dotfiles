@@ -39,7 +39,12 @@
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";
+        ts = "tmux source ~/.config/tmux/tmux.conf";
       };
+
+      initExtra = ''
+        export PATH="$HOME/.local/bin:$PATH"
+      '';
 
       oh-my-zsh = {
         enable = true;

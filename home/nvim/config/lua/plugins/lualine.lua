@@ -4,7 +4,7 @@ require("lualine").setup({
 		theme = "tokyonight-moon", -- Use the 'tokyonight' theme
 		component_separators = { left = "|", right = "|" },
 		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "NvimTree", "snacks" }, -- Disable Lualine for NvimTree and alpha
+		disabled_filetypes = { "neo-tree", "snacks" }, -- Disable Lualine for NvimTree and alpha
 		always_divide_middle = true,
 	},
 	sections = {

@@ -26,7 +26,6 @@ in
     vim
     neovim
     wget
-    tmux
     kitty
     git
     git-doc

@@ -1,4 +1,5 @@
 require("which-key").setup({
+  preset = "helix",
 	plugins = {
 		marks = true,
 		registers = true,
@@ -21,24 +22,6 @@ require("which-key").setup({
 		separator = "➜",
 		group = "+",
 	},
-	window = {
-		border = "rounded",
-		position = "bottom",
-		margin = { 1, 0, 1, 0 },
-		padding = { 2, 2, 2, 2 },
-	},
-	layout = {
-		height = { min = 4, max = 25 },
-		width = { min = 20, max = 50 },
-		spacing = 3,
-		align = "left",
-	},
-	ignore_missing = false,
-	hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
 	show_help = true,
-	triggers = "auto",
-	triggers_blacklist = {
-		i = { "j", "k" },
-		v = { "j", "k" },
-	},
+  show_keys = true,
 })

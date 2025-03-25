@@ -76,8 +76,16 @@ telescope.setup({
 		["ui-select"] = {
 			theme = "dropdown", -- Use dropdown theme for ui-select
 		},
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+    },
 	},
 })
 
 -- Load telescope extensions
-telescope.load_extension("ui-select") -- Load UI select extension
+telescope.load_extension("ui-select")
+telescope.load_extension("fzf")
+

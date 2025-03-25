@@ -43,7 +43,7 @@
 
 	    # Host configuration
 	    ./hosts/desktop/configuration.nix
-	    
+
 	    # Home-manager implementation
 	    home-manager.nixosModules.home-manager
             {

@@ -8,9 +8,9 @@ vim.opt.mouse = "a" -- allow the mouse to be used in Nvim
 vim.opt.smoothscroll = true
 
 -- Tab
-vim.opt.tabstop = 4 -- number of visual spaces per TAB
-vim.opt.softtabstop = 4 -- number of spacesin tab when editing
-vim.opt.shiftwidth = 4 -- insert 4 spaces on a tab
+vim.opt.tabstop = 2 -- number of visual spaces per TAB
+vim.opt.softtabstop = 2 -- number of spacesin tab when editing
+vim.opt.shiftwidth = 2 -- insert 2 spaces on a tab
 vim.opt.expandtab = true
 
 -- UI config
@@ -27,5 +27,8 @@ vim.opt.incsearch = true -- search as characters are entered
 vim.opt.hlsearch = true -- do highlight matches
 vim.opt.ignorecase = true -- ignore case in searches by default
 vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entered
+
+-- wrapping
+vim.wo.wrap = false
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
