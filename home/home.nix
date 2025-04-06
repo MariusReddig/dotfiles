@@ -13,6 +13,7 @@
     ./nvim/nvim.nix
     ./tmux/tmux.nix
     ./obs.nix
+    ./eza.nix
   ];
 
   # theming.enable = true;
@@ -31,6 +32,7 @@
       scrcpy
       xdg-user-dirs
       xdg-user-dirs-gtk
+      p7zip
       firewalld
 
       # System Monitoring
@@ -79,6 +81,8 @@
 
       # Gaming
       prismlauncher
+      lutris
+
 
       # Streaming films and series
       stremio
@@ -111,7 +115,8 @@
       # Communication
       (discord.override {
         withOpenASAR = true;
-        withVencord = true;
+        # withVencord = true;
+        # vencord = equicord;
       })
       element-desktop
 
@@ -130,6 +135,7 @@
     ])
     ++
     (with pkgs-unstable; [
+
       # Fonts
       nerd-fonts.jetbrains-mono
 

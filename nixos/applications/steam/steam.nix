@@ -13,7 +13,7 @@
     environment.systemPackages = with pkgs; [
       mangohud
       protonup
-      (writeShellScriptBin "run-game" ''
+      (writeShellScriptBin "run-game-HD" ''
         #!/bin/bash
         export MANGOHUD=1  #requests mangohud
         export MANGOHUD_CONFIG=no_display
@@ -29,6 +29,23 @@
           --expose-wayland \
           -- "$@"
       '')
+        (writeShellScriptBin "run-game-WQHD" ''
+        #!/bin/bash
+        export MANGOHUD=1  #requests mangohud
+        export MANGOHUD_CONFIG=no_display
+        export LD_PRELOAD="" #clears library preloads
+        export PULSE_SINK=game-sink gamescope
+        # export VKD3D_CONFIG=disable_uav_compression
+
+        exec gamemoderun gamescope \
+          --adaptive-sync \
+          --steam \
+          -W 2560 \
+          -H 1440 \
+          --expose-wayland \
+          -- "$@"
+      '')
+
             (writeShellScriptBin "run-game-4k" ''
         #!/bin/bash
         export MANGOHUD=1  #requests mangohud

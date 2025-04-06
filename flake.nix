@@ -27,10 +27,9 @@
           };
           modules = [
 	    # Core modules needed for system
-	    ./nixos/core/allow-unfree-packages.nix
 	    ./nixos/core/bluetooth.nix
 	    ./nixos/core/bootloader.nix
-            ./nixos/core/drivers/amd.nix
+      ./nixos/core/drivers/amd.nix
 	    ./nixos/core/firewalld.nix
 	    ./nixos/core/garbage-collection.nix
 	    ./nixos/core/keyring/gnome-keyring.nix

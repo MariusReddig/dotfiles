@@ -13,12 +13,14 @@
     hardware.graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        # rocmPackages.clr.icd
+        lact
         clinfo
       ];
     };
-
-    systemd.tmpfiles.rules =
+systemd = {
+    packages = with pkgs; [ lact ];
+    services.lactd.wantedBy = ["multi-user.target"];
+    tmpfiles.rules =
       let
         rocmEnv = pkgs.symlinkJoin {
           name = "rocm-combined";
@@ -32,4 +34,5 @@
     [
       "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
     ];
+  };
 }

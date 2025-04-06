@@ -8,6 +8,14 @@ let
 in
 {
 
+  # Allow unfree software
+  nixpkgs.config.allowUnfree = true;
+
+  # enable nix flakes
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   ## System configuration ##
   programs.zsh.enable = true;
   steam.enable = true;
@@ -24,6 +32,7 @@ in
 
   environment.systemPackages = with pkgs; [
     vim
+    bash
     neovim
     wget
     kitty
