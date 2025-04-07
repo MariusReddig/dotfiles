@@ -27,6 +27,7 @@
           -W 1920 \
           -H 1080 \
           --expose-wayland \
+          --force-grab-cursor \
           -- "$@"
       '')
         (writeShellScriptBin "run-game-WQHD" ''
@@ -43,6 +44,7 @@
           -W 2560 \
           -H 1440 \
           --expose-wayland \
+          --force-grab-cursor \
           -- "$@"
       '')
 
@@ -60,6 +62,7 @@
           -W 3840 \
           -H 1920 \
           --expose-wayland \
+          --force-grab-cursor \
           -- "$@"
       '')
 

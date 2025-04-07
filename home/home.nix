@@ -23,6 +23,9 @@
   home.packages =
     (with pkgs; [
 
+      # German e-ID card authentication app
+      ausweisapp
+
       # System Utilities
       man-pages-posix
       man-pages
