@@ -2,59 +2,77 @@
   description = "NixOs config from Marius";
 
   inputs = {
+    # Stable channels
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-    	url = "github:nix-community/home-manager/release-24.11";
-    	inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix.url = "github:danth/stylix/release-24.11";
+
+    # Unstable channels
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    mic92-nur = {
+      url = "github:mic92/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";  # Keep in sync
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, nur, mic92-nur, ... }@inputs:
     let
       username = "marius";
       system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+
+      # Package sets
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        overlays = [ nur.overlays.default ];
+      };
+
+      # Module system
+      mkModule = path: { imports = [ path ]; };
+      coreModule = name: mkModule ./nixos/core/${name}.nix;
     in
     {
       nixosConfigurations = {
-        desktop = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit pkgs-unstable;
-	    username = "${username}";
-          };
+        desktop = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs pkgs-unstable nur username mic92-nur; };
           modules = [
-	    # Core modules needed for system
-	    ./nixos/core/bluetooth.nix
-	    ./nixos/core/bootloader.nix
-      ./nixos/core/drivers/amd.nix
-	    ./nixos/core/firewalld.nix
-	    ./nixos/core/garbage-collection.nix
-	    ./nixos/core/keyring/gnome-keyring.nix
-	    ./nixos/core/localisation/localisation-de.nix
-	    ./nixos/core/login-manager/sddm.nix
-	    ./nixos/core/networkmanager.nix
-	    ./nixos/core/openssh.nix
-	    ./nixos/core/pipewire.nix
-	    ./nixos/core/upower.nix
+            # Core system modules
+            (coreModule "bluetooth")
+            (coreModule "bootloader")
+            (coreModule "drivers/amd")
+            (coreModule "firewalld")
+            (coreModule "garbage-collection")
+            (coreModule "keyring/gnome-keyring")
+            (coreModule "localisation/localisation-de")
+            (coreModule "login-manager/sddm")
+            (coreModule "networkmanager")
+            (coreModule "openssh")
+            (coreModule "pipewire")
+            (coreModule "upower")
 
-	    # Host configuration
-	    ./hosts/desktop/configuration.nix
+            # Host configuration
+            ./hosts/desktop/configuration.nix
 
-	    # Home-manager implementation
-	    home-manager.nixosModules.home-manager
+            # Home-manager implementation
+            home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/home.nix;
-	      home-manager.extraSpecialArgs = {
-    		inherit inputs;
-    		inherit pkgs-unstable;
-  		username = "${username}";
-		};
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = import ./home/home.nix;
+                extraSpecialArgs = { inherit inputs pkgs-unstable nur username mic92-nur; };
+              };
             }
+
+            # Stylix
+            stylix.nixosModules.stylix
+            ./stylix/stylix.nix
           ];
         };
       };

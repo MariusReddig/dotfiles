@@ -6,14 +6,7 @@
 
   config = lib.mkIf config.zsh.enable {
 
-    programs.neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-    };
-
-    programs.zsh = {
+     programs.zsh = {
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;

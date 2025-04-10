@@ -11,6 +11,7 @@ allowed_transition_types=("none" "simple" "fade" "left" "right" "top" "bottom" "
 loadingscreenPath=/home/${USER}/.config/hypr/loadingscreen
 lockscreenpath=/home/${USER}/.config/hypr/lockscreen
 wallpaperPath=/home/${USER}/.config/hypr/wallpaper
+stylixPath=/home/${USER}/nix/stylix/wallpaper
 sddmPath=/usr/share/sddm/themes/sugar-candy/Backgrounds/wallpaper
 cachepath=/home/${USER}/.cache/swww
 
@@ -68,9 +69,10 @@ load_wallpaper() {
 
 set_new_wallpaper() {
 	cp "$filepath" "$wallpaperPath"
+  cp "$filepath" "$stylixPath"
 
 	if [ $verbose == true ]; then
-		echo "[Info] copied $filepath to $wallpaperPath"
+		echo "[Info] copied $filepath to $wallpaperPath and $stylixPath"
 	fi
 
 	if [ "$(file -b --mime-type "$filepath")" == "image/gif" ]; then

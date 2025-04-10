@@ -1,28 +1,48 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+{ pkgs, username, pkgs-unstable, ... }:
 
-{ config, inputs, pkgs, pkgs-unstable, username, ... }:
 let
   hostname = "${username}-desktop";
 in
 {
+  # ============== System Settings ============== #
+  system.stateVersion = "24.11";  # Don't remove for compatibility
+  networking.hostName = hostname;
 
-  # Allow unfree software
-  nixpkgs.config.allowUnfree = true;
-
-  # enable nix flakes
+  # ============== Nix Configuration ============== #
   nix = {
+    nixPath = [ "nixos-config=/home/${username}/nix" ];
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
-  ## System configuration ##
-  programs.zsh.enable = true;
-  steam.enable = true;
-  thunar.enable = true;
-  mullvad.enable = true;
+  # ============== Package Management ============== #
+  nixpkgs.config.allowUnfree = true;
 
-  # ## User configuration ##
+  ## User configuration ##
+
+  # ============== System Packages ============== #
+  environment.systemPackages = with pkgs; [
+    # Core utilities
+    vim
+    neovim
+    wget
+    git
+    git-doc
+    gptfdisk
+    bash
+
+    # GUI applications
+    kitty
+  ] ++ (with pkgs-unstable; [
+  ]);
+
+  # ============== System Services ============== #
+  mullvad.enable = true;
+  sddm = {
+    enable = true;
+    autoLogin.enable = true;
+  };
+
+  # ============== User Configuration ============== #
   users.users.${username} = {
     isNormalUser = true;
     description = "main user";
@@ -30,22 +50,12 @@ in
     shell = pkgs.zsh;
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    bash
-    neovim
-    wget
-    kitty
-    git
-    git-doc
-  ];
+  # ============== Programs ============== #
+  steam.enable = true;
+  thunar.enable = true;
+  programs.zsh.enable = true;
 
-  networking.hostName = "${hostname}";
-  sddm = {
-    enable = true;
-    autoLogin.enable = true;
-  };
-
+  # ============== Imports ============== #
   imports = [
     ./hardware-configuration.nix
     ./drives.nix
@@ -53,6 +63,4 @@ in
     ../../nixos/window-managers/hyprland.nix
   ];
 
-  # System-state for compatability DONT REMOVE #
-  system.stateVersion = "24.11";
 }

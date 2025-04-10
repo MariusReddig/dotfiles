@@ -1,36 +1,36 @@
-{ config, username, pkgs, pkgs-unstable, libdb-nix-fix, ... }:
+{ config, username, pkgs, pkgs-unstable, stylix, ... }:
 {
-  home.packages =
-    ( with pkgs; [
-      wl-clipboard
-      tree-sitter
-      ripgrep
-      fd
-      lazygit
-      lua-language-server
-      nil
-      gnumake42
-
-      # llvm
-      bear
-      clang
-      lldb_19
-      llvmPackages_19.clang-tools
-      llvmPackages_19.llvm-manpages
-      llvmPackages_19.clang-manpages
-
-      #lsp
-      nodejs
-      rustup
-    ])
-      ++
-    ( with pkgs-unstable; []);
-
+  stylix.targets.neovim.enable = false;
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+
+    extraPackages = ( with pkgs; [
+        wl-clipboard
+        tree-sitter
+        ripgrep
+        fd
+        lazygit
+        lua-language-server
+        nil
+        gnumake42
+
+        # llvm
+        bear
+        clang
+        lldb_19
+        llvmPackages_19.clang-tools
+        llvmPackages_19.llvm-manpages
+        llvmPackages_19.clang-manpages
+
+        #lsp
+        nodejs
+        rustup
+    ])
+      ++
+    ( with pkgs-unstable; []);
 
     plugins =
       (with pkgs.vimPlugins; [

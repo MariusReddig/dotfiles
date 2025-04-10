@@ -14,15 +14,13 @@
     ./tmux/tmux.nix
     ./obs.nix
     ./eza.nix
+    ./firefox/firefox.nix
+    ./stylix/stylix.nix
   ];
-
-  # theming.enable = true;
-  # theming.theme = "hyprland-oni";
 
   # Packages
   home.packages =
     (with pkgs; [
-
       # German e-ID card authentication app
       ausweisapp
 
@@ -50,7 +48,7 @@
       corefonts
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+
       noto-fonts-extra
       ipafont
 
@@ -67,8 +65,6 @@
       # File Management
       superfile
       qview
-      swayimg
-      feh
       fd
 
       # Productivity
@@ -79,9 +75,6 @@
       thunderbird
       nextcloud-client
 
-      # Web Browsers
-      firefox
-
       # Gaming
       prismlauncher
       lutris
@@ -91,21 +84,16 @@
       stremio
 
       # Graphics and Design
+      inkscape
       krita
       kdePackages.gwenview
       swappy
-      qt6ct
-      nwg-look
-      capitaine-cursors
-      morewaita-icon-theme
-      gnome-themes-extra
 
       # Terminal and Shell
       kitty
 
       # Hyprland
       hyprpicker
-      swww
       grim
       slurp
       waybar
@@ -114,11 +102,12 @@
       dunst
       wl-clipboard
       cliphist
+      swww
 
       # Communication
       (discord.override {
         withOpenASAR = true;
-        # withVencord = true;
+        withVencord = true;
         # vencord = equicord;
       })
       element-desktop
@@ -138,10 +127,6 @@
     ])
     ++
     (with pkgs-unstable; [
-
-      # Fonts
-      nerd-fonts.jetbrains-mono
-
       # Gaming
       ryujinx
     ]);
