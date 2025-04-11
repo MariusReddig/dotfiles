@@ -50,7 +50,7 @@
             (coreModule "garbage-collection")
             (coreModule "keyring/gnome-keyring")
             (coreModule "localisation/localisation-de")
-            (coreModule "login-manager/sddm")
+            (coreModule "display-manager/sddm")
             (coreModule "networkmanager")
             (coreModule "openssh")
             (coreModule "pipewire")

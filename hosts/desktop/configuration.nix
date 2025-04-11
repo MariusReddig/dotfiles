@@ -30,6 +30,9 @@ in
     gptfdisk
     bash
 
+    # Nix stuff
+    nix-prefetch-git
+
     # GUI applications
     kitty
   ] ++ (with pkgs-unstable; [
@@ -39,14 +42,14 @@ in
   mullvad.enable = true;
   sddm = {
     enable = true;
-    autoLogin.enable = true;
+    # autoLogin.enable = true;
   };
 
   # ============== User Configuration ============== #
   users.users.${username} = {
     isNormalUser = true;
     description = "main user";
-    extraGroups = [ "wheel" "networkmanager" "gamemode" ];
+    extraGroups = [ "wheel" ]; # sudo user
     shell = pkgs.zsh;
   };
 

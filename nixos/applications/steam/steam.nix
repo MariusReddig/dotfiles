@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 {
   imports = [
     ./gamemode.nix
@@ -68,6 +68,8 @@
 
     ];
 
+
+    users.groups.gamemode.members = ["${username}"];
     programs = {
       gamemode = {
         enable = true;

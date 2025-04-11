@@ -1,4 +1,4 @@
-{ lib, config, username, ... }:
+{ lib, config, username, pkgs, ... }:
 let
   cfg = config.sddm;
 in
@@ -11,11 +11,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      (pkgs.callPackage ../../../nixpkgs/sddm-themes.nix {}).sddm-sugar-dark
+      pkgs.libsForQt5.qt5.qtquickcontrols2
+      pkgs.libsForQt5.qt5.qtgraphicaleffects
+      pkgs.libsForQt5.qt5.qtsvg
+    ];
+
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
       autoNumlock = true;
-      theme = "custom-theme-1";
+      theme = "sugar-dark";
     };
 
     services.displayManager.autoLogin = lib.mkIf cfg.autoLogin.enable
