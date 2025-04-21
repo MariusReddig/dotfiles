@@ -77,6 +77,43 @@
             ./stylix/stylix.nix
           ];
         };
+        laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs system username pkgs-unstable; };
+          modules = [
+            # Core system modules
+            (coreModule "bluetooth")
+            (coreModule "bootloader")
+            (coreModule "drivers/amd")
+            (coreModule "firewalld")
+            (coreModule "garbage-collection")
+            (coreModule "keyring/gnome-keyring")
+            (coreModule "localisation/localisation-de")
+            (coreModule "display-manager/sddm")
+            (coreModule "networkmanager")
+            (coreModule "openssh")
+            (coreModule "pipewire")
+            (coreModule "upower")
+
+            # Host configuration
+            ./hosts/laptop/configuration.nix
+
+            # Home-manager implementation
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = import ./home/home.nix;
+                extraSpecialArgs = { inherit inputs system username pkgs-unstable; };
+              };
+            }
+
+            # Stylix
+            stylix.nixosModules.stylix
+            ./stylix/stylix.nix
+          ];
+        };
+
       };
     };
 }

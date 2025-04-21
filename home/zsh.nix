@@ -27,8 +27,8 @@
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
-        nix-update = "sudo nixos-rebuild switch --flake $HOME/nix#desktop";
-        nix-build = "sudo nixos-rebuild build --flake $HOME/nix#desktop";
+        nix-update = "sudo nixos-rebuild switch --flake $HOME/nix";
+        nix-build = "sudo nixos-rebuild build --flake $HOME/nix";
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";
