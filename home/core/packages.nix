@@ -1,26 +1,5 @@
 { pkgs, pkgs-unstable, username, config, nix-citizen, system, ... }:
 {
-  home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
-    stateVersion = "24.11";
-  };
-
-  zsh.enable = true;
-
-  imports = [
-    ./zsh.nix
-    ./nvim/nvim.nix
-    ./tmux/tmux.nix
-    ./obs.nix
-    ./eza.nix
-    ./firefox/firefox.nix
-    ./stylix/stylix.nix
-    ./mangohud/mangohud.nix
-    ./lutris.nix
-  ];
-
-  # Packages
   home.packages =
     (with pkgs; [
       # German e-ID card authentication app
@@ -78,16 +57,12 @@
       thunderbird
       nextcloud-client
 
-      # Gaming
-      prismlauncher
-
       # Streaming films and series
       stremio
 
       # Graphics and Design
       inkscape
       krita
-      kdePackages.gwenview
       swappy
 
       # Terminal and Shell
@@ -112,7 +87,6 @@
         # vencord = equicord;
       })
       element-desktop
-      teamspeak5_client
 
       # Development Tools
       python312Packages.pip
@@ -129,39 +103,5 @@
     ])
     ++
     (with pkgs-unstable; [
-      # Gaming
-      ryujinx
     ]);
-
-  home.sessionVariables = {
-    XDG_DATA_HOME = "/home/${username}/.local/share/";
-    XDG_BACKEND = "x11";
-    EDITOR = "nvim";
-    VISUAL = "firefox";
-    MANPAGER = "nvim +Man!";
-  };
-
-  # plain files is through 'home.file'.
-  #TODO: Make individual nix configs for the configurations below!
-  home.file = {
-    # ".config/dunst".source = ./dunst;
-    # ".config/hypr".source = ./hyprland;
-    # ".config/kitty".source = ./kitty;
-    # ".config/Thunar".source = ./thunar;
-    # ".config/waybar".source = ./waybar;
-    # ".config/wofi".source = ./wofi;
-  };
-
-    home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/dunst     ~/.config/dunst
-    ln -sfr -T ~/nix/home/hyprland  ~/.config/hypr
-    ln -sfr -T ~/nix/home/kitty     ~/.config/kitty
-    ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
-    ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
-    ln -sfr -T ~/nix/home/wofi      ~/.config/wofi
-    ln -sfr -T ~/nix/home/.editorconfig      ~/.editorconfig
-    '';
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

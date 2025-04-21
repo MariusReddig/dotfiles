@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# Funktion for changeing the Hyprland Loadout
+
+display_help(){
+  echo "Usage: $0 [-h] [-l] [-s] [-m] [-c <filename>]"
+  echo "Options:"
+  echo "  -h          Displaz this help message"
+  echo "  -l          change layout to laptop"
+  echo "  -s          change layout to single-monitor"
+  echo "  -m          change layout to multi-monitor"
+  echo "  -c          changes layout to the given <filename>"
+  echo "  -h, --help  Display this help message"
+  exit 0
+}
+
+# Default values
+current_layout="/home/marius/.config/hypr/hyprland.conf"
+laptop_layout_path="/home/marius/.config/hypr/layout/laptop.conf"
+single_monitor_path="/home/marius/.config/hypr/layout/single-monitor.conf" 
+multi_monitor_path="/home/marius/.config/hypr/layout/multi-monitor.conf"
+
+filepath=""
+laptop_layout=false
+single_layout=false
+multi_layout=false
+custom_layout=false
+
+if [ $# -eq 0 ]; then
+  display_help
+fi
+
+while getopts ":lshmc:" name; do
+  case ${opt} in
+    h)
+      display_help
+      ;;
+    l)
+      laptop_layout=true
+      ;;
+    s)
+      single_layout=true
+      ;;
+    m)
+      multi_layout=true
+      ;;
+    c)
+      custom_layout=true
+      filepath="$OPTARG"
+      echo "$OPTARG"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+# Shift Arguments
+shift $((OPTIND - 1))
+
+if [ "$custom_layout" = true ]; then
+  if [ ! -f "$filepath" ]; then
+    echo "File $filepath not found."
+    exit 1
+  fi
+fi
+
+if [ "$laptop_layout" = true ]; then
+  $filepath="$laptop_layout_path"
+fi
+
+if [ "$single_layout" = true ]; then
+  $filepath="$single_monitor_path"
+fi
+
+if [ "$multi_layout" = true ]; then
+  $filepath="$multi_monitor_path"
+fi
+
+cp "$filepath" "$current_layout"

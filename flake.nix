@@ -67,7 +67,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${username} = import ./home/home.nix;
+                users.${username} = import ./hosts/desktop/home/home.nix;
                 extraSpecialArgs = { inherit inputs system username pkgs-unstable; };
               };
             }
@@ -103,7 +103,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${username} = import ./home/home.nix;
+                users.${username} = import ./hosts/laptop/home/home.nix;
                 extraSpecialArgs = { inherit inputs system username pkgs-unstable; };
               };
             }

@@ -1,0 +1,7 @@
+[pyprland]
+plugins = [
+    "workspaces_follow_focus"
+]
+
+[workspaces_follow_focus]
+max_workspaces = 10 # number of workspaces before cycling
