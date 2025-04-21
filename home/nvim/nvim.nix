@@ -64,6 +64,7 @@
         nvim-dap-ui
         nvim-dap-virtual-text
         cmp-dap
+        nvim-colorizer-lua
       ])
       ++
       (with pkgs-unstable.vimPlugins; []);

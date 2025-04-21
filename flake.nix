@@ -20,6 +20,7 @@
       url = "github:mic92/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs-unstable";  # Keep in sync
     };
+
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, nur, mic92-nur, ... }@inputs:
@@ -30,6 +31,7 @@
       # Package sets
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
+        config.allowUnfree = true;
         overlays = [ nur.overlays.default ];
       };
 
@@ -40,7 +42,7 @@
     {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs pkgs-unstable nur username mic92-nur; };
+          specialArgs = { inherit inputs system username pkgs-unstable; };
           modules = [
             # Core system modules
             (coreModule "bluetooth")
@@ -66,7 +68,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${username} = import ./home/home.nix;
-                extraSpecialArgs = { inherit inputs pkgs-unstable nur username mic92-nur; };
+                extraSpecialArgs = { inherit inputs system username pkgs-unstable; };
               };
             }
 

@@ -11,7 +11,7 @@
   config = lib.mkIf config.steam.enable {
 
     environment.systemPackages = with pkgs; [
-      mangohud
+      # if you wanna use Mangohud too see the home-manager configs.
       protonup
       (writeShellScriptBin "run-game-HD" ''
         #!/bin/bash

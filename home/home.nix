@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, username, config, lib, ... }:
+{ pkgs, pkgs-unstable, username, config, nix-citizen, system, ... }:
 {
   home = {
     username = "${username}";
@@ -16,6 +16,8 @@
     ./eza.nix
     ./firefox/firefox.nix
     ./stylix/stylix.nix
+    ./mangohud/mangohud.nix
+    ./lutris.nix
   ];
 
   # Packages
@@ -35,6 +37,7 @@
       xdg-user-dirs-gtk
       p7zip
       firewalld
+      cmake
 
       # System Monitoring
       htop
@@ -77,8 +80,6 @@
 
       # Gaming
       prismlauncher
-      lutris
-
 
       # Streaming films and series
       stremio
@@ -111,6 +112,7 @@
         # vencord = equicord;
       })
       element-desktop
+      teamspeak5_client
 
       # Development Tools
       python312Packages.pip

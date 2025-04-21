@@ -18,11 +18,16 @@ in
       pkgs.libsForQt5.qt5.qtsvg
     ];
 
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      autoNumlock = true;
-      theme = "sugar-dark";
+    services = {
+      displayManager = {
+        defaultSession = "hyprland";
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+          autoNumlock = true;
+          theme = "sugar-dark";
+        };
+      };
     };
 
     services.displayManager.autoLogin = lib.mkIf cfg.autoLogin.enable

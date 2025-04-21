@@ -53,6 +53,9 @@ in
     shell = pkgs.zsh;
   };
 
+  # ============== Window managers ================ #
+ services.displayManager.defaultSession = "hyprland";
+
   # ============== Programs ============== #
   steam.enable = true;
   thunar.enable = true;
@@ -64,6 +67,7 @@ in
     ./drives.nix
     ../../nixos/applications
     ../../nixos/window-managers/hyprland.nix
+    ../../nixos/window-managers/gnome.nix
   ];
 
 }

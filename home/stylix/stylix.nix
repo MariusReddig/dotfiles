@@ -13,6 +13,10 @@
       size = 40;
     };
     fonts = {
+      sizes = {
+        popups = 24;
+        applications = 10;
+      };
       monospace = {
         package = pkgs-unstable.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";
