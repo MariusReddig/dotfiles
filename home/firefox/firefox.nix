@@ -127,8 +127,10 @@ in
         settings = commonSettings;
         containersForce = true;
         containers = {
-          reddit-1 = { id = 1; color = "orange"; icon = "circle"; };
-          reddit-2 = { id = 2; color = "blue"; icon = "circle"; };
+          r-1 = { id = 1; color = "red"; icon = "circle"; };
+          r-2 = { id = 2; color = "blue"; icon = "circle"; };
+          p = { id = 3; color = "orange"; icon = "circle"; };
+          j = { id = 4; color = "cyan"; icon = "circle"; };
         };
         search = {
           force = true;
