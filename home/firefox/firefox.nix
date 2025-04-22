@@ -130,7 +130,7 @@ in
           r-1 = { id = 1; color = "red"; icon = "circle"; };
           r-2 = { id = 2; color = "blue"; icon = "circle"; };
           p = { id = 3; color = "orange"; icon = "circle"; };
-          j = { id = 4; color = "cyan"; icon = "circle"; };
+          j = { id = 4; color = "turquoise"; icon = "circle"; };
         };
         search = {
           force = true;
