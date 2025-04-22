@@ -51,7 +51,7 @@ background: rgba(23, 23, 23, 0.0);
 
 #workspaces button.active {
   /* background-image: url("/home/anik/Documents/bar1.png");*/
-    color: #A1BDCE;   
+    color: #A1BDCE;
     transition: all 0.3s ease;
     padding-left: 4px;
     padding-right: 4px;
@@ -90,7 +90,7 @@ background: rgba(23, 23, 23, 0.0);
     margin-right: 3px;
     animation: tb_active 20s ease-in-out 1;
     transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
-    min-height: 9px; 
+    min-height: 9px;
 }
 
 #taskbar button:hover {
@@ -125,7 +125,7 @@ opacity: 0.0;
     margin: 4px 0px 4px 0px;
     padding-left: 4px;
     padding-right: 4px;
- 
+
 }
 
 #pulseaudio{
@@ -139,9 +139,10 @@ opacity: 0.0;
     padding-left: 10px;
     padding-right: 10px;
     border: none;
-    
+
 }
 
+#battery,
 #wireplumber,
 #clock{
     color: #A1BDCE;
@@ -154,7 +155,7 @@ opacity: 0.0;
     padding-left: 10px;
     padding-right: 10px;
     border: none;
-    
+
 }
 #cpu{
 font-weight: normal;
@@ -259,7 +260,7 @@ font-weight: normal;
     padding-left: 4px;
     padding-right: 4px;
   ;
-    
+
 }
 
 #backlight-slider slider,
@@ -288,7 +289,7 @@ font-weight: normal;
 
 #battery.charging, #battery.plugged {
 	color: #E8EDF0;
-	
+
 }
 
 

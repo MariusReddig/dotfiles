@@ -1,0 +1,3 @@
+[submodule "submodules/custom-sddm-theme"]
+	path = submodules/custom-sddm-theme
+	url = git@github.com:MariusReddig/custom-nix-sddm-theme.git

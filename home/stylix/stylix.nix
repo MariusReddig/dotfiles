@@ -1,4 +1,4 @@
-{ pkgs, config, pkgs-unstable, ... }:
+{ pkgs, config, pkgs-unstable, lib, ... }:
 {
   #Base package for the MoreWaita icon theme, without it the package is incomplete.
   home.packages = [pkgs.adwaita-icon-theme];
@@ -10,7 +10,7 @@
     cursor = {
       package = pkgs.capitaine-cursors;
       name = "capitaine-cursors";
-      size = 40;
+      size = lib.mkDefault 40;
     };
     fonts = {
       sizes = {

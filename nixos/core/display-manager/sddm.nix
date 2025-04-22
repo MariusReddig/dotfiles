@@ -12,7 +12,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      (pkgs.callPackage ../../../nixpkgs/sddm-themes.nix {}).sddm-sugar-dark
+      (pkgs.callPackage ../../../nixpkgs/sddm-themes.nix {}).custom-theme
       pkgs.libsForQt5.qt5.qtquickcontrols2
       pkgs.libsForQt5.qt5.qtgraphicaleffects
       pkgs.libsForQt5.qt5.qtsvg
@@ -25,7 +25,7 @@ in
           enable = true;
           wayland.enable = true;
           autoNumlock = true;
-          theme = "sugar-dark";
+          theme = lib.mkDefault "custom-theme";
         };
       };
     };

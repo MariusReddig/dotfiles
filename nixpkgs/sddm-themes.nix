@@ -19,5 +19,22 @@
         pkgs.libsForQt5.qt5.qtsvg
     ];
   };
+  custom-theme = pkgs.stdenv.mkDerivation rec {
+    name = "custom-sddm-theme";
+    src =  builtins.path {
+      path = ./custom-sddm-theme;
+      name = "custom-theme";
+    };
+    installPhase = ''
+      mkdir -p $out/share/sddm/themes/custom-theme
+      cp -aR $src/* $out/share/sddm/themes/custom-theme/
+      '';
+    nativeBuildInputs = [ pkgs.libsForQt5.qt5.wrapQtAppsHook ];
+    buildInputs = [
+        pkgs.libsForQt5.qt5.qtquickcontrols2
+        pkgs.libsForQt5.qt5.qtgraphicaleffects
+        pkgs.libsForQt5.qt5.qtsvg
+    ];
+  };
 }
 

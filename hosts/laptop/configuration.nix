@@ -44,6 +44,12 @@ in
     enable = true;
     # autoLogin.enable = true;
   };
+  # ============== plymouth theme =============== #
+  stylix.targets.plymouth.enable = false;
+  boot.plymouth = {
+    theme = "thinkdar";
+    themePackages = [ (pkgs.callPackage ../../nixpkgs/plymouth-themes.nix {}).thinkdar-plymouth-theme ];
+  };
 
   # ============== User Configuration ============== #
   users.users.${username} = {
@@ -57,7 +63,6 @@ in
  services.displayManager.defaultSession = "hyprland";
 
   # ============== Programs ============== #
-  steam.enable = true;
   thunar.enable = true;
   programs.zsh.enable = true;
 

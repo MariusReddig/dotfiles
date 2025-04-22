@@ -1,4 +1,4 @@
-{ username, config, ... }:
+{ username, config, pkgs, ... }:
 let
   # Module system
   mkModule = path: { imports = [ path ]; };
@@ -22,6 +22,11 @@ in
     (homeModule "eza")
     (homeModule "firefox/firefox")
     (homeModule "stylix/stylix")
+    ./stylix/stylix.nix
+  ];
+
+  home.packages = [
+    pkgs.brightnessctl
   ];
 
   home.sessionVariables = {
@@ -33,13 +38,13 @@ in
   };
 
     home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/dunst           ~/.config/dunst
-    ln -sfr -T ~/nix/home/hyprland        ~/.config/hypr
-    ln -sfr -T ~/nix/home/kitty           ~/.config/kitty
-    ln -sfr -T ~/nix/home/thunar          ~/.config/Thunar
-    ln -sfr -T ~/nix/home/waybar          ~/.config/waybar
-    ln -sfr -T ~/nix/home/wofi            ~/.config/wofi
-    ln -sfr -T ~/nix/home/.editorconfig   ~/.editorconfig
+    ln -sfr -T ~/nix/home/dunst                   ~/.config/dunst
+    ln -sfr -T ~/nix/hosts/laptop/home/hyprland   ~/.config/hypr
+    ln -sfr -T ~/nix/home/kitty                   ~/.config/kitty
+    ln -sfr -T ~/nix/home/thunar                  ~/.config/Thunar
+    ln -sfr -T ~/nix/hosts/laptop/home/waybar     ~/.config/waybar
+    ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
+    ln -sfr -T ~/nix/home/.editorconfig           ~/.editorconfig
     '';
 
   # Let Home Manager install and manage itself.
