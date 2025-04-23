@@ -53,6 +53,7 @@
       anki
       xournalpp
       signal-desktop
+      whatsapp-for-linux
       bitwarden
       thunderbird
       nextcloud-client
