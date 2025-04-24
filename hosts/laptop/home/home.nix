@@ -20,7 +20,9 @@ in
     (homeModule "tmux/tmux")
     (homeModule "obs")
     (homeModule "eza")
+    (homeModule "zanthura")
     (homeModule "firefox/firefox")
+    (homeModule "wofi/wofi")
     (homeModule "stylix/stylix")
     ./stylix/stylix.nix
   ];
@@ -37,13 +39,13 @@ in
     MANPAGER = "nvim +Man!";
   };
 
+    #ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
     home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     ln -sfr -T ~/nix/home/dunst                   ~/.config/dunst
     ln -sfr -T ~/nix/hosts/laptop/home/hyprland   ~/.config/hypr
     ln -sfr -T ~/nix/home/kitty                   ~/.config/kitty
     ln -sfr -T ~/nix/home/thunar                  ~/.config/Thunar
     ln -sfr -T ~/nix/hosts/laptop/home/waybar     ~/.config/waybar
-    ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
     ln -sfr -T ~/nix/home/.editorconfig           ~/.editorconfig
     '';
 

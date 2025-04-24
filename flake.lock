@@ -355,6 +355,26 @@
         "type": "github"
       }
     },
+    "pferd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1745417325,
+        "narHash": "sha256-jmJDcsN/Gx3E2yH4XW6dbvAK4WSjRCNKndvQVS8lTbE=",
+        "owner": "Garmelon",
+        "repo": "PFERD",
+        "rev": "b305e1ce2337399b233daf3c881e43308ce065f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Garmelon",
+        "repo": "PFERD",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -362,6 +382,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
+        "pferd": "pferd",
         "stylix": "stylix"
       }
     },

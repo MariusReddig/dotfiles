@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, username, config, nix-citizen, system, ... }:
+{ pkgs, pkgs-unstable, inputs, username, config, nix-citizen, system, ... }:
 {
   home.packages =
     (with pkgs; [
@@ -104,5 +104,9 @@
     ])
     ++
     (with pkgs-unstable; [
+    ])
+    ++
+    (with inputs; [
+      pferd.packages.${pkgs.system}.default
     ]);
 }

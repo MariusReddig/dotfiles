@@ -34,4 +34,15 @@
 	<patterns>*</patterns>
 	<image-files/>
 </action>
+<action>
+	<icon>folder-backup-legacy</icon>
+	<name>Update from Ilias</name>
+	<submenu></submenu>
+	<unique-id>1745508895139205-1</unique-id>
+	<command>pferd</command>
+	<description>update Ilias folder using pferd</description>
+	<range></range>
+	<patterns>ILIAS</patterns>
+	<directories/>
+</action>
 </actions>

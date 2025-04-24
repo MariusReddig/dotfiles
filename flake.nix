@@ -20,10 +20,13 @@
       url = "github:mic92/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs-unstable";  # Keep in sync
     };
-
+    pferd = {
+      url = "github:/Garmelon/PFERD";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, nur, mic92-nur, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, nur, pferd, mic92-nur, ... }@inputs:
     let
       username = "marius";
       system = "x86_64-linux";

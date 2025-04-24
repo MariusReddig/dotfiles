@@ -14,21 +14,16 @@ let
 
     # Performance
     "browser.cache.disk.enable" = false;
-    "gfx.webrender.all" = true;
 
     # UI/UX
     "browser.aboutConfig.showWarning" = false;
-    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "mousewheel.default.delta_multiplier_y" = 100;
-
     "browser.urlbar.update2" = true;
 
-    # Dark mode (applies to all profiles)
-    "ui.systemUsesDarkTheme" = 1;
-    "browser.in-content.dark-mode" = true;
-
     # Theme
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "svg.context-properties.content.enabled" = true;
+    "gfx.webrender.al" = true;
     "layers.acceleration.force-enabled" = true;
   };
 
@@ -92,6 +87,11 @@ let
       icon = nixIcon;
       definedAliases = [ "@no" ];
     };
+    "Home-manager Options" = {
+      urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}&release=release-24.11"; }];
+      icon = nixIcon;
+      definedAliases = [ "@ho" ];
+    };
   };
 in
 {
@@ -116,7 +116,8 @@ in
             };
           };
         };
-        userChrome = builtins.readFile ./waterfall/userChrome.css;
+        userChrome = builtins.readFile ./simplefox/chrome/userChrome.css;
+        userContent = builtins.readFile ./simplefox/chrome/userContent.css;
       };
 
       dark = {

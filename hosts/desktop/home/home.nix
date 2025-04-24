@@ -21,6 +21,7 @@ in
     (homeModule "tmux/tmux")
     (homeModule "obs")
     (homeModule "eza")
+    (homeModule "zanthura")
     (homeModule "firefox/firefox")
     (homeModule "stylix/stylix")
     (homeModule "mangohud/mangohud")
