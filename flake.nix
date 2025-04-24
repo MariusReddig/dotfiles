@@ -57,6 +57,7 @@
             (coreModule "openssh")
             (coreModule "pipewire")
             (coreModule "upower")
+            (coreModule "certificates")
 
             # Host configuration
             ./hosts/desktop/configuration.nix

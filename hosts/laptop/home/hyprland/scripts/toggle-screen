@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 screenstate=$(hyprctl monitors 0 | grep "dpmsStatus: 1")
 state=$(echo "$screenstate" | wc -l)
 #echo "$screenstate"
