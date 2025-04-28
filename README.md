@@ -10,3 +10,7 @@ cd /home/${USER} && git clone https://github.com/MariusReddig/dotfiles.git
 ```
 sudo nixos-rebuild switch --flake /home/${USER}/nix#desktop
 ```
+or
+```
+sudo nixos-rebuild switch --flake /home/${USER}/nix#laptop
+```
