@@ -79,7 +79,6 @@
       dunst
       wl-clipboard
       cliphist
-      swww
 
       # Communication
       (discord.override {
@@ -108,5 +107,6 @@
     ++
     (with inputs; [
       pferd.packages.${pkgs.system}.default
+      swww.packages.${pkgs.system}.swww
     ]);
 }

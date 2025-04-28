@@ -24,18 +24,19 @@
       url = "github:/Garmelon/PFERD";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    swww.url = "github:LGFae/swww";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, nur, pferd, mic92-nur, ... }@inputs:
+  outputs = { self, ... }@inputs:
     let
       username = "marius";
       system = "x86_64-linux";
 
       # Package sets
-      pkgs-unstable = import nixpkgs-unstable {
+      pkgs-unstable = import inputs.nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ nur.overlays.default ];
+        overlays = [ inputs.nur.overlays.default ];
       };
 
       # Module system
@@ -44,7 +45,7 @@
     in
     {
       nixosConfigurations = {
-        desktop = nixpkgs.lib.nixosSystem {
+        desktop = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs system username pkgs-unstable; };
           modules = [
             # Core system modules
@@ -66,7 +67,7 @@
             ./hosts/desktop/configuration.nix
 
             # Home-manager implementation
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -77,11 +78,11 @@
             }
 
             # Stylix
-            stylix.nixosModules.stylix
+            inputs.stylix.nixosModules.stylix
             ./stylix/stylix.nix
           ];
         };
-        laptop = nixpkgs.lib.nixosSystem {
+        laptop = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs system username pkgs-unstable; };
           modules = [
             # Core system modules
@@ -102,7 +103,7 @@
             ./hosts/laptop/configuration.nix
 
             # Home-manager implementation
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -113,7 +114,7 @@
             }
 
             # Stylix
-            stylix.nixosModules.stylix
+            inputs.stylix.nixosModules.stylix
             ./stylix/stylix.nix
           ];
         };
