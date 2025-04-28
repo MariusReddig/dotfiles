@@ -25,6 +25,8 @@ in
     (homeModule "firefox/firefox")
     (homeModule "stylix/stylix")
     (homeModule "mangohud/mangohud")
+    (homeModule "hyprland/hyprland")
+    ./hyprland/hyprland.nix
   ];
 
   home.sessionVariables = {
@@ -37,7 +39,6 @@ in
 
     home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     ln -sfr -T ~/nix/home/dunst     ~/.config/dunst
-    ln -sfr -T ~/nix/home/hyprland  ~/.config/hypr
     ln -sfr -T ~/nix/home/kitty     ~/.config/kitty
     ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
     ln -sfr -T ~/nix/home/waybar    ~/.config/waybar

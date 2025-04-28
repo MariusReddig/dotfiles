@@ -1,9 +1,22 @@
-{ lib, config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    portalPackage = pkgs.xdg-desktop-portal-gtk;
+    # withUWSM = true;
   };
+
+  # programs.uwsm = {
+  #   enable = true;
+  #   waylandCompositors = {
+  #     hyprland = {
+  #       prettyName = "Hyprland";
+  #       comment = "Hyprland compositor managed by UWSM";
+  #       binPath = "/run/current-system/sw/bin/Hyprland";
+  #     };
+  #   };
+  # };
 
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";

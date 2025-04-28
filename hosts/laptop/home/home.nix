@@ -23,8 +23,12 @@ in
     (homeModule "zanthura")
     (homeModule "firefox/firefox")
     (homeModule "wofi/wofi")
+
     (homeModule "stylix/stylix")
     ./stylix/stylix.nix
+
+    (homeModule "hyprland/hyprland")
+    ./hyprland/hyprland.nix
   ];
 
   home.packages = [
