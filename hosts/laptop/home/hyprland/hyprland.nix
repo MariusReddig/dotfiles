@@ -2,7 +2,7 @@
 {
   home = {
     activation.linkHyprUserConfig = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfr -T ~/nix/hosts/desktop/home/hyprland/config      ~/.config/hypr/user-configs
+      ln -sfr -T ~/nix/hosts/laptop/home/hyprland/config      ~/.config/hypr/user-configs
     '';
 
     # Linking in Hyprland config

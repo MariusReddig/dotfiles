@@ -46,7 +46,6 @@ in
     #ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
     home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     ln -sfr -T ~/nix/home/dunst                   ~/.config/dunst
-    ln -sfr -T ~/nix/hosts/laptop/home/hyprland   ~/.config/hypr
     ln -sfr -T ~/nix/home/kitty                   ~/.config/kitty
     ln -sfr -T ~/nix/home/thunar                  ~/.config/Thunar
     ln -sfr -T ~/nix/hosts/laptop/home/waybar     ~/.config/waybar
