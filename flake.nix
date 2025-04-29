@@ -8,7 +8,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix.url = "github:danth/stylix/release-24.11";
+    stylix = {
+      url = "github:danth/stylix/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Unstable channels
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -32,11 +35,12 @@
       username = "marius";
       system = "x86_64-linux";
 
-      # Package sets
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ inputs.nur.overlays.default ];
+      unstableOverlay = final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ inputs.nur.overlays.default ];
+        };
       };
 
       # Module system
@@ -46,9 +50,10 @@
     {
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs system username pkgs-unstable; };
+          specialArgs = { inherit inputs system username; };
           modules = [
             # Core system modules
+            { nixpkgs.overlays = [ unstableOverlay ]; }
             (coreModule "bluetooth")
             (coreModule "bootloader")
             (coreModule "drivers/amd")
@@ -73,7 +78,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${username} = import ./hosts/desktop/home/home.nix;
-                extraSpecialArgs = { inherit inputs system username pkgs-unstable; };
+                extraSpecialArgs = { inherit inputs system username; };
               };
             }
 
@@ -83,9 +88,10 @@
           ];
         };
         laptop = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs system username pkgs-unstable; };
+          specialArgs = { inherit inputs system username; };
           modules = [
             # Core system modules
+            { nixpkgs.overlays = [ unstableOverlay ]; }
             (coreModule "bluetooth")
             (coreModule "bootloader")
             (coreModule "drivers/amd")
@@ -109,7 +115,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${username} = import ./hosts/laptop/home/home.nix;
-                extraSpecialArgs = { inherit inputs system username pkgs-unstable; };
+                extraSpecialArgs = { inherit inputs system username; };
               };
             }
 

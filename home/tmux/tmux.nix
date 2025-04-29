@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, username, config, ... }:
+{ pkgs, username, config, ... }:
 {
     programs.tmux = {
     enable = true;
@@ -12,9 +12,7 @@
         sensible
         yank
         resurrect
-      ])
-      ++
-      (with pkgs-unstable.tmuxPlugins; []);
+      ]);
     extraConfig = ''
       source-file ~/.config/tmux/custom-tmux.conf
           '';

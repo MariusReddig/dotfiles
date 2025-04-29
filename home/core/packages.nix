@@ -1,5 +1,6 @@
-{ pkgs, pkgs-unstable, inputs, username, config, nix-citizen, system, ... }:
+{ pkgs, inputs, ... }:
 {
+  programs.btop.enable = true;
   home.packages =
     (with pkgs; [
       # German e-ID card authentication app
@@ -19,8 +20,6 @@
       cmake
 
       # System Monitoring
-      htop
-      btop
       amdgpu_top
       lact
       upower
@@ -45,7 +44,7 @@
       kdePackages.qtimageformats
 
       # File Management
-      superfile
+      unstable.superfile
       qview
       fd
 
@@ -100,9 +99,6 @@
 
       # Notifications
       libnotify
-    ])
-    ++
-    (with pkgs-unstable; [
     ])
     ++
     (with inputs; [

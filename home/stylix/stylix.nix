@@ -1,4 +1,4 @@
-{ pkgs, config, pkgs-unstable, lib, ... }:
+{ pkgs, config, lib, ... }:
 {
   #Base package for the MoreWaita icon theme, without it the package is incomplete.
   home.packages = [pkgs.adwaita-icon-theme];
@@ -17,7 +17,7 @@
         applications = 10;
       };
       monospace = {
-        package = pkgs-unstable.nerd-fonts.jetbrains-mono;
+        package = pkgs.unstable.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";
       };
       serif = config.stylix.fonts.monospace;

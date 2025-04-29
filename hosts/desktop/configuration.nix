@@ -1,4 +1,4 @@
-{ pkgs, username, pkgs-unstable, ... }:
+{ pkgs, username, ... }:
 
 let
   hostname = "${username}-desktop";
@@ -20,7 +20,7 @@ in
   ## User configuration ##
 
   # ============== System Packages ============== #
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     # Core utilities
     vim
     neovim
@@ -35,7 +35,6 @@ in
 
     # GUI applications
     kitty
-  ] ++ (with pkgs-unstable; [
   ]);
 
   # ============== System Services ============== #
@@ -52,9 +51,6 @@ in
     extraGroups = [ "wheel" ]; # sudo user
     shell = pkgs.zsh;
   };
-
-  # ============== Window managers ================ #
- services.displayManager.defaultSession = "hyprland";
 
   # ============== Programs ============== #
   steam.enable = true;

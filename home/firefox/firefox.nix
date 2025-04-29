@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, mic92-nur, ... }:
+{ pkgs, ... }:
 
 let
   # Common settings for all profiles
@@ -28,7 +28,7 @@ let
   };
 
   # Common extensions for all profiles
-  commonExtensions = (with pkgs-unstable.nur.repos.rycee.firefox-addons; [
+  commonExtensions = (with pkgs.unstable.nur.repos.rycee.firefox-addons; [
     # Privacy
     ublock-origin
     privacy-badger

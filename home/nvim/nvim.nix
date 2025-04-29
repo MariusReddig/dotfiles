@@ -1,4 +1,4 @@
-{ config, username, pkgs, pkgs-unstable, stylix, ... }:
+{ config, username, pkgs, ... }:
 {
   stylix.targets.neovim.enable = false;
   programs.neovim = {
@@ -28,9 +28,7 @@
         #lsp
         nodejs
         rustup
-    ])
-      ++
-    ( with pkgs-unstable; []);
+    ]);
 
     plugins =
       (with pkgs.vimPlugins; [
@@ -65,10 +63,7 @@
         nvim-dap-virtual-text
         cmp-dap
         nvim-colorizer-lua
-      ])
-      ++
-      (with pkgs-unstable.vimPlugins; []);
-
+      ]);
   };
 
   home.activation.linkNvimFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''

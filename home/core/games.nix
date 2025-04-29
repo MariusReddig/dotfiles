@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../mangohud/mangohud.nix
@@ -10,7 +10,7 @@
       prismlauncher
     ])
     ++
-    (with pkgs-unstable; [
+    (with pkgs.unstable; [
       # Switch emulation
       ryujinx
 

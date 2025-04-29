@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   home.packages = (with pkgs; [
     xorg.libX11
@@ -8,7 +8,7 @@
   programs.mangohud = {
     enable = true;
     enableSessionWide = true;
-    package = pkgs-unstable.mangohud;
+    package = pkgs.unstable.mangohud;
     settings = {
       ### MangoHud configuration file
       ### Uncomment any options you wish to enable. Default options are left uncommented
