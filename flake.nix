@@ -50,7 +50,10 @@
     {
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs system username; };
+          specialArgs = {
+            inherit inputs system username;
+            host = "desktop";
+          };
           modules = [
             # Core system modules
             { nixpkgs.overlays = [ unstableOverlay ]; }
@@ -73,14 +76,7 @@
 
             # Home-manager implementation
             inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${username} = import ./hosts/desktop/home/home.nix;
-                extraSpecialArgs = { inherit inputs system username; };
-              };
-            }
+            (coreModule "home-manager")
 
             # Stylix
             inputs.stylix.nixosModules.stylix
@@ -88,7 +84,10 @@
           ];
         };
         laptop = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs system username; };
+          specialArgs = {
+            inherit inputs system username;
+            host = "laptop";
+          };
           modules = [
             # Core system modules
             { nixpkgs.overlays = [ unstableOverlay ]; }
@@ -110,14 +109,7 @@
 
             # Home-manager implementation
             inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${username} = import ./hosts/laptop/home/home.nix;
-                extraSpecialArgs = { inherit inputs system username; };
-              };
-            }
+            (coreModule "home-manager")
 
             # Stylix
             inputs.stylix.nixosModules.stylix

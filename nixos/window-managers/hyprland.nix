@@ -6,16 +6,16 @@
     withUWSM = true;
   };
 
-  # programs.uwsm = {
-  #   enable = true;
-  #   waylandCompositors = {
-  #     hyprland = {
-  #       prettyName = "Hyprland";
-  #       comment = "Hyprland compositor managed by UWSM";
-  #       binPath = "/run/current-system/sw/bin/Hyprland";
-  #     };
-  #   };
-  # };
+  programs.uwsm = {
+    enable = true;
+    waylandCompositors = {
+      hyprland = {
+        prettyName = "Hyprland";
+        comment = "Hyprland compositor managed by UWSM";
+        binPath = "/run/current-system/sw/bin/Hyprland";
+      };
+    };
+  };
 
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -23,7 +23,6 @@
     systemPackages = with pkgs; [
       hyprlock
       hypridle
-      kitty
       hyprpolkitagent
       hyprland-protocols
     ];

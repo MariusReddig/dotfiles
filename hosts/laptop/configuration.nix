@@ -1,7 +1,7 @@
-{ pkgs, username, ... }:
+{ pkgs, username, host, ... }:
 
 let
-  hostname = "${username}-laptop";
+  hostname = "${username}-${host}";
 in
 {
   # ============== System Settings ============== #

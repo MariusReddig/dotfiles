@@ -1,7 +1,7 @@
-{ pkgs, username, ... }:
+{ pkgs, username, host, ... }:
 
 let
-  hostname = "${username}-desktop";
+  hostname = "${username}-${host}";
 in
 {
   # ============== System Settings ============== #
@@ -33,8 +33,6 @@ in
     # Nix stuff
     nix-prefetch-git
 
-    # GUI applications
-    kitty
   ]);
 
   # ============== System Services ============== #

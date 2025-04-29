@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-	<icon>utilities-terminal</icon>
-	<name>Open Terminal Here</name>
+	<icon>kitty</icon>
+	<name>open new terminal here</name>
 	<submenu></submenu>
 	<unique-id>1692705491219168-1</unique-id>
-	<command>kitty -d %f</command>
+	<command>kitty -e tmux new-session -A -s default \; new-window -c %f</command>
 	<description>Example for a custom action</description>
 	<range></range>
 	<patterns>*</patterns>
@@ -17,7 +17,7 @@
 	<name>set wallpaper in Hyprland</name>
 	<submenu></submenu>
 	<unique-id>1696453348622066-1</unique-id>
-	<command>/home/marius/.config/hypr/scripts/chwp -t wipe %f</command>
+	<command>chwp -t wipe %f</command>
 	<description>set wallpaper in Hyprland</description>
 	<range>*</range>
 	<patterns>*</patterns>
@@ -43,6 +43,17 @@
 	<description>update Ilias folder using pferd</description>
 	<range></range>
 	<patterns>ILIAS</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>kitty</icon>
+	<name>open terminal here</name>
+	<submenu>kitty -e tmux new-session -A -s default \; new-window -c %f</submenu>
+	<unique-id>1745962511198229-1</unique-id>
+	<command>tmux new-session -A -s default \; new-window -c %f</command>
+	<description>wip</description>
+	<range>*</range>
+	<patterns>*</patterns>
 	<directories/>
 </action>
 </actions>

@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  imports = [
+    ./scripts/chwp.nix
+  ];
   home.packages = [
     (pkgs.writeShellScriptBin "start-xdg-desktop-portal" ''
       #!/bin/bash

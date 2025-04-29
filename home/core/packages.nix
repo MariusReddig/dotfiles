@@ -65,9 +65,6 @@
       krita
       swappy
 
-      # Terminal and Shell
-      kitty
-
       # Hyprland
       hyprpicker
       grim
@@ -75,15 +72,13 @@
       waybar
       waybar-mpris
       wofi
-      dunst
       wl-clipboard
       cliphist
 
       # Communication
-      (discord.override {
+      (unstable.discord.override {
         withOpenASAR = true;
         withVencord = true;
-        # vencord = equicord;
       })
       element-desktop
 
