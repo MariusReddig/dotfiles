@@ -2,7 +2,6 @@
 {
   #Base package for the MoreWaita icon theme, without it the package is incomplete.
   home.packages = [pkgs.adwaita-icon-theme];
-
   stylix = {
     enable = true;
     polarity = "dark";

@@ -1,0 +1,10 @@
+#!/bin/bash
+screenstate=$(hyprctl monitors 0 | grep "dpmsStatus: 1")
+state=$(echo "$screenstate" | wc -l)
+#echo "$screenstate"
+#echo "$state"
+if [[ $screenstate ]]; then
+	hyprctl dispatch dpms off
+else
+	hyprctl dispatch dpms on
+fi
