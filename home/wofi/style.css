@@ -4,11 +4,11 @@
 }
 
 #window {
-  background: #1E1E2E;
+  background: #0F0F17;
   margin: auto;
   padding: 10px;
-  border-radius: 20px;
-  border: 2px solid #FF0066;
+  border-radius: 10px;
+  border: 1px solid #A1BDCE;
 }
 
 #input {
@@ -32,7 +32,7 @@
 }
 
 #entry:selected {
-  background-color: #84D3E2;
+  background-color: #A1BDCE;
 	outline: none;
 }
 

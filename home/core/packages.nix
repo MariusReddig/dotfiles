@@ -18,6 +18,7 @@
       p7zip
       firewalld
       cmake
+      playerctl
 
       # System Monitoring
       amdgpu_top
@@ -34,7 +35,7 @@
       ipafont
 
       # Audio/Video Control
-      helvum
+      # helvum
       pavucontrol
       pamixer
       easyeffects
@@ -51,11 +52,13 @@
       # Productivity
       anki
       xournalpp
+      rnote
       signal-desktop
       whatsapp-for-linux
       bitwarden
       thunderbird
       nextcloud-client
+      unstable.mathematica
 
       # Streaming films and series
       stremio
