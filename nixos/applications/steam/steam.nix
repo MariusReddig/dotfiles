@@ -13,59 +13,33 @@
     environment.systemPackages = with pkgs; [
       # if you wanna use Mangohud too see the home-manager configs.
       protonup
-      (writeShellScriptBin "run-game-HD" ''
-        #!/bin/bash
+      (writeShellScriptBin "run-game-WQHD" ''
+        #!${pkgs.bash}/bin/bash
         export MANGOHUD=1  #requests mangohud
         export MANGOHUD_CONFIG=no_display
-        export LD_PRELOAD="" #clears library preloads
-        export PULSE_SINK=game-sink gamescope
-        # export VKD3D_CONFIG=disable_uav_compression
+        export PULSE_SINK=game-sink
 
-        exec gamemoderun gamescope \
+        exec gamescope \
           --adaptive-sync \
-          --steam \
-          -W 1920 \
-          -H 1080 \
+          -W 2560 \
+          -H 1440 \
           --expose-wayland \
-          --force-grab-cursor \
-          -- "$@"
+          -- gamemoderun "$@"
       '')
-        (writeShellScriptBin "run-game-WQHD" ''
-        #!/bin/bash
+      (writeShellScriptBin "run-game-WQHD-gc" ''
+        #!${pkgs.bash}/bin/bash
         export MANGOHUD=1  #requests mangohud
         export MANGOHUD_CONFIG=no_display
-        export LD_PRELOAD="" #clears library preloads
-        export PULSE_SINK=game-sink gamescope
-        # export VKD3D_CONFIG=disable_uav_compression
+        export PULSE_SINK=game-sink
 
-        exec gamemoderun gamescope \
+        exec gamescope \
           --adaptive-sync \
-          --steam \
           -W 2560 \
           -H 1440 \
           --expose-wayland \
           --force-grab-cursor \
-          -- "$@"
+          -- gamemoderun "$@"
       '')
-
-            (writeShellScriptBin "run-game-4k" ''
-        #!/bin/bash
-        export MANGOHUD=1  #requests mangohud
-        export MANGOHUD_CONFIG=no_display
-        export LD_PRELOAD="" #clears library preloads
-        exprot PULSE_SINK=GameSink gamescope #routes Games to specific wireplumber sink
-        # export VKD3D_CONFIG=disable_uav_compression
-
-        exec gamemoderun gamescope \
-          --adaptive-sync \
-          --steam \
-          -W 3840 \
-          -H 1920 \
-          --expose-wayland \
-          --force-grab-cursor \
-          -- "$@"
-      '')
-
     ];
 
 

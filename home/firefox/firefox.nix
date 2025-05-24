@@ -55,7 +55,7 @@ let
         installation_mode = "normal";
         default_area = "navbar";
       };
-      # DuckDuckGo Privacy Essentials
+      # ddg Privacy Essentials
       "jid1-ZAdIEUB7XOzOJw@jetpack" = {
         installation_mode = "normal";
         default_area = "navbar";
@@ -103,14 +103,14 @@ in
       default = {
         id = 0;
         isDefault = true;
-        extensions = commonExtensions;
+        extensions.packages = commonExtensions;
         settings = commonSettings;
         search = {
           force = true;
-          default = "DuckDuckGo";
-          order = [ "DuckDuckGo" "NixOS Packages" "NUR Packages" "NixOS Options" ];
+          default = "ddg";
+          order = [ "ddg" "NixOS Packages" "NUR Packages" "NixOS Options" ];
           engines = nixSearchEngines // {
-            "DuckDuckGo" = {
+            "ddg" = {
               urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
               definedAliases = [ "@d" ];
             };
@@ -124,7 +124,7 @@ in
         id = 1;
         name = "dark";
         isDefault = false;
-        extensions = commonExtensions;
+        extensions.packages = commonExtensions;
         settings = commonSettings;
         containersForce = true;
         containers = {
@@ -135,15 +135,17 @@ in
         };
         search = {
           force = true;
-          default = "DuckDuckGo";
-          order = [ "DuckDuckGo" ];
+          default = "ddg";
+          order = [ "ddg" ];
           engines = {
-            "DuckDuckGo" = {
+            "ddg" = {
               urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
               definedAliases = [ "@d" ];
             };
           };
         };
+        userChrome = builtins.readFile ./simplefox/chrome/userChrome.css;
+        userContent = builtins.readFile ./simplefox/chrome/userContent.css;
       };
     };
   };

@@ -5,5 +5,6 @@
     ./mullvad.nix
     ./thunar.nix
     ./virt-manager.nix
+    ./docker.nix
   ];
 }

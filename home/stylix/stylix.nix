@@ -33,5 +33,6 @@
       dark = "MoreWaita";
       light = "MoreWaita";
     };
+    targets.qt.platform = "qtct";
   };
 }

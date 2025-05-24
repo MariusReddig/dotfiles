@@ -23,6 +23,9 @@
 
       # Link default-sink to Easy Effects sink
       pw-link default-sink easyeffects_sink
+
+      # Link
+      pw-link soundboard-sink easyeffects_sink
       '')
 
   ]);
@@ -56,6 +59,16 @@
                 "factory.name"     = "support.null-audio-sink";
                 "node.name"        = "default-sink";
                 "node.description" = "Default Sink";
+                "media.class"      = "Audio/Sink";
+                "audio.position"   = "FL,FR";
+              };
+            }
+            {
+              factory = "adapter";
+              args = {
+                "factory.name"     = "support.null-audio-sink";
+                "node.name"        = "soundboard-sink";
+                "node.description" = "Soundboard Sink";
                 "media.class"      = "Audio/Sink";
                 "audio.position"   = "FL,FR";
               };

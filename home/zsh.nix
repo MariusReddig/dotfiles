@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, host, ... }:
 {
   options = {
     zsh.enable = lib.mkEnableOption "enable zsh module";
@@ -27,15 +27,15 @@
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
-        nix-update = "sudo nixos-rebuild switch --flake $HOME/nix";
-        nix-build = "sudo nixos-rebuild build --flake $HOME/nix";
+        nixos-update = "sudo nixos-rebuild switch --flake $HOME/nix#${host}";
+        nixos-build = "sudo nixos-rebuild build --flake $HOME/nix${host}";
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";
         ts = "tmux source ~/.config/tmux/tmux.conf";
       };
 
-      initExtra = ''
+      initContent = ''
         export PATH="$HOME/.local/bin:$PATH"
       '';
 
@@ -45,10 +45,6 @@
         theme = "robbyrussell";
       };
     };
-
-    home.packages = with pkgs; [
-      zsh-powerlevel10k
-    ];
 
     # users.users.${home.userName}.shell = pkgs.zsh;
   };

@@ -28,6 +28,9 @@ in
     (homeModule "kitty/kitty")
     (homeModule "mangohud/mangohud")
     (homeModule "dunst/dunst")
+    (homeModule "zoxide/zoxide")
+    (homeModule "fzf/fzf")
+    (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "hyprland/hyprland")
     ./hyprland/hyprland.nix
 
@@ -42,7 +45,6 @@ in
   };
 
     home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/dunst     ~/.config/dunst
     ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
     ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
     ln -sfr -T ~/nix/home/wofi      ~/.config/wofi

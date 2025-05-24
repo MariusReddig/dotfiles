@@ -46,7 +46,7 @@ in
   users.users.${username} = {
     isNormalUser = true;
     description = "main user";
-    extraGroups = [ "wheel" ]; # sudo user
+    extraGroups = [ "wheel" "docker"]; # sudo user
     shell = pkgs.zsh;
   };
 

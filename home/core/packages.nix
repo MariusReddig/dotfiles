@@ -6,6 +6,9 @@
       # German e-ID card authentication app
       ausweisapp
 
+      #Judo-shiai
+      (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
+
       # System Utilities
       man-pages-posix
       man-pages
@@ -16,7 +19,9 @@
       xdg-user-dirs
       xdg-user-dirs-gtk
       p7zip
-      firewalld
+      unstable.firewalld-gui
+      python312Packages.pyqt5
+      pwvucontrol
       cmake
       playerctl
 
@@ -35,7 +40,7 @@
       ipafont
 
       # Audio/Video Control
-      # helvum
+      helvum
       pavucontrol
       pamixer
       easyeffects
@@ -59,9 +64,11 @@
       thunderbird
       nextcloud-client
       unstable.mathematica
+      libreoffice-still
 
       # Streaming films and series
       stremio
+      chromium
 
       # Graphics and Design
       inkscape
@@ -79,9 +86,9 @@
       cliphist
 
       # Communication
-      (unstable.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
+      (discord.override {
+        # withOpenASAR = true;
+        # withVencord = true;
       })
       element-desktop
 

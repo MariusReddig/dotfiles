@@ -55,7 +55,7 @@
   },
 
   "hyprland/window": {
-    "format": "<span  weight='bold' >{class}</span>",
+    "format": "<span  weight='bold' >{title}</span>",
     "max-length": 120,
     "icon": false,
     "icon-size": 13

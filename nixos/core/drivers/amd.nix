@@ -10,12 +10,15 @@
     services.xserver.enable = true;
     services.xserver.videoDrivers = [ "amdgpu" ];
 
-    hardware.graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        lact
-        clinfo
-      ];
+    hardware = {
+      graphics = {
+        enable = true;
+        extraPackages = with pkgs; [
+          lact
+          mesa
+          clinfo
+        ];
+      };
     };
 systemd = {
     packages = with pkgs; [ lact ];
