@@ -7,7 +7,13 @@
   home.packages =
     (with pkgs; [
       # Minecraft
-      prismlauncher
+      (prismlauncher.override {
+        jdks = [
+          jdk8
+          jdk17
+          jdk21
+        ];
+      })
     ])
     ++
     (with pkgs.unstable; [

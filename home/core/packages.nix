@@ -7,7 +7,7 @@
       ausweisapp
 
       #Judo-shiai
-      (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
+      # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
 
       # System Utilities
       man-pages-posix
@@ -95,8 +95,6 @@
       # Development Tools
       python312Packages.pip
       clang
-      jdk21
-      # jdk8
 
       # Network Management
       blueman
