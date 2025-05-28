@@ -22,6 +22,7 @@
       unstable.firewalld-gui
       python312Packages.pyqt5
       pwvucontrol
+      dwt1-shell-color-scripts
       cmake
       playerctl
 
@@ -65,6 +66,9 @@
       nextcloud-client
       unstable.mathematica
       libreoffice-still
+      gh
+      gh-notify
+      hub
 
       # Streaming films and series
       stremio
@@ -87,8 +91,8 @@
 
       # Communication
       (discord.override {
-        # withOpenASAR = true;
-        # withVencord = true;
+        withOpenASAR = true;
+        withVencord = true;
       })
       element-desktop
 
