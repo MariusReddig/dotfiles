@@ -18,3 +18,4 @@ require("plugins.rust-tools");
 require("plugins.mini");
 require("plugins.dap");
 require("plugins.colorizer");
+require("plugins.snacks");

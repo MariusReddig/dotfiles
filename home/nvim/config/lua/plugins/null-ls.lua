@@ -57,6 +57,9 @@ null_ls.setup({
 				end,
 			})
 		end
+    if vim.bo[bufnr].filetype == "lua" then
+      vim.cmd("autocmd BufWritePre <buffer> :set nofixendofline")
+    end
 	end,
 })
 require("lspconfig")["null-ls"].setup({})

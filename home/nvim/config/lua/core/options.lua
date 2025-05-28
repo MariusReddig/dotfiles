@@ -31,4 +31,8 @@ vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entere
 -- wrapping
 vim.wo.wrap = false
 
+--modelines
+vim.opt.modeline = true      -- Enable modelines
+vim.opt.modelines = 5        -- Check first/last 5 lines
+
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }

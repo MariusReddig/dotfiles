@@ -42,6 +42,8 @@
         bufferline-nvim
         lualine-nvim
         mini-surround
+        mini-animate
+        mini-indentscope
         noice-nvim
         nvim-lspconfig
         nvim-cmp
@@ -63,6 +65,8 @@
         nvim-dap-virtual-text
         cmp-dap
         nvim-colorizer-lua
+        snacks-nvim
+        lazy-nvim
       ]);
   };
 
