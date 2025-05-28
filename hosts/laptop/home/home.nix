@@ -23,10 +23,13 @@ in
     (homeModule "zanthura")
     (homeModule "firefox/firefox")
     (homeModule "wofi/wofi")
+    (homeModule "fuzzel/fuzzel")
     (homeModule "kitty/kitty")
     (homeModule "pferd/pferd")
     (homeModule "dunst/dunst")
-
+    (homeModule "zoxide/zoxide")
+    (homeModule "fzf/fzf")
+    (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "stylix/stylix")
     ./stylix/stylix.nix
 
