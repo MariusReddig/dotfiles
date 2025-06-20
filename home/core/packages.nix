@@ -20,7 +20,7 @@
       xdg-user-dirs-gtk
       p7zip
       unstable.firewalld-gui
-      python312Packages.pyqt5
+      # python312Packages.pyqt5
       pwvucontrol
       dwt1-shell-color-scripts
       cmake
@@ -38,6 +38,7 @@
       noto-fonts-cjk-sans
 
       noto-fonts-extra
+      papirus-icon-theme
       ipafont
 
       # Audio/Video Control
@@ -53,7 +54,7 @@
       # File Management
       unstable.superfile
       qview
-      fd
+      # fd
 
       # Productivity
       anki
@@ -69,10 +70,10 @@
       gh
       gh-notify
       hub
+      chromium
 
       # Streaming films and series
       stremio
-      chromium
 
       # Graphics and Design
       inkscape
@@ -85,14 +86,14 @@
       slurp
       waybar
       waybar-mpris
-      wofi
+      # wofi
       wl-clipboard
       cliphist
 
       # Communication
       (discord.override {
-        withOpenASAR = true;
-        withVencord = true;
+        # withOpenASAR = true;
+        # withVencord = true;
       })
       element-desktop
 

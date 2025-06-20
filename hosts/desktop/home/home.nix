@@ -30,6 +30,7 @@ in
     (homeModule "dunst/dunst")
     (homeModule "zoxide/zoxide")
     (homeModule "fzf/fzf")
+    (homeModule "fuzzel/fuzzel")
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "hyprland/hyprland")
     ./hyprland/hyprland.nix

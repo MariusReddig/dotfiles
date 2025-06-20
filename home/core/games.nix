@@ -6,6 +6,8 @@
 
   home.packages =
     (with pkgs; [
+      # controller test
+      jstest-gtk
       # Minecraft
       (prismlauncher.override {
         jdks = [
@@ -21,7 +23,7 @@
       ryujinx
 
       #Lutris
-      lug-helper
+      # lug-helper
       lutris
       cabextract
     ]);

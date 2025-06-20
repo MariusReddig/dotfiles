@@ -6,6 +6,6 @@
   };
 
   home.activation.linkFuzzelConfig = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/fuzzel/fuzzel.ini ~/.config/fuzzel.ini
+    ln -sfr -T ~/nix/home/fuzzel/fuzzel.ini ~/.config/fuzzel/fuzzel.ini
   '';
 }

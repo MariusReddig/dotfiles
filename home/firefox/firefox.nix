@@ -4,68 +4,33 @@ let
   # Common settings for all profiles
   commonSettings = {
     # Privacy & Security
-    "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.socialtracking.enabled" = true;
-    "privacy.resistFingerprinting" = true;
-    "privacy.donottrackheader.enabled" = true;
-    "browser.send_pings" = false;
-    "network.http.referer.trimmingPolicy" = 2;
-    "network.http.referer.XOriginPolicy" = 2;
+    "privacy.trackingprotection.enabled" =                  true;
+    "privacy.trackingprotection.socialtracking.enabled" =   true;
+    "privacy.resistFingerprinting" =                        true;
+    "privacy.donottrackheader.enabled" =                    true;
 
     # Performance
-    "browser.cache.disk.enable" = false;
+    "browser.cache.disk.enable" =                   false;
 
     # UI/UX
-    "browser.aboutConfig.showWarning" = false;
-    "mousewheel.default.delta_multiplier_y" = 100;
-    "browser.urlbar.update2" = true;
+    "browser.aboutConfig.showWarning" =             false;
 
     # Theme
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-    "svg.context-properties.content.enabled" = true;
-    "gfx.webrender.al" = true;
-    "layers.acceleration.force-enabled" = true;
+    "svg.context-properties.content.enabled" =              true;
+    "gfx.webrender.al" =                                    true;
+    "layers.acceleration.force-enabled" =                   true;
   };
 
   # Common extensions for all profiles
   commonExtensions = (with pkgs.unstable.nur.repos.rycee.firefox-addons; [
-    # Privacy
-    ublock-origin
-    privacy-badger
-    clearurls
-    duckduckgo-privacy-essentials
-
-    # Productivity
     bitwarden
-    tridactyl
-    sidebery
-    simple-tab-groups
-
-    # Media
-    sponsorblock
   ]);
 
   # Common policies for all profiles
   commonPolicies = {
     DisableTelemetry = true;
     DisablePocket = true;
-    ExtensionSettings = {
-      # Chameleon
-      "jid1-BoFifL9Vbdl2zQ@jetpack" = {
-        installation_mode = "normal";
-        default_area = "navbar";
-      };
-      # ddg Privacy Essentials
-      "jid1-ZAdIEUB7XOzOJw@jetpack" = {
-        installation_mode = "normal";
-        default_area = "navbar";
-      };
-      # nightTab
-      "{12a9d7c9-8b6a-4a08-9e29-8d4b6c6e9d9a}" = {
-        installation_mode = "normal";
-        default_area = "navbar";
-      };
-    };
   };
 
   # Common search engines
@@ -93,12 +58,20 @@ let
       definedAliases = [ "@ho" ];
     };
   };
+
+  # duckduckgo engine
+  duckduckgo = {
+    "ddg" = {
+      urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
+      definedAliases = [ "@d" ];
+    };
+  };
 in
 {
+  stylix.targets.firefox.enable = false;
   programs.firefox = {
     enable = true;
     policies = commonPolicies;
-
     profiles = {
       default = {
         id = 0;
@@ -109,12 +82,7 @@ in
           force = true;
           default = "ddg";
           order = [ "ddg" "NixOS Packages" "NUR Packages" "NixOS Options" ];
-          engines = nixSearchEngines // {
-            "ddg" = {
-              urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
-              definedAliases = [ "@d" ];
-            };
-          };
+          engines = nixSearchEngines // duckduckgo;
         };
         userChrome = builtins.readFile ./simplefox/chrome/userChrome.css;
         userContent = builtins.readFile ./simplefox/chrome/userContent.css;
@@ -137,12 +105,7 @@ in
           force = true;
           default = "ddg";
           order = [ "ddg" ];
-          engines = {
-            "ddg" = {
-              urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
-              definedAliases = [ "@d" ];
-            };
-          };
+          engines = duckduckgo;
         };
         userChrome = builtins.readFile ./simplefox/chrome/userChrome.css;
         userContent = builtins.readFile ./simplefox/chrome/userContent.css;

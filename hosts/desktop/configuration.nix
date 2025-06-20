@@ -17,7 +17,8 @@ in
   # ============== Package Management ============== #
   nixpkgs.config.allowUnfree = true;
 
-  ## User configuration ##
+  # ============== local documentation ============== #
+  documentation.nixos.enable = false;
 
   # ============== System Packages ============== #
   environment.systemPackages = (with pkgs; [

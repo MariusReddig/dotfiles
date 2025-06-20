@@ -30,15 +30,15 @@
 
   "hyprland/workspaces": {
     "format": "{icon}",
-    //"all-outputs": true,
+    // "all-outputs": true,
     "format-icons": {
       "default": "",
       "active": ""
     },
     "persistent-workspaces": {
-      "HDMI-A-2": [3],
-      "HDMI-A-1": [2],
-      "DP-2": [1]
+      "HDMI-A-1": [3],
+      "DP-2": [2],
+      "HDMI-A-2": [1]
     }
   },
   "mpris": {
