@@ -10,6 +10,7 @@
       # Linker file configured in the nix config
       source = ./core/init.conf
       source = ./user-configs/monitor-layout.conf
+      source = ./user-configs/device-layout.conf
     '';
   };
 }
