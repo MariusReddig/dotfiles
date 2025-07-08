@@ -24,6 +24,7 @@
           -W 2560 \
           -H 1440 \
           --expose-wayland \
+          --backend sdl \
           -- gamemoderun "$@"
       '')
       (writeShellScriptBin "run-game-WQHD-gc" ''
@@ -38,6 +39,7 @@
           -H 1440 \
           --expose-wayland \
           --force-grab-cursor \
+          --backend sdl \
           -- gamemoderun "$@"
       '')
     ];
@@ -47,6 +49,11 @@
     programs = {
       gamemode = {
         enable = true;
+      };
+      gamescope = {
+        enable = true;
+        capSysNice = true;
+        package = pkgs.unstable.gamescope;
       };
       steam = {
         enable = true;
@@ -61,11 +68,6 @@
       STEAM_FORCE_DESKTOPUI_SCALING = "1";
       GDK_BACKEND = "wayland";
       NIXOS_OZONE_WL = "1";
-    };
-
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
     };
   };
 }

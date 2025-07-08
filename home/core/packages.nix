@@ -25,6 +25,7 @@
       dwt1-shell-color-scripts
       cmake
       playerctl
+      qalculate-qt
 
       # System Monitoring
       amdgpu_top

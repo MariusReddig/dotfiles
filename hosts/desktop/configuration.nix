@@ -61,6 +61,7 @@ in
     ./hardware-configuration.nix
     ./drives.nix
     ../../nixos/applications
+    ../../nixos/applications/droidcam.nix
     ../../nixos/window-managers/hyprland.nix
     ../../nixos/window-managers/gnome.nix
   ];
