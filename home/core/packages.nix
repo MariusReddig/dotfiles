@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, nixpkgs, ... }:
 {
   programs.btop.enable = true;
   home.packages =
@@ -66,12 +66,12 @@
       bitwarden
       thunderbird
       nextcloud-client
-      unstable.mathematica
       libreoffice-still
       gh
       gh-notify
       hub
       chromium
+      # unstable.mathematica
 
       # Streaming films and series
       stremio

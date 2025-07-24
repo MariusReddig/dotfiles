@@ -8,6 +8,7 @@
     (with pkgs; [
       # controller test
       jstest-gtk
+      protontricks
       # Minecraft
       (prismlauncher.override {
         jdks = [

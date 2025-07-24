@@ -367,6 +367,13 @@
     # Icon for notifications with critical urgency
     default_icon = dialog-warning
 
+[discord_focus]
+    # This feature is sadly not yet implemented . . .
+    appname = "discord"
+    actions = reply, close
+    action_reply = $HOME/nix/home/dunst/discord_focus.sh
+    action_close = close
+
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
 #

@@ -70,6 +70,18 @@
             (coreModule "pipewire")
             (coreModule "upower")
             (coreModule "certificates")
+            (coreModule "nix-ld")
+
+            {
+              # #fix: for mathematica to correctly build
+              # nixpkgs.overlays = [
+              #   (self: super: {
+              #     libtins = super.libtins.overrideAttrs (old: {
+              #       cmakeFlags = (old.cmakeFlags or []) ++ [ "-DCMAKE_CXX_STANDARD=17" ];
+              #     });
+              #   })
+              # ];
+            }
 
             # Host configuration
             ./hosts/desktop/configuration.nix
