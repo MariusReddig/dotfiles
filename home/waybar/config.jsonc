@@ -20,6 +20,7 @@
   "modules-right": [
     "custom/padd",
     "group/expand",
+    "custom/uair",
     "network",
     "pulseaudio#microphone",
     "wireplumber",
@@ -75,6 +76,17 @@
     "icon-size": 16,
     "rotate": 0,
     "spacing": 3
+  },
+
+  "custom/uair": {
+    "format": "[󰀠 {}]",
+    "exec": "uair -c ~/.config/uair/uair.toml",
+    "on-click": "uairctl toggle",
+    "on-click-right": "uairctl finish",
+    "on-click-middle": "uairctl reload",
+    "on-scroll-up": "uairctl next",
+    "on-scroll-down": "uairctl prev",
+    "inverval": 1,
   },
 
   "network": {

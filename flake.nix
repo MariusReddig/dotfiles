@@ -43,6 +43,10 @@
         };
       };
 
+      localOverlay = final: prev: {
+        local = (import ./nixpkgs/default.nix) { pkgs = prev; };
+      };
+
       # Module system
       mkModule = path: { imports = [ path ]; };
       coreModule = name: mkModule ./nixos/core/${name}.nix;
@@ -56,7 +60,7 @@
           };
           modules = [
             # Core system modules
-            { nixpkgs.overlays = [ unstableOverlay ]; }
+            { nixpkgs.overlays = [ unstableOverlay localOverlay ]; }
             (coreModule "bluetooth")
             (coreModule "bootloader")
             (coreModule "drivers/amd")

@@ -1,13 +1,8 @@
+{ pkgs ? import <nixpkgs> {} }:
 let
-
-  nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-25.05";
-
-  pkgs = import nixpkgs { config = {}; overlays = []; };
-
-in
-
-{
-
-  mpc-autofill = pkgs.callPackage ./mpc-autofill.nix { };
-
-}
+  callPackage = pkgs.lib.callPackageWith (pkgs // self);
+  self = {
+    mpc-autofill = callPackage ./mpc-autofill.nix {};
+    mtg-forge = callPackage ./forge-mtg/forge-mtg.nix {};
+  };
+in self

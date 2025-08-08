@@ -1,0 +1,7 @@
+these 2 derivations will be built:
+  /nix/store/25cgrx9w4l8d66q0ga7m35gkh7lr3dbd-forge-mtg-2.0.05-maven-deps.drv
+  /nix/store/yrkscscqsk42mivny3aajzrsif8cs0j8-forge-mtg-2.0.05.drv
+building '/nix/store/25cgrx9w4l8d66q0ga7m35gkh7lr3dbd-forge-mtg-2.0.05-maven-deps.drv'...
+Running phase: unpackPhase
+unpacking source archive /nix/store/8pa7v8xngqadmc1gvwcmb8hg15394703-source
+error: interrupted by the user

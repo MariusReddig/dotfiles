@@ -17,6 +17,9 @@
           jdk21
         ];
       })
+
+      #MTG
+      local.mtg-forge
     ])
     ++
     (with pkgs.unstable; [

@@ -1,0 +1,25 @@
+diff --git a/forge-gui-desktop/pom.xml b/forge-gui-desktop/pom.xml
+index abc1234..def5678 100644
+--- a/forge-gui-desktop/pom.xml
++++ b/forge-gui-desktop/pom.xml
+@@ -74,6 +74,7 @@
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
++               <skip>true</skip>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+
+diff --git a/forge-gui-mobile-dev/pom.xml b/forge-gui-mobile-dev/pom.xml
+index ghi7890..jkl1234 100644
+--- a/forge-gui-mobile-dev/pom.xml
++++ b/forge-gui-mobile-dev/pom.xml
+@@ -65,6 +65,7 @@
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
++                <skip>true</skip>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>l4j-adv</id>
+                        <phase>package</phase>

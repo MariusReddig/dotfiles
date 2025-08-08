@@ -60,6 +60,7 @@
       # Productivity
       anki
       xournalpp
+      uair
       rnote
       signal-desktop
       whatsapp-for-linux
