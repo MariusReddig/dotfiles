@@ -9,13 +9,13 @@
 }:
 
 let
-  version = "2.0.05";
+  version = "2.0.06";
 
   src = fetchFromGitHub {
     owner = "Card-Forge";
     repo = "forge";
     rev = "forge-${version}";
-    hash = "sha256-zXOSfk9Zucx/C0a5KM/ziPWuWwzvx1wIhFMP3/DexUU=";
+    hash = "sha256-T75UqzEuHEssARcRldTCTyNuZnILPlNJesD+l6RGX4g=";
     leaveDotGit = true;
   };
 
@@ -40,7 +40,7 @@ maven.buildMavenPackage {
   pname = "forge-mtg";
   inherit version src patches; #
 
-  mvnHash = "sha256-A0iSDOZDtYx+6end49OLU3w9Hk/sPSq1BxTZx9eZN4w=";
+  mvnHash = "sha256-ThzU0ZSHlfZ3wvVo/jUx/ahS8h9Zid0SUHQz29lO6xI=";
 
   doCheck = false; # Needs a running Xorg
 
