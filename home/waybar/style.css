@@ -245,6 +245,9 @@ margin: 0px 0px 0px 0px;
 }
 
 #tray,
+#custom-monitor_left,
+#custom-monitor_middle,
+#custom-monitor_right,
 #window{
 color: #A1BDCE;
 font-family: "JetBrains Mono Nerd Font";

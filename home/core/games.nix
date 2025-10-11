@@ -1,35 +1,25 @@
-{ pkgs, ... }:
-{
-  imports = [
-    ../mangohud/mangohud.nix
-  ];
+{ pkgs, ... }: {
+  imports = [ ../mangohud/mangohud.nix ];
 
-  home.packages =
-    (with pkgs; [
-      # controller test
-      jstest-gtk
-      protontricks
-      # Minecraft
-      (prismlauncher.override {
-        jdks = [
-          jdk8
-          jdk17
-          jdk21
-        ];
-      })
+  home.packages = (with pkgs; [
+    umu-launcher
+    protonup-qt
+    # controller test
+    jstest-gtk
+    protontricks
+    # Minecraft
+    (prismlauncher.override { jdks = [ jdk8 jdk17 jdk21 ]; })
 
-      #MTG
-      local.mtg-forge
-    ])
-    ++
-    (with pkgs.unstable; [
-      # Switch emulation
-      ryujinx
+    #MTG
+    local.mtg-forge
+  ]) ++ (with pkgs.unstable; [
+    # Switch emulation
+    ryubing
 
-      #Lutris
-      # lug-helper
-      lutris
-      cabextract
-    ]);
+    #Lutris
+    # lug-helper
+    lutris
+    cabextract
+  ]);
 
 }

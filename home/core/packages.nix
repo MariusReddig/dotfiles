@@ -1,119 +1,118 @@
-{ pkgs, inputs, nixpkgs, ... }:
-{
+{ pkgs, inputs, nixpkgs, ... }: {
   programs.btop.enable = true;
-  home.packages =
-    (with pkgs; [
-      # German e-ID card authentication app
-      ausweisapp
+  home.packages = (with pkgs; [
+    # German e-ID card authentication app
+    openvpn
+    networkmanager-openvpn
+    ausweisapp
 
-      #Judo-shiai
-      # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
+    libsForQt5.kdeconnect-kde
 
-      # System Utilities
-      man-pages-posix
-      man-pages
-      usbutils
-      unzip
-      android-tools
-      scrcpy
-      xdg-user-dirs
-      xdg-user-dirs-gtk
-      p7zip
-      unstable.firewalld-gui
-      # python312Packages.pyqt5
-      pwvucontrol
-      dwt1-shell-color-scripts
-      cmake
-      playerctl
-      qalculate-qt
+    #Judo-shiai
+    # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
 
-      # System Monitoring
-      amdgpu_top
-      lact
-      upower
-      fastfetch
+    # System Utilities
+    man-pages-posix
+    man-pages
+    usbutils
+    unzip
+    android-tools
+    scrcpy
+    xdg-user-dirs
+    xdg-user-dirs-gtk
+    p7zip
+    unstable.firewalld-gui
+    imagemagick
+    # python312Packages.pyqt5
+    pwvucontrol
+    dwt1-shell-color-scripts
+    cmake
+    playerctl
+    qalculate-qt
 
-      # Fonts
-      corefonts
-      noto-fonts
-      noto-fonts-cjk-sans
+    # System Monitoring
+    amdgpu_top
+    lact
+    upower
+    fastfetch
 
-      noto-fonts-extra
-      papirus-icon-theme
-      ipafont
+    # Fonts
+    corefonts
+    noto-fonts
+    noto-fonts-cjk-sans
 
-      # Audio/Video Control
-      helvum
-      pavucontrol
-      pamixer
-      easyeffects
-      vlc
-      kdePackages.phonon-vlc
-      kdePackages.phonon
-      kdePackages.qtimageformats
+    noto-fonts-extra
+    papirus-icon-theme
+    ipafont
 
-      # File Management
-      unstable.superfile
-      qview
-      # fd
+    # Audio/Video Control
+    helvum
+    pavucontrol
+    pamixer
+    easyeffects
+    vlc
+    kdePackages.phonon-vlc
+    kdePackages.phonon
+    kdePackages.qtimageformats
 
-      # Productivity
-      anki
-      xournalpp
-      uair
-      rnote
-      signal-desktop
-      whatsapp-for-linux
-      bitwarden
-      thunderbird
-      nextcloud-client
-      libreoffice-still
-      gh
-      gh-notify
-      hub
-      chromium
-      texlive.combined.scheme-basic
-      # unstable.mathematica
+    # Productivity
+    anki
+    xournalpp
+    uair
+    rnote
+    signal-desktop
+    whatsapp-for-linux
+    bitwarden
+    thunderbird
+    nextcloud-client
+    libreoffice-still
+    gh
+    gh-notify
+    hub
+    chromium
+    texlive.combined.scheme-basic
+    # unstable.mathematica
 
-      # Streaming films and series
-      stremio
-      cozy
+    # Streaming films and series
+    stremio
+    cozy
 
-      # Graphics and Design
-      inkscape
-      krita
-      swappy
+    # File Management
+    unstable.superfile
+    qview
+    # fd
 
-      # Hyprland
-      hyprpicker
-      grim
-      slurp
-      waybar
-      waybar-mpris
-      # wofi
-      wl-clipboard
-      cliphist
+    # Graphics and Design
+    inkscape
+    krita
+    swappy
 
-      # Communication
-      (discord.override {
-        # withOpenASAR = true;
-        # withVencord = true;
-      })
-      element-desktop
+    # Hyprland
+    hyprpicker
+    grim
+    slurp
+    waybar
+    waybar-mpris
+    # wofi
+    wl-clipboard
+    cliphist
 
-      # Development Tools
-      python312Packages.pip
-      clang
+    # Communication
+    (discord.override {
+      # withOpenASAR = true;
+      # withVencord = true;
+    })
+    element-desktop
 
-      # Network Management
-      blueman
-      networkmanagerapplet
+    # Development Tools
+    python312Packages.pip
+    clang
 
-      # Notifications
-      libnotify
-    ])
-    ++
-    (with inputs; [
-      swww.packages.${pkgs.system}.swww
-    ]);
+    # Network Management
+    blueman
+    networkmanagerapplet
+
+    # Notifications
+    libnotify
+  ]) ++ (with inputs; [ swww.packages.${pkgs.system}.swww ]);
 }

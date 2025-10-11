@@ -1,12 +1,4 @@
-{
-  coreutils,
-  fetchFromGitHub,
-  gnused,
-  lib,
-  maven,
-  makeWrapper,
-  openjdk,
-}:
+{ coreutils, fetchFromGitHub, gnused, lib, maven, makeWrapper, openjdk, }:
 
 let
   version = "2.0.06";
@@ -15,7 +7,7 @@ let
     owner = "Card-Forge";
     repo = "forge";
     rev = "forge-${version}";
-    hash = "sha256-T75UqzEuHEssARcRldTCTyNuZnILPlNJesD+l6RGX4g=";
+    hash = "sha256-bxGztbEKVJhQmKBrHN2b7Ni8z8LxuJJJXkBj3/QnC7s=";
     leaveDotGit = true;
   };
 
@@ -34,11 +26,9 @@ let
     EOF
   '';
 
-
-in
-maven.buildMavenPackage {
+in maven.buildMavenPackage {
   pname = "forge-mtg";
-  inherit version src patches; #
+  inherit version src patches;
 
   mvnHash = "sha256-ThzU0ZSHlfZ3wvVo/jUx/ahS8h9Zid0SUHQz29lO6xI=";
 
@@ -78,13 +68,7 @@ maven.buildMavenPackage {
     for commandToInstall in forge forge-adventure forge-adventure-editor; do
       chmod 555 $out/share/forge/$commandToInstall.sh
       makeWrapper $out/share/forge/$commandToInstall.sh $out/bin/$commandToInstall \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            coreutils
-            openjdk
-            gnused
-          ]
-        } \
+        --prefix PATH : ${lib.makeBinPath [ coreutils openjdk gnused ]} \
         --set JAVA_HOME ${openjdk}/lib/openjdk \
         --set SENTRY_DSN ""
     done

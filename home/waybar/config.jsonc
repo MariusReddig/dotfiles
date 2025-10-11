@@ -21,6 +21,7 @@
     "custom/padd",
     "group/expand",
     "custom/uair",
+    "group/monitors",
     "network",
     "pulseaudio#microphone",
     "wireplumber",
@@ -78,14 +79,54 @@
     "spacing": 3
   },
 
+    "group/monitors": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "monitor-group",
+      "transition-to-left": true
+    },
+    "modules": ["custom/monitor-expand", "custom/monitor-left", "custom/monitor-middle", "custom/monitor-right"]
+  },
+
+  "custom/monitor-expand": {
+    "format": "󰍹 ",
+    "interval": "once",
+    "tooltip": false
+  },
+
+  "custom/monitor-left": {
+    "format": "󰅃",
+    "rotate": 90,
+    "on-click": "hyprctl dispatch dpms toggle HDMI-A-1",
+    "tooltip-format": "toggle left monitor",
+    "tooltip": true
+  },
+
+  "custom/monitor-middle": {
+    "format": "󰅃",
+    "rotate": 0,
+    "on-click": "hyprctl dispatch dpms toggle DP-2",
+    "tooltip-format": "toggle middle monitor",
+    "tooltip": true
+  },
+
+  "custom/monitor-right": {
+    "format": "󰅃",
+    "rotate": 270,
+    "on-click": "hyprctl dispatch dpms toggle HDMI-A-2",
+    "tooltip-format": "toggle right monitor",
+    "tooltip": true
+  },
+
   "custom/uair": {
     "format": "[󰀠 {}]",
     "exec": "uair -c ~/.config/uair/uair.toml",
     "on-click": "uairctl toggle",
     "on-click-right": "uairctl finish",
     "on-click-middle": "uairctl reload",
-    "on-scroll-up": "uairctl next",
-    "on-scroll-down": "uairctl prev",
+    "on-scroll-up": "uairctl prev",
+    "on-scroll-down": "uairctl next",
     "inverval": 1,
   },
 
