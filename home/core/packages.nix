@@ -72,10 +72,12 @@
       gh-notify
       hub
       chromium
+      texlive.combined.scheme-basic
       # unstable.mathematica
 
       # Streaming films and series
       stremio
+      cozy
 
       # Graphics and Design
       inkscape
