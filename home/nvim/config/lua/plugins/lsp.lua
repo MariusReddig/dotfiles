@@ -84,6 +84,7 @@ lspconfig.clangd.setup({
         on_attach(client, bufnr)
         create_format_autocommand(client, bufnr, "clangd")
         vim.keymap.set("n", "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", { buffer = bufnr })
+        vim.lsp.inlay_hint.enable(true)
     end,
     cmd = {
         "clangd",
@@ -91,7 +92,9 @@ lspconfig.clangd.setup({
         "--clang-tidy",
         "--header-insertion=iwyu",
         "--completion-style=detailed",
+        "--compile-commands-dir=build",
         "--function-arg-placeholders",
+        "--limit-results=0",
     },
     init_options = {
         usePlaceholders = true,

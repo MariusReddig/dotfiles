@@ -17,16 +17,11 @@ dap.configurations.cpp = {
         stopOnEntry = false,
         args = {},
         preLaunchTask = function()
-            local configure_cmd = "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug"
-            local build_cmd = "cmake --build build"
+            local configure_cmd = "make configure"
+            local build_cmd = "make build"
             local success
 
-            if vim.fn.filereadable("shell.nix") == 1 then
-                -- Correct syntax: nix-shell --run "command && command"
-                success = os.execute("nix-shell --run '" .. configure_cmd .. " && " .. build_cmd .. "'")
-            else
-                success = os.execute(configure_cmd .. " && " .. build_cmd)
-            end
+            success = os.execute(configure_cmd .. " && " .. build_cmd)
 
             if success then
                 vim.notify("✓ CMake build successful", vim.log.levels.INFO)
@@ -40,4 +35,3 @@ dap.configurations.cpp = {
 }
 
 dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp

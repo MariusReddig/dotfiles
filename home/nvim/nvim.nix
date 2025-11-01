@@ -30,7 +30,7 @@
     #formatters
     stylua
     cmake-format
-    nixfmt
+    nixfmt-classic
     nodePackages.prettier
 
     #linters
@@ -90,6 +90,7 @@
       vim-clang-format
       conform-nvim
       nvim-lint
+      clangd_extensions-nvim
     ]);
   };
 
