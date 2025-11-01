@@ -7,7 +7,7 @@ let
     owner = "Card-Forge";
     repo = "forge";
     rev = "forge-${version}";
-    hash = "sha256-bxGztbEKVJhQmKBrHN2b7Ni8z8LxuJJJXkBj3/QnC7s=";
+    hash = "sha256-x61EeZ45LXxujkGjkoMkDFrnJNDiCjO9N3MX3kpoZ+s=";
     leaveDotGit = true;
   };
 
