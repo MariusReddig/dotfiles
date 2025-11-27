@@ -60,6 +60,7 @@ in
   };
 
   # ============== Programs ============== #
+  steam.enable = true;
   thunar.enable = true;
   programs.zsh.enable = true;
 

@@ -1,11 +1,11 @@
 [Configuration]
 LastActiveMode=THUNAR_RENAMER_MODE_NAME
-LastActiveRenamer=ThunarSbrInsertRenamer
+LastActiveRenamer=ThunarSbrNumberRenamer
 
 [ThunarSbrReplaceRenamer]
 CaseSensitive=FALSE
 Replacement=-
-Pattern=\ 
+Pattern=\
 Regexp=TRUE
 
 [ThunarSbrCaseRenamer]
@@ -22,4 +22,10 @@ Offset=0
 Text=.backup
 Mode=THUNAR_SBR_INSERT_MODE_INSERT
 OffsetMode=THUNAR_SBR_OFFSET_MODE_RIGHT
+
+[ThunarSbrNumberRenamer]
+TextMode=THUNAR_SBR_TEXT_MODE_TN
+Text=
+Mode=THUNAR_SBR_NUMBER_MODE_123
+Start=1
 
