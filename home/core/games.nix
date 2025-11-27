@@ -6,6 +6,8 @@
     protonup-qt
     # controller test
     jstest-gtk
+    linuxKernel.packages.linux_zen.xpadneo
+
     protontricks
     # Minecraft
     (prismlauncher.override { jdks = [ jdk8 jdk17 jdk21 ]; })

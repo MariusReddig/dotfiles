@@ -7,6 +7,7 @@
     ausweisapp
 
     libsForQt5.kdeconnect-kde
+    jdupes
 
     #Judo-shiai
     # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
@@ -23,6 +24,7 @@
     p7zip
     unstable.firewalld-gui
     imagemagick
+    direnv
     # python312Packages.pyqt5
     pwvucontrol
     dwt1-shell-color-scripts

@@ -1,17 +1,16 @@
 { coreutils, fetchFromGitHub, gnused, lib, maven, makeWrapper, openjdk, }:
 
 let
-  version = "2.0.06";
+  version = "2.0.07-SNAPSHOT";
 
   src = fetchFromGitHub {
     owner = "Card-Forge";
     repo = "forge";
-    rev = "forge-${version}";
-    hash = "sha256-x61EeZ45LXxujkGjkoMkDFrnJNDiCjO9N3MX3kpoZ+s=";
+    rev = "854f238861757d353cc7745424e25466804e9ad4";
+    hash = "sha256-lvMJxLJTXWHkbZZ2Kc71WJ9d8WqdEY/eykai6YKyM+o=";
     leaveDotGit = true;
   };
 
-  # launch4j downloads and runs a native binary during the package phase.
   patches = [ ./no-launch4j.patch ];
 
   createDesktopEntry = name: description: ''
@@ -30,7 +29,7 @@ in maven.buildMavenPackage {
   pname = "forge-mtg";
   inherit version src patches;
 
-  mvnHash = "sha256-ThzU0ZSHlfZ3wvVo/jUx/ahS8h9Zid0SUHQz29lO6xI=";
+  mvnHash = "sha256-1SjDlVbV3l/DmeIB+G964A6PV5Rzb7tM5zVW+FLf25Q=";
 
   doCheck = false; # Needs a running Xorg
 

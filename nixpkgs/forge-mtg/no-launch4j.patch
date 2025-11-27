@@ -9,7 +9,7 @@ index abc1234..def5678 100644
                  <version>2.5.1</version>
                  <executions>
                      <execution>
-@@ -246,55 +246,3 @@
+@@ -247,55 +247,3 @@
                 </executions>
             </plugin>
 -
