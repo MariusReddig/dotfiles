@@ -1,11 +1,11 @@
-{ pkgs, config, lib, ... }:
-{
+{ pkgs, config, lib, ... }: {
   #Base package for the MoreWaita icon theme, without it the package is incomplete.
-  home.packages = [pkgs.adwaita-icon-theme];
+  home.packages = [ pkgs.adwaita-icon-theme ];
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+    base16Scheme =
+      "${pkgs.base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
     cursor = {
       package = pkgs.capitaine-cursors;
       name = "capitaine-cursors";

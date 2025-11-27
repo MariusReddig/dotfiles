@@ -1,12 +1,9 @@
-{ lib, config, pkgs, host, ... }:
-{
-  options = {
-    zsh.enable = lib.mkEnableOption "enable zsh module";
-  };
+{ lib, config, pkgs, host, ... }: {
+  options = { zsh.enable = lib.mkEnableOption "enable zsh module"; };
 
   config = lib.mkIf config.zsh.enable {
 
-     programs.zsh = {
+    programs.zsh = {
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
@@ -37,6 +34,7 @@
 
       initContent = ''
         export PATH="$HOME/.local/bin:$PATH"
+        eval "$(direnv hook zsh)"
       '';
 
       oh-my-zsh = {

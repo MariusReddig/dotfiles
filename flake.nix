@@ -21,7 +21,7 @@
     };
     mic92-nur = {
       url = "github:mic92/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";  # Keep in sync
+      inputs.nixpkgs.follows = "nixpkgs-unstable"; # Keep in sync
     };
     pferd = {
       url = "github:/Garmelon/PFERD";
@@ -50,8 +50,7 @@
       # Module system
       mkModule = path: { imports = [ path ]; };
       coreModule = name: mkModule ./nixos/core/${name}.nix;
-    in
-    {
+    in {
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = {
@@ -75,17 +74,7 @@
             (coreModule "upower")
             (coreModule "certificates")
             (coreModule "nix-ld")
-
-            {
-              # #fix: for mathematica to correctly build
-              # nixpkgs.overlays = [
-              #   (self: super: {
-              #     libtins = super.libtins.overrideAttrs (old: {
-              #       cmakeFlags = (old.cmakeFlags or []) ++ [ "-DCMAKE_CXX_STANDARD=17" ];
-              #     });
-              #   })
-              # ];
-            }
+            (coreModule "docker")
 
             # Host configuration
             ./hosts/desktop/configuration.nix
@@ -119,6 +108,7 @@
             (coreModule "openssh")
             (coreModule "pipewire")
             (coreModule "upower")
+            (coreModule "docker")
 
             # Host configuration
             ./hosts/laptop/configuration.nix
