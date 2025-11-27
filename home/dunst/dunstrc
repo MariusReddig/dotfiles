@@ -367,6 +367,12 @@
     # Icon for notifications with critical urgency
     default_icon = dialog-warning
 
+[Discord]
+    appname = Discord
+    urgency = normal
+    format = "<b>Discord</b>\n%b"
+    timeout = 0
+    history_ignore = no
 [discord_focus]
     # This feature is sadly not yet implemented . . .
     appname = "discord"
