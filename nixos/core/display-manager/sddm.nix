@@ -1,21 +1,12 @@
 { lib, config, username, pkgs, ... }:
-let
-  cfg = config.sddm;
-in
-{
-  options.sddm = {
-    enable = lib.mkEnableOption "enable sddm login manager";
-    autoLogin = {
-      enable = lib.mkEnableOption "enable autoLogin";
-    };
-  };
+let cfg = config.sddm;
+in {
+  options.sddm = { enable = lib.mkEnableOption "enable sddm login manager"; };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      (pkgs.callPackage ../../../nixpkgs/sddm-themes.nix {}).custom-theme
-      pkgs.libsForQt5.qt5.qtquickcontrols2
-      pkgs.libsForQt5.qt5.qtgraphicaleffects
-      pkgs.libsForQt5.qt5.qtsvg
+    environment.systemPackages = with pkgs; [
+      local.japanese-aesthetic
+      kdePackages.qtmultimedia
     ];
 
     services = {
@@ -25,18 +16,11 @@ in
           enable = true;
           wayland.enable = true;
           autoNumlock = true;
-          theme = lib.mkDefault "custom-theme";
+          theme = "sddm-astronaut-theme";
         };
       };
     };
 
-    services.displayManager.autoLogin = lib.mkIf cfg.autoLogin.enable
-      {
-        enable = true;
-        user = "${username}";
-      };
-
-    # enables gnome-keyring unlocking on login
     security.pam.services.sddm.enableGnomeKeyring = true;
   };
 }

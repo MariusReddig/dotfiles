@@ -13,7 +13,7 @@
     (prismlauncher.override { jdks = [ jdk8 jdk17 jdk21 ]; })
 
     #MTG
-    local.mtg-forge
+    # local.mtg-forge
   ]) ++ (with pkgs.unstable; [
     # Switch emulation
     ryubing

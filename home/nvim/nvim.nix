@@ -13,7 +13,6 @@
     bear
     clang
     lldb_21
-    llvmPackages_19.clang-tools
     llvmPackages_19.llvm-manpages
     llvmPackages_19.clang-manpages
 
@@ -65,7 +64,6 @@
       noice-nvim
       nvim-lspconfig
       nvim-cmp
-      rust-tools-nvim
       telescope-nvim
       plenary-nvim
       telescope-ui-select-nvim
