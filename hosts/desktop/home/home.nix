@@ -3,8 +3,7 @@ let
   # Module system
   mkModule = path: { imports = [ path ]; };
   homeModule = name: mkModule ../../../home/${name}.nix;
-in
-{
+in {
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
@@ -33,6 +32,7 @@ in
     (homeModule "fuzzel/fuzzel")
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "hyprland/hyprland")
+    (homeModule "superfile/superfile")
     ./hyprland/hyprland.nix
 
   ];
@@ -45,11 +45,12 @@ in
     MANPAGER = "nvim +Man!";
   };
 
-    home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
-    ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
-    ln -sfr -T ~/nix/home/wofi      ~/.config/wofi
-    ln -sfr -T ~/nix/home/.editorconfig      ~/.editorconfig
+  home.activation.linkDotFiles =
+    config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
+      ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
+      ln -sfr -T ~/nix/home/wofi      ~/.config/wofi
+      ln -sfr -T ~/nix/home/.editorconfig      ~/.editorconfig
     '';
 
   # Let Home Manager install and manage itself.

@@ -1,8 +1,5 @@
-{ config, pkgs, lib, ... }:
-{
-  options = {
-    thunar.enable = lib.mkEnableOption "enable thunar module";
-  };
+{ config, pkgs, lib, ... }: {
+  options = { thunar.enable = lib.mkEnableOption "enable thunar module"; };
   config = lib.mkIf config.thunar.enable {
 
     programs.thunar.enable = true;
@@ -17,10 +14,10 @@
       pkgs.xfce.thunar-media-tags-plugin
       pkgs.gvfs
       pkgs.glib
-
+      pkgs.file-roller
     ];
 
-    programs.file-roller.enable = true; # enables fileroller for archive plugin
+    # programs.file-roller.enable = true; # enables fileroller for archive plugin
     services.gvfs.enable = true; # Mount, trash, and other functionalities
     services.tumbler.enable = true; # Thumbnail support for images
 

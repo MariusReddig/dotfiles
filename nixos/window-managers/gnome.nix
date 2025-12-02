@@ -1,8 +1,7 @@
-{ ... }:
-{
-  services.xserver = {
-    enable = true;
+{ ... }: {
+  services = {
     desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = false;
+    gnome.core-apps.enable = false;
   };
-  services.gnome.core-apps.enable = false;
 }

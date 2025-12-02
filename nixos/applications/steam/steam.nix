@@ -1,18 +1,13 @@
-{ config, pkgs, lib, username, ... }:
-{
-  imports = [
-    ./gamemode.nix
-  ];
+{ config, pkgs, lib, username, ... }: {
+  imports = [ ./gamemode.nix ];
 
-  options = {
-    steam.enable = lib.mkEnableOption "enable steam module";
-  };
+  options = { steam.enable = lib.mkEnableOption "enable steam module"; };
 
   config = lib.mkIf config.steam.enable {
 
     environment.systemPackages = with pkgs; [
       # if you wanna use Mangohud too see the home-manager configs.
-      protonup
+      protonup-ng
       (writeShellScriptBin "run-game-WQHD" ''
         #!${pkgs.bash}/bin/bash
         export MANGOHUD=1  #requests mangohud
@@ -44,12 +39,9 @@
       '')
     ];
 
-
-    users.groups.gamemode.members = ["${username}"];
+    users.groups.gamemode.members = [ "${username}" ];
     programs = {
-      gamemode = {
-        enable = true;
-      };
+      gamemode = { enable = true; };
       gamescope = {
         enable = true;
         capSysNice = true;
@@ -58,9 +50,12 @@
       steam = {
         enable = true;
         gamescopeSession.enable = true;
-        remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-        dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-        localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+        remotePlay.openFirewall =
+          true; # Open ports in the firewall for Steam Remote Play
+        dedicatedServer.openFirewall =
+          true; # Open ports in the firewall for Source Dedicated Server
+        localNetworkGameTransfers.openFirewall =
+          true; # Open ports in the firewall for Steam Local Network Game Transfers
       };
     };
 

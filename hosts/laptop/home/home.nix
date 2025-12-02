@@ -3,8 +3,7 @@ let
   # Module system
   mkModule = path: { imports = [ path ]; };
   homeModule = name: mkModule ../../../home/${name}.nix;
-in
-{
+in {
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
@@ -31,15 +30,14 @@ in
     (homeModule "fzf/fzf")
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "stylix/stylix")
+    (homeModule "superfile/superfile")
     ./stylix/stylix.nix
 
     (homeModule "hyprland/hyprland")
     ./hyprland/hyprland.nix
   ];
 
-  home.packages = [
-    pkgs.brightnessctl
-  ];
+  home.packages = [ pkgs.brightnessctl ];
 
   home.sessionVariables = {
     XDG_DATA_HOME = "/home/${username}/.local/share/";
@@ -49,11 +47,12 @@ in
     MANPAGER = "nvim +Man!";
   };
 
-    #ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
-    home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/thunar                  ~/.config/Thunar
-    ln -sfr -T ~/nix/hosts/laptop/home/waybar     ~/.config/waybar
-    ln -sfr -T ~/nix/home/.editorconfig           ~/.editorconfig
+  #ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
+  home.activation.linkDotFiles =
+    config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      ln -sfr -T ~/nix/home/thunar                  ~/.config/Thunar
+      ln -sfr -T ~/nix/hosts/laptop/home/waybar     ~/.config/waybar
+      ln -sfr -T ~/nix/home/.editorconfig           ~/.editorconfig
     '';
 
   programs.fuzzel.enable = true;

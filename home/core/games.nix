@@ -3,7 +3,7 @@
 
   home.packages = (with pkgs; [
     umu-launcher
-    protonup-qt
+    # protonup-qt
     # controller test
     jstest-gtk
     linuxKernel.packages.linux_zen.xpadneo
