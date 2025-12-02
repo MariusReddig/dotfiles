@@ -18,6 +18,6 @@
 
   # home.activation.linkSuperfileConfig =
   #   config.lib.dag.entryAfter [ "writeBoundary" ] ''
-  #     ln -sfr -T ~/nix/home/superfile/config.toml ~/.config/wofi/config.toml
+  #     ln -sfr -T ~/nix/home/superfile/config.toml ~/.config/superfile/config.toml
   #   '';
 }
