@@ -16,7 +16,7 @@ in {
           enable = true;
           wayland.enable = true;
           autoNumlock = true;
-          theme = "sddm-astronaut-theme";
+          theme = "japanese-aesthetic";
         };
       };
     };

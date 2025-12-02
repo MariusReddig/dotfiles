@@ -7,7 +7,7 @@ let
     owner = "Card-Forge";
     repo = "forge";
     rev = "854f238861757d353cc7745424e25466804e9ad4";
-    hash = "sha256-lvMJxLJTXWHkbZZ2Kc71WJ9d8WqdEY/eykai6YKyM+o=";
+    hash = "sha256-/SMhhdKa9PS5ZuDCzezL91SJ4vxcQg6bifBGeEdY/8Q=";
     leaveDotGit = true;
   };
 
@@ -29,7 +29,7 @@ in maven.buildMavenPackage {
   pname = "forge-mtg";
   inherit version src patches;
 
-  mvnHash = "sha256-1SjDlVbV3l/DmeIB+G964A6PV5Rzb7tM5zVW+FLf25Q=";
+  mvnHash = "sha256-IUkfOHPBgcfL99/rCq7Gb5cNVRKWo4ohc4/SsweLwD0=";
 
   doCheck = false; # Needs a running Xorg
 
