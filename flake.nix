@@ -109,6 +109,8 @@
             (coreModule "openssh")
             (coreModule "pipewire")
             (coreModule "upower")
+            (coreModule "certificates")
+            (coreModule "nix-ld")
             (coreModule "docker")
             (coreModule "battery-monitor")
 
