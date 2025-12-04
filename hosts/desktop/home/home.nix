@@ -14,7 +14,6 @@ in {
 
   imports = [
     (homeModule "core/packages")
-    (homeModule "core/games")
     (homeModule "zsh")
     (homeModule "nvim/nvim")
     (homeModule "tmux/tmux")
@@ -22,17 +21,20 @@ in {
     (homeModule "eza")
     (homeModule "zanthura")
     (homeModule "firefox/firefox")
-    (homeModule "pferd/pferd")
-    (homeModule "stylix/stylix")
+    (homeModule "fuzzel/fuzzel")
     (homeModule "kitty/kitty")
-    (homeModule "mangohud/mangohud")
+    (homeModule "pferd/pferd")
     (homeModule "dunst/dunst")
     (homeModule "zoxide/zoxide")
     (homeModule "fzf/fzf")
-    (homeModule "fuzzel/fuzzel")
+    (homeModule "stylix/stylix")
     (homeModule "oh-my-posh/oh-my-posh")
-    (homeModule "hyprland/hyprland")
     (homeModule "superfile/superfile")
+
+    (homeModule "core/games")
+    (homeModule "mangohud/mangohud")
+
+    (homeModule "hyprland/hyprland")
     ./hyprland/hyprland.nix
 
   ];
@@ -47,11 +49,12 @@ in {
 
   home.activation.linkDotFiles =
     config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfr -T ~/nix/home/thunar    ~/.config/Thunar
-      ln -sfr -T ~/nix/home/waybar    ~/.config/waybar
-      ln -sfr -T ~/nix/home/wofi      ~/.config/wofi
-      ln -sfr -T ~/nix/home/.editorconfig      ~/.editorconfig
+      ln -sfr -T ~/nix/home/thunar        ~/.config/Thunar
+      ln -sfr -T ~/nix/home/.editorconfig ~/.editorconfig
+      ln -sfr -T ~/nix/home/waybar        ~/.config/waybar
     '';
+
+  programs.fuzzel.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

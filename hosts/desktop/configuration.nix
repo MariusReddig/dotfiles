@@ -1,11 +1,9 @@
 { pkgs, username, host, ... }:
 
-let
-  hostname = "${username}-${host}";
-in
-{
+let hostname = "${username}-${host}";
+in {
   # ============== System Settings ============== #
-  system.stateVersion = "24.11";  # Don't remove for compatibility
+  system.stateVersion = "24.11"; # Don't remove for compatibility
   networking.hostName = hostname;
 
   # ============== Nix Configuration ============== #
@@ -34,20 +32,19 @@ in
     # Nix stuff
     nix-prefetch-git
 
+    # GUI applications
+    kitty
   ]);
 
   # ============== System Services ============== #
   mullvad.enable = true;
-  sddm = {
-    enable = true;
-    # autoLogin.enable = true;
-  };
+  sddm.enable = true;
 
   # ============== User Configuration ============== #
   users.users.${username} = {
     isNormalUser = true;
     description = "main user";
-    extraGroups = [ "wheel" "docker"]; # sudo user
+    extraGroups = [ "wheel" "docker" ];
     shell = pkgs.zsh;
   };
 

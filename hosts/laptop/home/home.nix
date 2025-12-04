@@ -21,7 +21,6 @@ in {
     (homeModule "eza")
     (homeModule "zanthura")
     (homeModule "firefox/firefox")
-    (homeModule "wofi/wofi")
     (homeModule "fuzzel/fuzzel")
     (homeModule "kitty/kitty")
     (homeModule "pferd/pferd")
@@ -29,8 +28,9 @@ in {
     (homeModule "zoxide/zoxide")
     (homeModule "fzf/fzf")
     (homeModule "oh-my-posh/oh-my-posh")
-    (homeModule "stylix/stylix")
     (homeModule "superfile/superfile")
+
+    (homeModule "stylix/stylix")
     ./stylix/stylix.nix
 
     (homeModule "hyprland/hyprland")
@@ -50,9 +50,9 @@ in {
   #ln -sfr -T ~/nix/home/wofi                    ~/.config/wofi
   home.activation.linkDotFiles =
     config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfr -T ~/nix/home/thunar                  ~/.config/Thunar
-      ln -sfr -T ~/nix/hosts/laptop/home/waybar     ~/.config/waybar
-      ln -sfr -T ~/nix/home/.editorconfig           ~/.editorconfig
+      ln -sfr -T ~/nix/home/thunar              ~/.config/Thunar
+      ln -sfr -T ~/nix/home/.editorconfig       ~/.editorconfig
+      ln -sfr -T ~/nix/hosts/laptop/home/waybar ~/.config/waybar
     '';
 
   programs.fuzzel.enable = true;
