@@ -30,7 +30,7 @@ let
     "Home-manager Options" = {
       urls = [{
         template =
-          "https://home-manager-options.extranix.com/?query={searchTerms}&release=release-24.11";
+          "https://home-manager-options.extranix.com/?query={searchTerms}&release=release-25.11";
       }];
       icon = nixIcon;
       definedAliases = [ "@ho" ];
