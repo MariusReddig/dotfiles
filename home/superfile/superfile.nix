@@ -1,23 +1,15 @@
-{ config, pkgs, ... }: {
-  home.packages = (with pkgs; [ unstable.superfile zoxide exiftool ]);
+{ pkgs, inputs, system, config, ... }: {
+  home.packages = (with pkgs; [ zoxide exiftool ]);
   programs.superfile = {
     enable = true;
-    package = pkgs.unstable.superfile;
+    package = inputs.superfile.packages.${system}.default;
     metadataPackage = pkgs.exiftool;
     zoxidePackage = pkgs.zoxide;
-    settings = {
-      open_with = {
-        ".png" = "qview";
-        ".jpg" = "qview";
-        ".jpeg" = "qview";
-        ".pdf" = "zathura";
-        ".mp4" = "vlc";
-      };
-    };
+    # settings = builtins.fromTOML (builtins.readFile ./config.toml);
   };
 
-  # home.activation.linkSuperfileConfig =
-  #   config.lib.dag.entryAfter [ "writeBoundary" ] ''
-  #     ln -sfr -T ~/nix/home/superfile/config.toml ~/.config/superfile/config.toml
-  #   '';
+  home.activation.linkSuperfileConfig =
+    config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      ln -sfr -T ~/nix/home/superfile/config.toml ~/.config/superfile/config.toml
+    '';
 }

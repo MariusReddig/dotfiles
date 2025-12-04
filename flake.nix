@@ -28,6 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     swww.url = "github:LGFae/swww";
+    superfile = { url = "github:yorukot/superfile"; };
   };
 
   outputs = { self, ... }@inputs:
@@ -96,7 +97,7 @@
           };
           modules = [
             # Core system modules
-            { nixpkgs.overlays = [ unstableOverlay ]; }
+            { nixpkgs.overlays = [ unstableOverlay localOverlay ]; }
             (coreModule "bluetooth")
             (coreModule "bootloader")
             (coreModule "drivers/amd")
