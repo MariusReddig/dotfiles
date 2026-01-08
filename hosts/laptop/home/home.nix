@@ -29,6 +29,7 @@ in {
     (homeModule "fzf/fzf")
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "superfile/superfile")
+    (homeModule "balatro/balatro")
 
     (homeModule "stylix/stylix")
     ./stylix/stylix.nix

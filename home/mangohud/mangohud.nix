@@ -6,7 +6,7 @@
 
   stylix.targets.mangohud.enable = false;
   programs.mangohud = {
-    enable = true;
+    enable = false;
     enableSessionWide = true;
     package = pkgs.mangohud;
     };

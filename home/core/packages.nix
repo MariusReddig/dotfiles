@@ -1,4 +1,4 @@
-{ pkgs, inputs, nixpkgs, ... }: {
+{ pkgs, inputs, ... }: {
   programs.btop.enable = true;
   home.packages = (with pkgs; [
     # German e-ID card authentication app
@@ -114,5 +114,6 @@
 
     # Notifications
     libnotify
-  ]) ++ (with inputs; [ swww.packages.${pkgs.system}.swww ]);
+  ])
+    ++ (with inputs; [ swww.packages.${pkgs.stdenv.hostPlatform.system}.swww ]);
 }

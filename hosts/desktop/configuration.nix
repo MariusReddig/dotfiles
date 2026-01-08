@@ -50,6 +50,7 @@ in {
 
   # ============== Programs ============== #
   steam.enable = true;
+  ubisoft.enable = true;
   thunar.enable = true;
   programs.zsh.enable = true;
 

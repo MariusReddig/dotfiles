@@ -30,6 +30,7 @@ in {
     (homeModule "stylix/stylix")
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "superfile/superfile")
+    (homeModule "balatro/balatro")
 
     (homeModule "core/games")
     (homeModule "mangohud/mangohud")
