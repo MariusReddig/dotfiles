@@ -34,11 +34,10 @@
   outputs = { self, ... }@inputs:
     let
       username = "marius";
-      system = "x86_64-linux";
 
       unstableOverlay = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
-          inherit system;
+          system = prev.stdenv.hostPlatform.system;
           config.allowUnfree = true;
           overlays = [ inputs.nur.overlays.default ];
         };
@@ -55,7 +54,7 @@
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs system username;
+            inherit inputs username;
             host = "desktop";
           };
           modules = [
@@ -92,7 +91,7 @@
         };
         laptop = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs system username;
+            inherit inputs username;
             host = "laptop";
           };
           modules = [
