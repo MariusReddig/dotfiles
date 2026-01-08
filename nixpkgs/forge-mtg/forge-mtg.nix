@@ -1,64 +1,86 @@
-{ coreutils, fetchFromGitHub, gnused, lib, maven, makeWrapper, openjdk, }:
+{ coreutils, fetchFromGitHub, gnused, lib, stdenv, maven, makeWrapper, openjdk
+, libGL, alsa-lib, makeDesktopItem, copyDesktopItems, imagemagick
+, nix-update-script, }:
 
 let
-  version = "2.0.07-SNAPSHOT";
+  # Version is now derived from the source date
+  version = "2.0.09-daily-snapshot";
 
   src = fetchFromGitHub {
     owner = "Card-Forge";
     repo = "forge";
-    rev = "854f238861757d353cc7745424e25466804e9ad4";
-    hash = "sha256-/SMhhdKa9PS5ZuDCzezL91SJ4vxcQg6bifBGeEdY/8Q=";
-    leaveDotGit = true;
+    # Use the tag, not the branch
+    rev = "master"; # This is a permanent tag on the releases page[citation:1]
+    hash = "sha256-RCAPNevo5yzxAJsBdZoGaqMk0dN9lH1L9vJbWtAQa30=";
   };
 
+  # launch4j downloads and runs a native binary during the package phase.
   patches = [ ./no-launch4j.patch ];
-
-  createDesktopEntry = name: description: ''
-    mkdir -p $out/share/applications
-    cat > $out/share/applications/forge-${name}.desktop <<EOF
-    [Desktop Entry]
-    Type=Application
-    Name=${description}
-    Exec=$out/share/forge/${name}.sh
-    Icon=$out/share/forge/res/skins/default/hd_logo.png
-    Categories=Game;
-    EOF
-  '';
 
 in maven.buildMavenPackage {
   pname = "forge-mtg";
   inherit version src patches;
 
-  mvnHash = "sha256-IUkfOHPBgcfL99/rCq7Gb5cNVRKWo4ohc4/SsweLwD0=";
+  mvnHash = "sha256-pa6OMCN1j1l4Kb0oiRQ8ocLLNMeV3ujOeXNpWcODArA=";
 
   doCheck = false; # Needs a running Xorg
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems imagemagick ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "forge";
+      exec = "forge";
+      actions = {
+        forge-adventure = {
+          exec = "forge-adventure";
+          name = "Play Adventure";
+        };
+        forge-adventure-editor = {
+          exec = "forge-adventure-editor";
+          name = "Adventure Editor";
+        };
+        forge-classic = {
+          exec = "forge";
+          name = "Play Classic";
+        };
+      };
+      icon = "forge-mtg";
+      comment = "Magic: the Gathering card game with rules enforcement";
+      desktopName = "Forge MTG";
+      genericName = "Card Game";
+      categories = [ "Game" "BoardGame" ];
+      keywords = [ "Magic" "MTG" "Card Game" "Trading Card Game" "TCG" ];
+    })
+  ];
+
+  mvnParameters = lib.escapeShellArgs [
+    "-pl"
+    ":adventure-editor,:forge-gui-desktop,:forge-gui-mobile-dev"
+    "--also-make"
+  ];
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin $out/share/forge
-    cp -r forge-gui/res $out/share/forge/
 
+    # Find the actual jar files (they may have different version numbers)
+    FORGE_JAR=$(find forge-gui-desktop/target -name "forge-gui-desktop*.jar" -not -name "*sources*" -not -name "*javadoc*" | head -1)
+    ADVENTURE_JAR=$(find forge-gui-mobile-dev/target -name "forge-gui-mobile-dev*.jar" -not -name "*sources*" -not -name "*javadoc*" | head -1)
+    EDITOR_JAR=$(find adventure-editor/target -name "adventure-editor*.jar" -not -name "*sources*" -not -name "*javadoc*" | head -1)
+
+    # Copy files
+    cp -a \
+      forge-gui-desktop/target/forge.sh \
+      "$FORGE_JAR" \
+      forge-gui-mobile-dev/target/forge-adventure.sh \
+      "$ADVENTURE_JAR" \
+      "$EDITOR_JAR" \
+      forge-gui/res \
+      $out/share/forge
     cp adventure-editor/target/adventure-editor.sh $out/share/forge/forge-adventure-editor.sh
-    cp adventure-editor/target/adventure-editor-jar-with-dependencies.jar $out/share/forge/
 
-    cp forge-gui-mobile-dev/target/forge-adventure.sh $out/share/forge/
-    cp forge-gui-mobile-dev/target/forge-gui-mobile-dev-${version}-jar-with-dependencies.jar $out/share/forge/
-
-    # NOTE adventure-mode currently not working
-    #{createDesktopEntry "forge-adventure-editor" "Forge Adventure Editor"}
-    #{createDesktopEntry "forge-adventure" "Forge Adventure"}
-
-    cp forge-gui-desktop/target/forge.sh $out/share/forge/
-    cp forge-gui-desktop/target/forge-gui-desktop-${version}-jar-with-dependencies.jar $out/share/forge/
-    ${createDesktopEntry "forge" "Forge MTG"}
-
-
-
-     # Create a symlink target in ~/.config/forge/themes
-    mkdir -p $out/share/forge/res/skins  # Ensure themes dir exists in the package
-    ln -sfT "$HOME/.config/forge/themes" "$out/share/forge/res/skins/user-themes"
+    mkdir -p $out/share/icons/hicolor/128x128/apps
+    magick AppIcon.png -resize 128x128 $out/share/icons/hicolor/128x128/apps/forge-mtg.png
 
     runHook postInstall
   '';
@@ -66,17 +88,29 @@ in maven.buildMavenPackage {
   preFixup = ''
     for commandToInstall in forge forge-adventure forge-adventure-editor; do
       chmod 555 $out/share/forge/$commandToInstall.sh
+      PREFIX_CMD=""
+      if [ "$commandToInstall" = "forge-adventure" ]; then
+        PREFIX_CMD="--prefix LD_LIBRARY_PATH : ${
+          lib.makeLibraryPath ([ libGL ]
+            ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform alsa-lib)
+            [ alsa-lib ])
+        }"
+      fi
+
       makeWrapper $out/share/forge/$commandToInstall.sh $out/bin/$commandToInstall \
         --prefix PATH : ${lib.makeBinPath [ coreutils openjdk gnused ]} \
         --set JAVA_HOME ${openjdk}/lib/openjdk \
-        --set SENTRY_DSN ""
+        --set SENTRY_DSN "" \
+        $PREFIX_CMD
     done
   '';
 
-  meta = with lib; {
+  passthru.updateScript = ./update.sh;
+
+  meta = {
     description = "Magic: the Gathering card game with rules enforcement";
-    homepage = "https://www.slightlymagic.net/forum/viewforum.php?f=26";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ eigengrau ];
+    homepage = "https://card-forge.github.io/forge";
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ dyegoaurelio eigengrau ];
   };
 }
