@@ -1,41 +1,67 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
-  batteryMonitorScript = pkgs.writeShellScript "battery-monitor" ''
-    #!/usr/bin/env bash
+  batteryMonitorScript = pkgs.writeShellScript "battery-monitor.sh" ''
+    BATTERY="/sys/class/power_supply/BAT0"
+    STATUS_FILE="$BATTERY/status"
+    CAPACITY_FILE="$BATTERY/capacity"
 
-    BATTERY=$(upower -i $(upower -e | grep BAT) | grep percentage | awk '{print $2}' | sed 's/%//')
+    STATE_FILE="/run/battery-monitor-state"
+    mkdir -p "$(dirname "$STATE_FILE")"
+    touch "$STATE_FILE"
 
-    WARNING=20
-    SLEEP=5
+    LAST_WARNING=$(cat "$STATE_FILE")
 
-    if [ "$BATTERY" -le "$WARNING" ] && [ "$BATTERY" -gt "$SLEEP" ]; then
-        notify-send "Battery Low" "Battery is at \$BATTERY%!" -u critical
-        paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
+    CAPACITY=$(cat "$CAPACITY_FILE")
+    STATUS=$(cat "$STATUS_FILE")
+
+    # ${pkgs.libnotify}/bin/notify-send "Test" "Battery at ''${CAPACITY}%"
+    # sudo -u $USER ${pkgs.wireplumber}/bin/pw-play ${pkgs.kdePackages.oxygen-sounds}/share/sounds/oxygen/stereo/battery-low.ogg
+
+    # Only warn when discharging
+    if [[ "$STATUS" != "Discharging" ]]; then
+        exit 0
     fi
 
-    if [ "$BATTERY" -le "$SLEEP" ]; then
+    # 20% warning
+    if [[ $CAPACITY -le 20 && $LAST_WARNING != "warn20" && $CAPACITY -gt 5 ]]; then
+        ${pkgs.libnotify}/bin/notify-send "Battery Low" "Battery at ''${CAPACITY}%"
+        sudo -u $USER ${pkgs.wireplumber}/bin/pw-play ${pkgs.kdePackages.oxygen-sounds}/share/sounds/oxygen/stereo/battery-low.ogg
+        echo "warn20" > "$STATE_FILE"
+        exit 0
+    fi
+
+    # 5% critical — suspend
+    if [[ $CAPACITY -le 5 && $LAST_WARNING != "crit5" ]]; then
+        ${pkgs.libnotify}/bin/notify-send "Battery Critical" "Suspending now (battery at ''${CAPACITY}%)"
         systemctl suspend
+        echo "crit5" > "$STATE_FILE"
+        exit 0
+    fi
+
+    # Reset when charging
+    if [[ "$STATUS" == "Charging" ]]; then
+        echo "" > "$STATE_FILE"
     fi
   '';
 in {
-  environment.systemPackages = with pkgs; [ libnotify pulseaudio upower ];
 
   systemd.user.services.battery-monitor = {
-    description = "Battery monitor service";
+    description = "Battery Monitor Service";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${batteryMonitorScript}";
+      ExecStart = batteryMonitorScript;
     };
+    environment = { XDG_RUNTIME_DIR = "/run/user/1000"; };
   };
 
   systemd.user.timers.battery-monitor = {
-    description = "Runs battery monitor every 5 minutes";
-    timerConfig = {
-      OnBootSec = "1min";
-      OnUnitActiveSec = "5min";
-    };
+    description = "Battery Monitor Timer";
     wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "30s";
+      OnUnitActiveSec = "60s";
+    };
   };
 }
 

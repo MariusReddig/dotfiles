@@ -32,7 +32,7 @@ in {
     (homeModule "balatro/balatro")
 
     (homeModule "stylix/stylix")
-    ./stylix/stylix.nix
+    #./stylix/stylix.nix
 
     (homeModule "hyprland/hyprland")
     ./hyprland/hyprland.nix
