@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     # Unstable channels
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nur = {
@@ -87,6 +91,8 @@
             # Stylix
             inputs.stylix.nixosModules.stylix
             ./stylix/stylix.nix
+
+            inputs.nix-flatpak.nixosModules.nix-flatpak
           ];
         };
         laptop = inputs.nixpkgs.lib.nixosSystem {
@@ -124,6 +130,8 @@
             # Stylix
             inputs.stylix.nixosModules.stylix
             ./stylix/stylix.nix
+
+            inputs.nix-flatpak.nixosModules.nix-flatpak
           ];
         };
 

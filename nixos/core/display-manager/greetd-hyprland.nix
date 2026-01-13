@@ -1,7 +1,7 @@
-{ config, lib, pkgs, inputs, ... }:
-{
+{ config, lib, pkgs, inputs, ... }: {
   options = {
-    greetd-hyprland.enable = lib.mkEnableOption "enable greetd-login-manager tweaked for hyprland";
+    greetd-hyprland.enable =
+      lib.mkEnableOption "enable greetd-login-manager tweaked for hyprland";
   };
 
   config = lib.mkIf config.greetd-hyprland.enable {
@@ -22,15 +22,16 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "${inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland}/bin/Hyprland";
+          command =
+            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'env XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share ${
+              inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+            }/bin/Hyprland";
           user = "marius";
         };
         default_session = initial_session;
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      greetd.tuigreet
-    ];
+    environment.systemPackages = with pkgs; [ greetd.tuigreet ];
   };
 }
