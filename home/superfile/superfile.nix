@@ -1,8 +1,8 @@
-{ pkgs, inputs, system, config, ... }: {
+{ pkgs, inputs, config, ... }: {
   home.packages = (with pkgs; [ zoxide exiftool ]);
   programs.superfile = {
     enable = true;
-    package = inputs.superfile.packages.${system}.default;
+    # package = inputs.superfile.packages.${pkgs.stdenv.hostPlatform.system}.default;
     metadataPackage = pkgs.exiftool;
     zoxidePackage = pkgs.zoxide;
     # settings = builtins.fromTOML (builtins.readFile ./config.toml);

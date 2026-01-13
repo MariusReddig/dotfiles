@@ -6,5 +6,7 @@
     ./thunar.nix
     ./virt-manager.nix
     ./docker.nix
+    ./screen-recorder.nix
+    ./flatpak/packages.nix
   ];
 }
