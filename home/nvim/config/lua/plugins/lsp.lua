@@ -55,26 +55,6 @@ local on_attach = function(_, bufnr)
 end
 
 lspconfig.nil_ls.setup({ capabilities = capabilities })
--- lspconfig.rust_analyzer.setup({
---   cmd = { "rust-analyzer" },
---   capabilities = capabilities,
---   on_attach = function(client, bufnr)
---     on_attach(client, bufnr)
---     create_format_autocommand(client, bufnr, "rustfmt")
---   end,
---
---   root_dir = require("lspconfig/util").root_pattern("Cargo.toml"),
---   settings = {
---     ['rust-analyzer'] = {
---       cargo = {
---         allFeatures = true,
---       },
---       diagnostics = {
---         enable = false;
---       }
---     }
---   }
--- })
 
 -- Clang (cpp)
 
@@ -101,4 +81,20 @@ lspconfig.clangd.setup({
         completeUnimported = true,
         clangdFileStatus = true,
     },
+})
+
+-- Java
+lspconfig.jdtls.setup({
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        -- Auto-completion
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+        -- Diagnostic config
+        vim.diagnostic.config({
+            virtual_text = true,
+            signs = true,
+            update_in_insert = false,
+        })
+    end,
 })

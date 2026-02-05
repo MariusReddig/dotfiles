@@ -39,6 +39,11 @@
     rstcheck
     commitlint
     statix
+
+    #java-stuff
+    checkstyle
+    jdt-language-server
+    pmd
   ]);
 
   stylix.targets.neovim.enable = false;

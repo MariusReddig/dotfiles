@@ -6,6 +6,7 @@ require("lint").linters_by_ft = {
     rst = { "rstcheck" },
     nix = { "statix" },
     lua = { "selene" },
+    java = { "checkstyle", "pmd" },
     -- Add other diagnostics
 }
 

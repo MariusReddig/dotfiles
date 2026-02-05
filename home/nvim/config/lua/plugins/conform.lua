@@ -25,6 +25,7 @@ conform.setup({
         jsonc = { "prettier" },
         markdown = { "prettier" },
         yaml = { "prettier" },
+        java = { "clang-format" },
         -- Add other file types as needed
     },
 
