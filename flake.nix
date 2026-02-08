@@ -13,10 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     # Unstable channels
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nur = {
@@ -31,8 +27,15 @@
       url = "github:/Garmelon/PFERD";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    superfile = {
+      url = "github:yorukot/superfile";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     swww.url = "github:LGFae/swww";
-    superfile = { url = "github:yorukot/superfile"; };
   };
 
   outputs = { self, ... }@inputs:
