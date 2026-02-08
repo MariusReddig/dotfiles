@@ -2,11 +2,7 @@
   programs.btop.enable = true;
   home.packages = (with pkgs; [
     # German e-ID card authentication app
-    openvpn
-    networkmanager-openvpn
     # ausweisapp
-
-    jdupes
 
     #Judo-shiai
     # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
@@ -29,6 +25,7 @@
     dwt1-shell-color-scripts
     cmake
     playerctl
+    jdupes
     qalculate-qt
 
     # System Monitoring
@@ -36,6 +33,7 @@
     lact
     upower
     fastfetch
+    unstable.openrgb-with-all-plugins
 
     # Fonts
     corefonts
@@ -97,12 +95,9 @@
     cliphist
 
     # Communication
-    # (discord.override {
-    #   # withOpenASAR = true;
-    #   # withVencord = true;
-    # })
     vesktop
     element-desktop
+    teams-for-linux
 
     # Development Tools
     python312Packages.pip
