@@ -1,8 +1,4 @@
-{ config, pkgs, ... }:
-{
-  imports = [
-    ./scripts/chwp.nix
-  ];
+{ pkgs, ... }: {
   home.packages = [
     (pkgs.writeShellScriptBin "start-xdg-desktop-portal" ''
       #!/bin/bash
@@ -19,8 +15,4 @@
       systemctl --user import-environment QT_QPA_PLATFORMTHEME
     '')
   ];
-
-  home.activation.linkHyprCoreFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/hyprland      ~/.config/hypr/core
-  '';
 }

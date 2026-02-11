@@ -26,7 +26,7 @@ conform.setup({
         markdown = { "prettier" },
         yaml = { "prettier" },
         java = { "clang-format" },
-        -- Add other file types as needed
+        sql = { "sqlfluff" },
     },
 
     -- Custom formatter configurations
@@ -43,9 +43,5 @@ conform.setup({
                 vim.fn.expand("~/nix/home/nvim/config/lua/config/cmake.json"),
             },
         },
-        -- You can add other formatter configurations here
     },
 })
-
--- Note: conform.nvim handles formatting automatically with format_on_save
--- You can REMOVE the BufWritePre autocmd since conform handles it

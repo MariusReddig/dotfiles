@@ -35,7 +35,7 @@ in {
     (homeModule "core/games")
     (homeModule "mangohud/mangohud")
 
-    (homeModule "hyprland/hyprland")
+    (homeModule "hyprland/base-config")
     ./hyprland/hyprland.nix
 
   ];

@@ -34,7 +34,7 @@ in {
     (homeModule "stylix/stylix")
     #./stylix/stylix.nix
 
-    (homeModule "hyprland/hyprland")
+    (homeModule "hyprland/base-config")
     ./hyprland/hyprland.nix
   ];
 
