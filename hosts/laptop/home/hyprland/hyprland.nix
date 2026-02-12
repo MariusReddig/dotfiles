@@ -7,10 +7,9 @@
 
     # Linking in Hyprland config
     file.".config/hypr/hyprland.conf".text = ''
-      # Linker file configured in the nix config
-      source = ./source-files/import-sources.conf
-      source = ./user-configs/monitor-layout.conf
-      source = ./user-configs/device-layout.conf
+      source = ~/.config/hypr/source-files/import-sources.conf
+      source = ~/.config/hypr/user-configs/monitor-layout.conf
+      source = ~/.config/hypr/user-configs/device-layout.conf
     '';
   };
 }
