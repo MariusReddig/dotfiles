@@ -7,7 +7,7 @@ theme = 'tokyonight'
 editor = "tmux new-session -d 'nvim' && tmux attach-session"
 #
 # The editor directories will be opened with. (Leave blank to use the default editors).
-dir_editor = "thunar"
+dir_editor = ""
 #
 # Auto check for update
 auto_check_update = true
@@ -93,3 +93,17 @@ enable_md5_checksum = false
 #
 # Zoxide support for the fast navigation
 zoxide_support = true
+
+#-- File opening rules
+# Map file extensions to commands used to open them.
+# The file path will be appended as the last argument.
+# MUST BE IN THE VERY END OF THE FILE BECAUSE TOML CANNOT CLOSE TABLES
+# Example:
+#   png = "feh"
+#   pdf = "zathura"
+#   conf = "nvim"
+[open_with]
+png = "qview"
+jpeg = "qview"
+xopp = "xournalpp"
+pdf = "zathura"
