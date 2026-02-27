@@ -4,6 +4,7 @@
     # German e-ID card authentication app
     # ausweisapp
 
+    chromium
     #Judo-shiai
     # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
 
