@@ -3,21 +3,19 @@
 
   config = lib.mkIf (config.steam.enable || config.ubisoft.enable) {
 
-    environment.systemPackages = with pkgs; [ protonup-ng ];
+    environment.systemPackages = with pkgs.unstable; [
+      protonup-ng
+      protontricks
+      # winetricks
+      # wineWowPackages.staging
+      # wineWowPackages.waylandFull
+    ];
 
     users.groups.gamemode.members = [ "${username}" ];
 
     programs = {
-      gamemode = { enable = true; };
-      gamescope = {
-        enable = true;
-        capSysNice = true;
-        package = pkgs.unstable.gamescope;
-      };
-
       steam = {
         enable = true;
-        gamescopeSession.enable = true;
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
