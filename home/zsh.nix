@@ -26,6 +26,8 @@
         la = "ls -la";
         nixos-update = "sudo nixos-rebuild switch --flake $HOME/nix#${host}";
         nixos-build = "sudo nixos-rebuild build --flake $HOME/nix${host}";
+        nixos-cleanup =
+          "sudo nix-collect-garbage -d; sudo nix-store --optimise -v";
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";
