@@ -3,6 +3,9 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 
 cmp.setup({
+    -- completion = {
+    --     autocomplete = true, -- Don't auto-show completions when entering insert mode
+    -- },
     snippet = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)

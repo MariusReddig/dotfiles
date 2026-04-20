@@ -29,4 +29,7 @@ require("clangd_extensions").setup({
         right_align_padding = 7,
         highlight = "Comment",
     },
+    extensions = {
+        autoSetHints = false,
+    },
 })

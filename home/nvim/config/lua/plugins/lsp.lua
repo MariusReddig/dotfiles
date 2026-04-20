@@ -71,6 +71,7 @@ lspconfig.clangd.setup({
         "--background-index",
         "--clang-tidy",
         "--header-insertion=iwyu",
+        "--header-insertion-decorators",
         "--completion-style=detailed",
         "--compile-commands-dir=build",
         "--function-arg-placeholders",
