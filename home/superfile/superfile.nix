@@ -18,5 +18,6 @@ in {
   home.activation.linkSuperfileConfig =
     config.lib.dag.entryAfter [ "writeBoundary" ] ''
       ln -sfr -T ~/nix/home/superfile/config.toml ~/.config/superfile/config.toml
+      ln -sfr -T ~/nix/home/superfile/pinned.json ~/.local/share/superfile/pinned.json
     '';
 }

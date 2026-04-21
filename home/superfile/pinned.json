@@ -1,0 +1,15 @@
+[
+  { "location": "/home/marius/Documents/UNI/8.Semester", "name": "8.Semester" },
+  {
+    "location": "/home/marius/Documents/UNI/8.Semester/Infosec",
+    "name": "Infosec"
+  },
+  {
+    "location": "/home/marius/Documents/UNI/8.Semester/Numerik",
+    "name": "Numerik"
+  },
+  { "location": "/home/marius/Documents/UNI/8.Semester/RN", "name": "RN" },
+  { "location": "/home/marius/Documents/UNI/8.Semester/RS", "name": "RS" },
+  { "location": "/home/marius/Documents/UNI/7.Semester/ÖRI", "name": "ÖRI" },
+  { "location": "/home/marius/Documents/UNI/8.Semester/ÖRII", "name": "ÖRII" }
+]
