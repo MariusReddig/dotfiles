@@ -5,6 +5,7 @@
     # ausweisapp
 
     chromium
+    pomodoro-gtk
     #Judo-shiai
     # (callPackage ../../nixpkgs/packages.nix {}).judo-shiai
 
