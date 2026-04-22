@@ -123,6 +123,7 @@
             (coreModule "nix-ld")
             (coreModule "docker")
             (coreModule "battery-monitor")
+            (coreModule "cups")
 
             # Host configuration
             ./hosts/laptop/configuration.nix
