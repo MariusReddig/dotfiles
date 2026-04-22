@@ -1,5 +1,4 @@
-{ username, host, pkgs, ... }:
-{
+{ username, host, pkgs, ... }: {
   home.packages = [
     pkgs.file
     (pkgs.writeShellScriptBin "chwp" ''
@@ -73,8 +72,8 @@
       }
 
       set_new_wallpaper() {
-        cp "$filepath" "$wallpaperPath"
-        cp "$filepath" "$stylixPath"
+        ln -sf "$filepath" "$wallpaperPath"
+        ln -sf "$filepath" "$stylixPath"
 
         if [ "$verbose" = true ]; then
           echo "[Info] copied $filepath to $wallpaperPath and $stylixPath"
