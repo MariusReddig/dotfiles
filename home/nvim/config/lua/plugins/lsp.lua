@@ -1,5 +1,6 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local lspconfig = require("lspconfig")
+-- local lspconfig = require(lspconfig)
+local lspconfig = vim.lsp.config
 local wk = require("which-key")
 local create_format_autocommand = function(client, bufnr, name)
     if client.supports_method("textDocument/formatting") then
@@ -54,11 +55,38 @@ local on_attach = function(_, bufnr)
     end, {})
 end
 
-lspconfig.nil_ls.setup({ capabilities = capabilities })
+-- lspconfig.nil_ls.setup({ capabilities = capabilities })
+lspconfig("nil_ls", { capabilities = capabilities })
 
 -- Clang (cpp)
 
-lspconfig.clangd.setup({
+-- lspconfig.clangd.setup({
+--     capabilities = capabilities,
+--     on_attach = function(client, bufnr)
+--         on_attach(client, bufnr)
+--         create_format_autocommand(client, bufnr, "clangd")
+--         vim.keymap.set("n", "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", { buffer = bufnr })
+--         vim.lsp.inlay_hint.enable(true)
+--     end,
+--     cmd = {
+--         "clangd",
+--         "--background-index",
+--         "--clang-tidy",
+--         "--header-insertion=iwyu",
+--         "--header-insertion-decorators",
+--         "--completion-style=detailed",
+--         "--compile-commands-dir=build",
+--         "--function-arg-placeholders",
+--         "--limit-results=0",
+--     },
+--     init_options = {
+--         usePlaceholders = true,
+--         completeUnimported = true,
+--         clangdFileStatus = true,
+--     },
+-- })
+--
+lspconfig("clangd", {
     capabilities = capabilities,
     on_attach = function(client, bufnr)
         on_attach(client, bufnr)
@@ -85,7 +113,21 @@ lspconfig.clangd.setup({
 })
 
 -- Java
-lspconfig.jdtls.setup({
+-- lspconfig.jdtls.setup({
+--     capabilities = capabilities,
+--     on_attach = function(client, bufnr)
+--         -- Auto-completion
+--         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+--
+--         -- Diagnostic config
+--         vim.diagnostic.config({
+--             virtual_text = true,
+--             signs = true,
+--             update_in_insert = false,
+--         })
+--     end,
+-- })
+lspconfig('jdtls',{
     capabilities = capabilities,
     on_attach = function(client, bufnr)
         -- Auto-completion

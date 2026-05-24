@@ -52,15 +52,32 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+    package = pkgs.neovim-unwrapped;
 
     plugins = (with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p:
+        with p; [
+          tree-sitter-lua
+          tree-sitter-python
+          tree-sitter-cpp
+          tree-sitter-rust
+          tree-sitter-markdown
+          tree-sitter-nix
+          tree-sitter-bash
+          tree-sitter-json
+          tree-sitter-toml
+          tree-sitter-yaml
+          tree-sitter-vim
+          tree-sitter-nix
+          tree-sitter-norg
+          tree-sitter-norg-meta
+        ]))
       tokyonight-nvim
       neo-tree-nvim
       which-key-nvim
       nvim-web-devicons
       mini-icons
       mini-pairs
-      nvim-treesitter.withAllGrammars
       bufferline-nvim
       lualine-nvim
       mini-surround
@@ -94,6 +111,8 @@
       conform-nvim
       nvim-lint
       clangd_extensions-nvim
+
+      neorg
     ]);
   };
 
