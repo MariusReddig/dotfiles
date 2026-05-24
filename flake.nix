@@ -36,6 +36,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     swww.url = "github:LGFae/swww";
+
+    neorg-overlay = {
+      url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -46,7 +51,10 @@
         unstable = import inputs.nixpkgs-unstable {
           system = prev.stdenv.hostPlatform.system;
           config.allowUnfree = true;
-          overlays = [ inputs.nur.overlays.default ];
+          overlays = [
+            inputs.nur.overlays.default
+            inputs.neorg-overlay.overlays.default
+          ];
         };
       };
 
