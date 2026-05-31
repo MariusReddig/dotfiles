@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "  "
 
 -- Hint: use `:h <option>` to figure out the meaning if needed
 vim.opt.clipboard = "unnamedplus" -- use system clipboard
@@ -32,7 +32,7 @@ vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entere
 vim.wo.wrap = false
 
 --modelines
-vim.opt.modeline = true      -- Enable modelines
-vim.opt.modelines = 5        -- Check first/last 5 lines
+vim.opt.modeline = true -- Enable modelines
+vim.opt.modelines = 5 -- Check first/last 5 lines
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }

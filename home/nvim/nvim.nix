@@ -112,6 +112,7 @@
       nvim-lint
       clangd_extensions-nvim
 
+      lean-nvim
       neorg
     ]);
   };
