@@ -1,0 +1,99 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''local customize = nil'''
+position = "after"
+payload = '''local textures = nil'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''local customize = UIBox_button{ label = {localize('b_customize_deck')}, button = "customize_deck", minw = 5}'''
+position = "after"
+payload = '''customize = {n=G.UIT.R, config={minw = 5, align='cl', padding = 0.1}, nodes = {
+    UIBox_button{ label = {localize('b_deck_skins')}, col = true, button = "customize_deck", minw = 2.45},
+    UIBox_button{ label = {localize('b_textures')}, col = true, button = "textures_button", minw = 2.45, align = 'cl', colour = Malverk.badge_colour},
+}}'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if not self.config.center.discovered and (self.ability.consumeable or self.config.center.unlocked) and not self.config.center.demo and not self.bypass_discovery_center then'''
+position = "before"
+payload = '''
+if self.texture_selected then
+    self.children.center:draw_shader('malverk_texture_selected', nil, self.ARGS.send_to_shader)
+    if self.children.front then
+        self.children.front:draw_shader('malverk_texture_selected', nil, self.ARGS.send_to_shader)
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''self.children.floating_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)'''
+position = "before"
+payload = '''
+if self.texture_selected then
+    self.children.floating_sprite:draw_shader('malverk_texture_selected', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+else
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''self.children.floating_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if k ~= 'focused_ui' and k ~= "front" and k ~= "back" and k ~= "soul_parts" and k ~= "center" and k ~= 'floating_sprite' and k~= "shadow" and k~= "use_button" and k ~= 'buy_button' and k ~= 'buy_and_use_button' and k~= "debuff" and k ~= 'price' and k~= 'particles' and k ~= 'h_popup' then v:draw() end'''
+position = "before"
+payload = '''
+if self.children.animatedSprite and self.texture_selected then
+    self.children.animatedSprite:draw_shader('malverk_texture_selected', nil, self.ARGS.send_to_shader)
+else
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if k ~= 'focused_ui' and k ~= "front" and k ~= "back" and k ~= "soul_parts" and k ~= "center" and k ~= 'floating_sprite' and k~= "shadow" and k~= "use_button" and k ~= 'buy_button' and k ~= 'buy_and_use_button' and k~= "debuff" and k ~= 'price' and k~= 'particles' and k ~= 'h_popup' then v:draw() end'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+
+# This patch allows Malverk Atlases to be tagged to the correct mod - modifies smods code
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+assert(o.mod == nil, "Created object should not have \"mod\" field defined.")
+o.mod = SMODS.current_mod
+'''
+payload = '''
+-- Removed by Malverk
+-- assert(o.mod == nil, "Created object should not have \"mod\" field defined.")
+o.mod = o.mod or SMODS.current_mod
+'''
+

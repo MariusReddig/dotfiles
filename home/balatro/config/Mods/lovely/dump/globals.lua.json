@@ -1,0 +1,53 @@
+{
+  "buffer_name": "globals.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/blind_score_mod.toml",
+        "pattern": "RENTAL = HEX('b18f43'),",
+        "patch_type": "pattern"
+      },
+      "regions": [],
+      "warnings": [
+        "Pattern 'RENTAL = HEX(\\'b18f43\\'),' on target 'globals.lua' for pattern patch from smods-1.0.0-beta-1814a/lovely/blind_score_mod.toml resulted in no matches"
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/mobile_patches.toml",
+        "pattern": "if love.system.getOS() == 'OS X' then",
+        "patch_type": "pattern"
+      },
+      "regions": [],
+      "warnings": [
+        "Pattern 'if love.system.getOS() == \\'OS X\\' then' on target 'globals.lua' for pattern patch from smods-1.0.0-beta-1814a/lovely/mobile_patches.toml resulted in no matches"
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_elements.toml",
+        "pattern": "UIBOX = {},\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 341,
+          "end_line": 341
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/booster.toml",
+        "pattern": "(?<indent>[\\t ]*)self\\.STATES = \\{",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 292,
+          "end_line": 294
+        }
+      ]
+    }
+  ]
+}

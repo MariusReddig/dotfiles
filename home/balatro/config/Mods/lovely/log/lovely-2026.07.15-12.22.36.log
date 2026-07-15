@@ -1,0 +1,34 @@
+INFO - [♥] Lovely 0.9.0
+INFO - [♥] Game directory is at "/nix/store/4nrfmax3pfy187nkxcz5bnf4xnx1hl9v-love-11.5/bin"
+INFO - [♥] Writing logs to "/home/marius/.local/share/love/Mods/lovely/log"
+INFO - [♥] Using mod directory at "/home/marius/.local/share/love/Mods"
+WARN - [♥] Unknown key `patches.18.?.match_indent` found in patch file "/home/marius/.local/share/love/Mods/Cryptid-0.5.16d/lovely/code.toml", ignoring it
+WARN - [♥] Unknown key `patches.18.?.match_indent` found in patch file "/home/marius/.local/share/love/Mods/Cryptid-0.5.16d/lovely/code.toml", ignoring it
+INFO - [♥] Cleaning up dump directory at "/home/marius/.local/share/love/Mods/lovely/dump"
+INFO - [♥] Cleaning up game-dump directory at "/home/marius/.local/share/love/Mods/lovely/game-dump"
+INFO - [♥] Initialization complete in 18ms
+INFO - [♥] Applied 1 patch to '=[lovely json "libs/json/json.lua"]'
+INFO - [♥] Applied 1 patch to '=[love "wrap_GraphicsShader.lua"]'
+INFO - [♥] Applied 1 patch to '=[lovely SMODS.preflight.core "src/preflight/core.lua"]'
+INFO - [G] Failed to connect to the debug server
+INFO - [G] 2026-07-15 12:22:37 :: DEBUG :: DebugConsole :: Steamodded Debug Socket started !
+INFO - [G] [stage]	Loading APIs
+INFO - [G] [stage]	Processing Mod Files
+INFO - [G] /home/marius/nix/home/balatro/config/Mods	Amulet	1
+INFO - [G] 2026-07-15 12:22:37 :: ERROR :: Loader :: Found invalid metadata JSON file at /home/marius/nix/home/balatro/config/Mods/Amulet/manifest.json, ignoring: [lovely SMODS.preflight.loader "src/preflight/loader.lua"]:320: prefix
+INFO - [G] 2026-07-15 12:22:37 :: INFO  :: Loader :: Valid JSON file found
+INFO - [G] /home/marius/nix/home/balatro/config/Mods	Balatro	1
+ERROR - [♥] Evaluation of module SMODS.preflight.core failed for module patch from smods-1.0.0-beta-1814a/lovely/preflight.toml:
+ERROR - [♥] Error: [lovely SMODS.preflight.loader "src/preflight/loader.lua"]:256: attempt to index a nil value
+INFO - [G] Error: Syntax error: An error occured evaluating a load_now module:
+
+Error: [lovely SMODS.preflight.loader "src/preflight/loader.lua"]:256: attempt to index a nil value
+
+stack traceback:
+	[love "boot.lua"]:352: in function <[love "boot.lua"]:348>
+	[C]: at 0x76eef84b7980
+	[C]: in function 'require'
+	[love "boot.lua"]:323: in function <[love "boot.lua"]:126>
+	[C]: in function 'xpcall'
+	[love "boot.lua"]:362: in function <[love "boot.lua"]:355>
+	[C]: in function 'xpcall'

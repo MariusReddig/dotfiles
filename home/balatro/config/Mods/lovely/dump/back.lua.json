@@ -1,0 +1,217 @@
+{
+  "buffer_name": "back.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if not selected_back then selected_back = G.P_CENTERS.b_red end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 7,
+          "end_line": 7
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if not new_back then new_back = G.P_CENTERS.b_red end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 104,
+          "end_line": 104
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "function Back:apply_to_run()",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 207,
+          "end_line": 210
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if self.effect.config.randomize_rank_suit then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 314,
+          "end_line": 324
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if not args then return end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 130,
+          "end_line": 141
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if not back_config.unlock_condition then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 38,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "localize{type = 'descriptions', key = 'demo_locked', set = \"Other\", nodes = loc_nodes, vars = loc_args}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 50,
+          "end_line": 52
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "loc_args = {other_name}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 58,
+          "end_line": 58
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "loc_args = {tostring(back_config.unlock_condition.amount)}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 61,
+          "end_line": 61
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "loc_args = {other_name, colours = {get_stake_col(back_config.unlock_condition.stake)}}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 65,
+          "end_line": 65
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if name_to_check == 'Blue Deck'*",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 69,
+          "end_line": 74
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "if self.effect.config.voucher then\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 212,
+          "end_line": 225
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/shop.toml",
+        "pattern": "if self.effect.config.no_interest then\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 340,
+          "end_line": 342
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/back.toml",
+        "pattern": "key = back_config\\.key",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 92,
+          "end_line": 92
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/better_calc.toml",
+        "pattern": "(?<indent>[\\t ]*)(?<line>Card.apply_to_run\\(nil, G\\.P_CENTERS\\[.*?\\]\\))",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 229,
+          "end_line": 234
+        },
+        {
+          "start_line": 291,
+          "end_line": 296
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/challenge.toml",
+        "pattern": "name_to_check == 'Challenge Deck' and UIBox_button({button = 'deck_view_challenge', label = {localize(challenge.id, 'challenge_names')},  minw = 2.2, minh = 1, scale = 0.6, id = challenge})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 97,
+          "end_line": 97
+        }
+      ]
+    }
+  ]
+}

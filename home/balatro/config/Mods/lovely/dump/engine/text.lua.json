@@ -1,0 +1,321 @@
+{
+  "buffer_name": "engine/text.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/dynatext_conditionals.toml",
+        "pattern": "        if self.strings[k].H > self.config.H then self.config.H = self.strings[k].H; self.strings[k].H_offset = 0 end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 160,
+          "end_line": 162
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/dynatext_conditionals.toml",
+        "pattern": "    for k, v in ipairs(self.config.string) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 83,
+          "end_line": 83
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/dynatext_conditionals.toml",
+        "pattern": "self.focused_string = (self.config.random_element and math.random(1, #self.strings)) or self.focused_string ==  #self.strings and 1 or self.focused_string+1",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 216,
+          "end_line": 220
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/dynatext_conditionals.toml",
+        "pattern": "for k, v in ipairs(self.strings) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 177,
+          "end_line": 185
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/fixes.toml",
+        "pattern": "self.config.H = 0",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 79,
+          "end_line": 79
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/shaders.toml",
+        "pattern": "self.config = config",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 8,
+          "end_line": 8
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/text_effect.toml",
+        "pattern": "if self.config.bump then letter.offset.y = (G.SETTINGS.reduced_motion and 0 or 1)*self.bump_amount*math.sqrt(self.scale)*7*math.max(0, (5+self.bump_rate)*math.sin(self.bump_rate*G.TIMERS.REAL+200*k) - 3 - self.bump_rate) end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 280,
+          "end_line": 282
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/text_effect.toml",
+        "pattern": "    if self.children.particle_effect then self.children.particle_effect:draw() end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 305,
+          "end_line": 308
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/text_effect.toml",
+        "pattern": "            love.graphics.draw(\n                letter.letter,\n                0.5*(letter.dims.x - letter.offset.x)*self.font.FONTSCALE/G.TILESIZE -self.shadow_parrallax.x*self.scale/(G.TILESIZE),\n                0.5*(letter.dims.y)*self.font.FONTSCALE/G.TILESIZE -self.shadow_parrallax.y*self.scale/(G.TILESIZE), \n                letter.r or 0,\n                real_pop_in*self.scale*self.font.FONTSCALE/G.TILESIZE,\n                real_pop_in*self.scale*self.font.FONTSCALE/G.TILESIZE,\n                0.5*letter.dims.x/self.scale,\n                0.5*letter.dims.y/self.scale\n            )\n            love.graphics.translate(letter.dims.x*self.font.FONTSCALE/G.TILESIZE, 0)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 339,
+          "end_line": 358
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/text_effect.toml",
+        "pattern": "        love.graphics.draw(\n            letter.letter,\n            0.5*(letter.dims.x - letter.offset.x)*self.font.FONTSCALE/G.TILESIZE + _shadow_norm.x,\n            0.5*(letter.dims.y - letter.offset.y)*self.font.FONTSCALE/G.TILESIZE + _shadow_norm.y, \n            letter.r or 0,\n            real_pop_in*letter.scale*self.scale*self.font.FONTSCALE/G.TILESIZE,\n            real_pop_in*letter.scale*self.scale*self.font.FONTSCALE/G.TILESIZE,\n            0.5*letter.dims.x/(self.scale),\n            0.5*letter.dims.y/(self.scale)\n    )",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 377,
+          "end_line": 395
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "if self.strings[k].W > self.config.W then self.config.W = self.strings[k].W; self.strings[k].W_offset = 0 end\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 147,
+          "end_line": 158
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "if self.config.maxw and self.config.W > self.config.maxw then\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 37,
+          "end_line": 37
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "v.W_offset = 0.5*(self.config.W - v.W)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 191,
+          "end_line": 191
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "if self.children.particle_effect then self.children.particle_effect:draw() end\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 316,
+          "end_line": 325
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "for k, letter in ipairs(self.strings[self.focused_string].letters) do\n    local real_pop_in = self.config.min_cycle_time == 0 and 1 or letter.pop_in\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 336,
+          "end_line": 338
+        },
+        {
+          "start_line": 372,
+          "end_line": 374
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "function DynaText:update(dt)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 68,
+          "end_line": 71
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "self.silent = (config.silent)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 24,
+          "end_line": 26
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "for k, v in ipairs(self.config.string) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 81,
+          "end_line": 81
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "if old_string ~= new_string or first_pass then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 105,
+          "end_line": 106
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "for k, v in ipairs(self.strings) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 186,
+          "end_line": 189
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "if self.children.particle_effect then self.children.particle_effect:draw() end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 310,
+          "end_line": 315
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "self:draw_boundingrect()",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 402,
+          "end_line": 405
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui_additional_text_props.toml",
+        "pattern": "if first_pass then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 95,
+          "end_line": 95
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/number_formatting.toml",
+        "pattern": "tostring\\((?<param>v\\.ref_table and v\\.ref_table\\[v\\.ref_value\\] or v\\.string)\\)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 91,
+          "end_line": 91
+        }
+      ]
+    }
+  ]
+}

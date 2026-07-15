@@ -1,0 +1,82 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# my day will be slightly nicer when lovely 0.9.0 is released
+#[[patches]]
+#[patches.copy]
+#target = "main.lua"
+#position = "append"
+#payload = '''_mod_dir_amulet = "{{lovely_hack:patch_dir}}"'''
+
+[[patches]]
+[patches.pattern]
+target = "main.lua"
+position = "before"
+pattern = "function love.run()"
+payload = '''
+if _mod_dir_amulet then
+error(string.format([==[
+
+[!] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [!]
+
+    Duplicate Amulet installation detected. Remove one of them.
+    Other: %s
+    Current: %s
+
+[!] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [!]
+
+    (you will be sent to pluto if you report this crash message)
+
+]==],
+_mod_dir_amulet,
+"{{lovely_hack:patch_dir}}"
+), 0)
+end
+
+_mod_dir_amulet = "{{lovely_hack:patch_dir}}"
+
+if SMODS and SMODS.Mods and not SMODS.Mods.Talisman then
+	SMODS.Mods.Talisman = {
+		can_load = true,
+		meta_mod = true
+	}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.copy]
+target = "main.lua"
+position = "append"
+sources = [
+	"talisman.lua"
+]
+
+# Show a Gold Seal to confirm Talisman is Active
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "replace_card.states.visible = false"
+position = "before"
+payload = "replace_card:set_seal('Blue', true, true)"
+match_indent = true
+
+# call init game object appendum after init game object
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "if new_game_obj then self.GAME = self:init_game_object() end"
+position = "after"
+payload =  "if Talisman and Talisman.igo then self.GAME = Talisman.igo(self.GAME) end"
+match_indent = true
+
+# call init game object appendum after init game object
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.GAME = saveTable and saveTable.GAME or self:init_game_object()"
+position = "after"
+payload =  "if Talisman and Talisman.igo then self.GAME = Talisman.igo(self.GAME) end"
+match_indent = true

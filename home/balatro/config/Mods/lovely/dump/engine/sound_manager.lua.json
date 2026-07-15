@@ -1,0 +1,122 @@
+{
+  "buffer_name": "engine/sound_manager.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "local s = {sound = love.audio.newSource(\"resources/sounds/\"..args.sound_code..'.ogg', should_stream and \"stream\" or 'static')}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 58,
+          "end_line": 61
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "DISABLE_SFX = false",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 12,
+          "end_line": 12
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "elseif request.type == 'stop' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 196,
+          "end_line": 204
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "s.original_pitch = args.per or 1",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 64,
+          "end_line": 64
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "s.original_volume = args.vol or 1",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 65,
+          "end_line": 65
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "RESTART_MUSIC()",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 211,
+          "end_line": 211
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "for _, s in pairs(v) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 130,
+          "end_line": 131
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/sound.toml",
+        "pattern": "(?<indent>[\t ]*)function MODULATE\\(args\\)(\n.*){9}",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 111,
+          "end_line": 117
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/threads.toml",
+        "pattern": "if request then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 192,
+          "end_line": 192
+        }
+      ]
+    }
+  ]
+}

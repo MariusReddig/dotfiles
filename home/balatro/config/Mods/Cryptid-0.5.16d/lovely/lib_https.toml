@@ -1,0 +1,15 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+# test
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.specific_vars then specific_vars = _c.specific_vars end"
+position = "before"
+payload = '''
+if _c.plua_extra then main_start = _c.plua_extra end
+'''
+match_indent = true

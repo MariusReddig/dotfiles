@@ -1,0 +1,102 @@
+Talisman = {
+    F_NO_COROUTINE = false,
+    mod_path = _mod_dir_amulet,
+    patch_ok = false,
+
+    ante_switch_point = 1000000,
+    level_color_highest = 7,
+
+    cdataman = true,
+    Amulet = true
+}
+Talisman.api_version = {
+    major = 3,
+    minor = 5
+}
+
+Talisman.config_file = {
+    disable_anims = false,
+    disable_omega = false,
+    debug_coroutine = false,
+    big_ante = false,
+    notation = "Balatro",
+    exponential_colours = 1,
+
+    enable_compat = false,
+    thread_sanitize = 'modify',
+    thread_sanitize_num = true,
+    sanitize_graphics = false,
+
+    break_infinity = "omeganum", -- unused
+}
+
+Talisman.config = { file_name = 'config/amulet.lua' }
+
+function Talisman.config.save()
+    love.filesystem.createDirectory('config')
+    love.filesystem.write(Talisman.config.file_name, STR_PACK(Talisman.config_file))
+end
+
+function Talisman.config.load()
+    local conf = love.filesystem.read(Talisman.config.file_name)
+    if not conf then return end
+    local parsed = STR_UNPACK(conf)
+    if not parsed then return end
+
+    for k, v in pairs(parsed) do
+        Talisman.config_file[k] = v
+    end
+end
+
+Talisman.forced_features = {}
+
+function Talisman.forced_features.force_omeganum()
+    Talisman.forced_features.omeganum = true
+    require("talisman.break_inf")
+    Talisman.debug.omeganum_forced = 'yes'
+end
+
+function Talisman.forced_features.force_bigante()
+    Talisman.big_ante.enable()
+    Talisman.forced_features.bigante = true
+    Talisman.debug.bigante_forced = 'yes'
+end
+
+Talisman.big_ante = {}
+
+function Talisman.big_ante.has()
+    return Talisman.config_file.big_ante or Talisman.forced_features.bigante
+end
+
+function Talisman.big_ante.enable()
+    if G.GAME then G.GAME.round_resets.ante = to_big(G.GAME.round_resets.ante) end
+    Talisman.debug.bigante = 'on'
+end
+
+function Talisman.big_ante.disable()
+    if G.GAME then G.GAME.round_resets.ante = math.min(math.max(to_number(G.GAME.round_resets.ante), -1e308), 1e308) end
+    Talisman.debug.bigante = nil
+end
+
+function Talisman.update_debug()
+    local d = Talisman.debug
+    local c = Talisman.config_file
+    d.omeganum       = not Big and 'no' or nil
+    d.type_compat    = c.enable_compat and 'yes' or nil
+    d.thread_fix     = c.thread_sanitize
+    d.thread_fix_num = c.thread_sanitize_num and 'yes' or 'no'
+    d.gfx_fix        = c.sanitize_graphics and 'yes' or nil
+    d.exp_color      = c.exponential_colours == 1 and 'default' or 'classic'
+end
+
+Talisman.flame_effect = {
+    max = 7e5, -- Maximum flame intensity
+    decay = 25000, -- Maximum flame real intensity when intensity is switched to 0
+    dt_max = 131, -- Maximum flame deltatime (seconds)
+}
+
+Talisman.current_calc = {}
+Talisman.debug = {}
+
+Talisman.config.load()
+Talisman.update_debug()

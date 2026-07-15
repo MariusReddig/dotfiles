@@ -1,0 +1,12 @@
+INFO - [♥] Lovely 0.9.0
+INFO - [♥] Game directory is at "/nix/store/4nrfmax3pfy187nkxcz5bnf4xnx1hl9v-love-11.5/bin"
+INFO - [♥] Writing logs to "/home/marius/.local/share/love/Mods/lovely/log"
+INFO - [♥] Using mod directory at "/home/marius/.local/share/love/Mods"
+INFO - [♥] 'smods-1.0.0-beta-1814a' was found in blacklist, skipping it.
+INFO - [♥] 'balatroDarkMode' was found in blacklist, skipping it.
+INFO - [♥] 'Cryptid-0.5.16d' was found in blacklist, skipping it.
+INFO - [♥] 'Amulet' was found in blacklist, skipping it.
+INFO - [♥] 'Malverk-1.1.4a' was found in blacklist, skipping it.
+INFO - [♥] Cleaning up dump directory at "/home/marius/.local/share/love/Mods/lovely/dump"
+INFO - [♥] Cleaning up game-dump directory at "/home/marius/.local/share/love/Mods/lovely/game-dump"
+INFO - [♥] Initialization complete in 2ms

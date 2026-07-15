@@ -1,0 +1,57 @@
+{
+  "buffer_name": "engine/sprite.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/edition.toml",
+        "pattern": "if _send then G.SHADERS[_shader or 'dissolve']:send(_shader,_send) end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 107,
+          "end_line": 109
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/edition.toml",
+        "pattern": "love.graphics.setShader( G.SHADERS[_shader or 'dissolve'],  G.SHADERS[_shader or 'dissolve'])",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 112,
+          "end_line": 123
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui.toml",
+        "pattern": "self:draw_shader(v.shader, v.shadow_height, v.send, v.no_tilt, v.other_obj, v.ms, v.mr, v.mx, v.my, not not v.send)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 181,
+          "end_line": 181
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/ui.toml",
+        "pattern": "self.draw_steps[#self.draw_steps+1] = {\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 60,
+          "end_line": 60
+        }
+      ]
+    }
+  ]
+}

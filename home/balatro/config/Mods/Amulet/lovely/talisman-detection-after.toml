@@ -1,0 +1,33 @@
+[manifest]
+version = "1.0.0"
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "engine/string_packer.lua"
+pattern = '''
+--[[
+amulet: talisman detection
+elseif v.is and v:is(Object) then
+]]
+'''
+position = "at"
+payload = '''--[[amulet: talisman detected]]'''
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = "engine/string_packer.lua"
+pattern = '''\-\-\[\[amulet: talisman detected\]\][\s\S]*'''
+position = "at"
+payload = '''error([[
+
+[!] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [!]
+
+  You have both Amulet and Talisman installed. Remove one of them.
+
+[!] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [!]
+
+    (you will be sent to mars if you report this crash message)
+
+]], 0)'''

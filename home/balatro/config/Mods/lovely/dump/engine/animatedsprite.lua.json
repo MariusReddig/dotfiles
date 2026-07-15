@@ -1,0 +1,57 @@
+{
+  "buffer_name": "engine/animatedsprite.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/fixes.toml",
+        "pattern": "for _, v in pairs(G.ANIMATIONS) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 97,
+          "end_line": 97
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/fixes.toml",
+        "pattern": "for _, v in pairs(G.I.SPRITE) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 102,
+          "end_line": 102
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/create_sprite.toml",
+        "pattern": "local new_frame = math.floor(G.ANIMATION_FPS*(G.TIMERS.REAL - self.offset_seconds))%self.current_animation.frames",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 79,
+          "end_line": 79
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods-1.0.0-beta-1814a/lovely/create_sprite.toml",
+        "pattern": "frames = self.animation.frames,",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 36,
+          "end_line": 36
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+[manifest]
+version = "1.0.0"
+priority = 2
+
+# getWidth table on UIE
+[[patches]]
+[patches.pattern]
+target = "engine/ui.lua"
+pattern = 'node.config.lang = node.config.lang or G.LANG'
+position = "after"
+payload = '''if type(node.config.text) ~= "string" then node.config.text = tostring(node.config.text) end'''
+match_indent = true
+
+# string.length on cdata
+[[patches]]
+[patches.pattern]
+target = "engine/ui.lua"
+pattern = 'if not self.config.no_recalc and self.config.prev_value and string.len(self.config.prev_value) ~= string.len(self.config.text) then self.UIBox:recalculate() end'
+position = "at"
+payload = '''
+if not self.config.no_recalc and (not self.config.prev_text or string.len(self.config.prev_text) ~= string.len(self.config.text)) then self.UIBox:recalculate() end
+self.config.prev_text = self.config.text
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if num_dollars > 60 then"
+position = "at"
+payload = '''num_dollars = to_number(num_dollars); if math.abs(num_dollars) > 60 then'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if num_dollars > 60 or num_dollars < -60 then"
+position = "at"
+payload = '''num_dollars = to_number(num_dollars); if math.abs(num_dollars) > 60 then'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if type(vals.level) == 'number' then"
+position = "at"
+payload = "if is_number(vals.level) then"
+match_indent = true
+
+# Luxury Tax Challenge
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''self:change_size(self.config.last_poll_size - math.floor(G.GAME.dollars/G.GAME.modifiers.minus_hand_size_per_X_dollar))'''
+position = "at"
+payload = '''self:change_size(to_number(self.config.last_poll_size - math.floor(G.GAME.dollars/G.GAME.modifiers.minus_hand_size_per_X_dollar)))'''
+match_indent = true
+
+# BigAnte
+[[patches]]
+[patches.regex]
+target = "tag.lua"
+pattern = '''G\.GAME\.orbital_choices\[G\.GAME\.round_resets\.ante\]'''
+position = "at"
+payload = '''G.GAME.orbital_choices[to_number(G.GAME.round_resets.ante)]'''
+
+[[patches]]
+[patches.regex]
+target = "functions/UI_definitions.lua"
+pattern = '''G\.GAME\.orbital_choices\[G\.GAME\.round_resets\.ante\]'''
+position = "at"
+payload = '''G.GAME.orbital_choices[to_number(G.GAME.round_resets.ante)]'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''if not G.GAME.orbital_choices[G.GAME.round_resets.ante][type] then '''
+position = "at"
+payload = '''if Talisman.big_ante.has() or not G.GAME.orbital_choices[G.GAME.round_resets.ante][type] then '''
+match_indent = true
+
+# Flame animation
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''local AC = G.SETTINGS.ambient_control'''
+position = "before"
+payload = '''
+G.ARGS.score_intensity.organ = clamp_bignum(G.ARGS.score_intensity.organ)
+if G.ARGS.score_intensity.organ ~= G.ARGS.score_intensity.organ then G.ARGS.score_intensity.organ = 0 end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '''_F.timer = _F.timer + G.real_dt*(1 + _F.intensity*0.2)'''
+position = "at"
+payload = '''
+_F.intensity = clamp_bignum(_F.intensity, Talisman.flame_effect.max)
+_F.timer = _F.timer + G.real_dt * math.min(1 + _F.intensity*0.2, Talisman.flame_effect.dt_max)
+
+if _F.intensity == 0 and not _F.less then
+	_F.less = true
+	if _F.timer > 60 * Talisman.flame_effect.dt_max then _F.timer = 1 end
+	if _F.real_intensity > Talisman.flame_effect.decay then
+		_F.real_intensity = Talisman.flame_effect.decay
+		_F.intensity_vel = 0
+		_F.change = 0
+	end
+elseif _F.intensity ~= 0 and _F.less then
+	_F.less = nil
+end
+'''
+match_indent = true
+
+# DynaText with bignum
+[[patches]]
+[patches.pattern]
+target = "engine/text.lua"
+pattern = '''self.config.quiver = {'''
+position = "before"
+payload = '''
+amt = amt and clamp_bignum(amt)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "engine/text.lua"
+pattern = '''self.config.pulse = {'''
+position = "before"
+payload = '''
+amt = amt and clamp_bignum(amt)
+'''
+match_indent = true
+
+# Blind select score requirement
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+{n=G.UIT.R, config={align = "cm", minh = 0.6}, nodes={
+	{n=G.UIT.O, config={w=0.5,h=0.5, colour = G.C.BLUE, object = stake_sprite, hover = true, can_collide = false}},
+	{n=G.UIT.B, config={h=0.1,w=0.1}},
+	{n=G.UIT.T, config={text = number_format(blind_amt), scale = score_number_scale(0.9, blind_amt), colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled}}
+}},
+'''
+position = "at"
+payload = '''
+{n=G.UIT.R, config={align = "cm", minh = 0.6, maxw = 2.75}, nodes={
+	{n=G.UIT.O, config={w=0.5,h=0.5, colour = G.C.BLUE, object = stake_sprite, hover = true, can_collide = false}},
+	{n=G.UIT.B, config={h=0.1,w=0.1}},
+	{n=G.UIT.T, config={text = number_format(blind_amt), scale = score_number_scale(0.9, blind_amt), colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled}}
+}},
+'''
+match_indent = true
+
+# fix ante ui getting smaller on large ante
+[[patches]]
+[patches.regex]
+target = "functions/UI_definitions.lua"
+pattern = '''\{\{ref_table = G.GAME.round_resets, ref_value = '(ante_disp)'\}\}'''
+position = "after"
+payload = ', maxw = 1.2'
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+{n=G.UIT.R, config={align = "cm", r = 0.1, minw = 1.2, colour = temp_col2}, nodes={
+	{n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.round_resets, ref_value = 'ante_disp'}}, colours = {G.C.IMPORTANT},shadow = true, font = G.LANGUAGES['en-us'].font, scale = 2*scale}),id = 'ante_UI_count'}},
+'''
+position = "at"
+payload = '''
+{n=G.UIT.R, config={align = "cm", r = 0.1, minw = 1.2, minh = 0.666, colour = temp_col2}, nodes={
+	{n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.round_resets, ref_value = 'ante_disp'}}, colours = {G.C.IMPORTANT},shadow = true, font = G.LANGUAGES['en-us'].font, scale = 2*scale}),id = 'ante_UI_count'}},
+'''
+match_indent = true
+
+# cryptid: fix unsupported bigante
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+G.GAME.round_resets.ante = Big and (to_number(math.floor(to_big(G.GAME.round_resets.ante)))) or math.floor(G.GAME.round_resets.ante)
+'''
+position = "at"
+payload = ''
+match_indent = true
+
+# json
+[[patches]]
+[patches.pattern]
+target = '=[lovely json "libs/json/json.lua"]'
+pattern = "encode = function(val, stack)"
+position = "after"
+payload =  "if is_big(val) then val = val:as_table() end"
+match_indent = true
+
+# https://github.com/Steamodded/smods/commit/a700dac
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+match_indent = true
+position = 'at'
+pattern = '''if _mult ~= mult then SMODS.Scoring_Parameters.mult:modify(nil, _mult - (mult or 0)) end'''
+payload = '''SMODS.Scoring_Parameters.mult:modify(nil, _mult - (mult or 0))'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+match_indent = true
+position = 'at'
+pattern = '''if _chips ~= hand_chips then SMODS.Scoring_Parameters.mult:modify(nil, _mult - (mult or 0)) end'''
+payload = '''SMODS.Scoring_Parameters.chips:modify(nil, _chips - (hand_chips or 0))'''

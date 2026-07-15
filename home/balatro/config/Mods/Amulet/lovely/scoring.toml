@@ -1,0 +1,128 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# Fully split up evaluate_play
+# This allows mods' lovely patches to still work fine while also letting Talisman's abort feature work
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "G.FUNCS.evaluate_play = function(e)"
+position = 'at'
+payload = '''
+local lim = 7
+G.FUNCS.evaluate_play = function(e)
+	local state
+	local co = Talisman.scoring_coroutine
+
+	if co then co.state = "intro" end
+	state = {evaluate_play_intro()}
+	if co then co.astate = state end
+
+	if not G.GAME.blind:debuff_hand(G.play.cards, state[3], state[1]) then
+		if co then co.state = "main" end
+		state = {evaluate_play_main(unpack(state, 1, lim))}
+		if co then co.astate = state end
+	else
+		if co then co.state = "debuff" end
+		state = {evaluate_play_debuff(unpack(state, 1, lim))}
+		if co then co.astate = state end
+	end
+
+	if co then co.state = "final_scoring" end
+	state = {evaluate_play_final_scoring(unpack(state, 1, lim))}
+	if co then co.astate = state end
+
+	if co then co.state = "after" end
+	evaluate_play_after(unpack(state, 1, lim))
+
+	if co then co.state = nil end
+end
+
+function evaluate_play_intro()
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) then"
+position = 'at'
+payload = '''return text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta
+end
+function evaluate_play_main(text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+else
+    mult = mod_mult(0)
+'''
+position = 'at'
+payload = '''
+return text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta
+end
+function evaluate_play_debuff(text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta)
+	mult = mod_mult(0)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+end
+G.E_MANAGER:add_event(Event({
+	trigger = 'after',delay = 0.4,
+'''
+position = 'at'
+payload = '''
+return text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta
+end
+function evaluate_play_final_scoring(text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta)
+G.E_MANAGER:add_event(Event({
+	trigger = 'after',delay = 0.4,
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+	func = (function() G.GAME.current_round.current_hand.handname = '';return true end)
+}))
+delay(0.3)
+'''
+position = 'at'
+payload = '''
+	func = (function() G.GAME.current_round.current_hand.handname = '';return true end)
+}))
+delay(0.3)
+return text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta
+end
+function evaluate_play_after(text, disp_text, poker_hands, scoring_hand, non_loc_disp_text, percent, percent_delta)
+'''
+match_indent = true
+
+# Scoring coroutine
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "check_for_unlock({type = 'play_all_hearts'})"
+position = 'before'
+payload = 'if Talisman.scoring_coroutine then return false end '
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''
+G.STATE_COMPLETE = false
+return true
+'''
+position = 'before'
+payload = 'if Talisman.scoring_coroutine then return false end '
+match_indent = false

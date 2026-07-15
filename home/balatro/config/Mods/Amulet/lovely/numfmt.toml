@@ -1,0 +1,91 @@
+[manifest]
+version = "1.0.0"
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if delta < 0 then delta = ''..delta; col = G.C.RED"
+position = "at"
+payload = "if delta < 0 then delta = number_format(delta); col = G.C.RED"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif delta > 0 then delta = '+'..delta"
+position = "at"
+payload = "elseif delta > 0 then delta = '+'..number_format(delta)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "else delta = ''..delta"
+position = "at"
+payload = "else delta = number_format(delta)"
+match_indent = true
+
+# Use formatted numbers for poker hand scores
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = G.GAME.hands[handname].chips, scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},"
+position = "at"
+payload = "{n=G.UIT.T, config={text = number_format(G.GAME.hands[handname].chips, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = G.GAME.hands[handname].mult, scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}"
+position = "at"
+payload = "{n=G.UIT.T, config={text = number_format(G.GAME.hands[handname].mult, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}"
+match_indent = true
+
+# poker hand level fixes
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = localize('k_level_prefix')..G.GAME.hands[handname].level, scale = 0.5, colour = G.C.UI.TEXT_DARK}}"
+position = "at"
+payload = "{n=G.UIT.T, config={text = localize('k_level_prefix')..number_format(G.GAME.hands[handname].level), scale = 0.5, colour = G.C.UI.TEXT_DARK}}"
+match_indent = true
+
+# ante display
+[[patches]]
+[patches.regex]
+target = "functions/UI_definitions.lua"
+pattern = '''\{\{ref_table = G.GAME.round_resets, ref_value = '(ante)'\}\}'''
+position = "at"
+payload = 'ante_disp'
+root_capture = '$1'
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "ante = 1,"
+position = "after"
+payload = "ante_disp = number_format(1),"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "ante_UI.config.object:update()"
+position = "at"
+payload = '''
+G.GAME.round_resets.ante_disp = number_format(G.GAME.round_resets.ante, Talisman.ante_switch_point)
+
+local ao = ante_UI.config.object
+ao.scale = ao.config.scale
+ao:update_text(true)
+ao:align_letters()
+
+if ao.config.maxw and ao.config.W > ao.config.maxw then
+	ao.start_pop_in = ao.config.pop_in
+	ao.scale = ao.scale*(ao.config.maxw/ao.config.W)
+	ao:update_text(true)
+end
+'''
+match_indent = true

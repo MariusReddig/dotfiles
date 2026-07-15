@@ -1,0 +1,208 @@
+require("talisman.break_inf.globals")
+require("talisman.break_inf.sanitizer")
+require("talisman.break_inf.math")
+
+-- We call this after init_game_object to leave room for mods that add more poker hands
+--- @param obj balatro.Game.Current
+Talisman.igo = function(obj)
+    for _, v in pairs(obj.hands) do
+        v.chips = to_big(v.chips)
+        v.mult = to_big(v.mult)
+        v.s_chips = to_big(v.s_chips)
+        v.s_mult = to_big(v.s_mult)
+        v.l_chips = to_big(v.l_chips)
+        v.l_mult = to_big(v.l_mult)
+        v.level = to_big(v.level)
+    end
+    obj.starting_params.dollars = to_big(obj.starting_params.dollars)
+    if Talisman.big_ante.has() then Talisman.big_ante.enable() end
+    return obj
+end
+if G.GAME then Talisman.igo(G.GAME) end
+
+local nf = number_format
+function number_format(num, e_switch_point)
+    if not is_big(num) then return nf(num, e_switch_point) end
+    local notation = Notations[Talisman.config_file.notation or 'Balatro'] or Notations.Balatro
+    if num.asize > 2 then
+        return notation:format(num, 3)
+    end
+    if num:abs() < G.E_SWITCH_POINT then
+        return nf(num:to_number(), e_switch_point)
+    end
+    return notation:format(num, 3)
+end
+
+require("talisman.break_inf.math")
+
+--prevent some log-related crashes
+local sns = score_number_scale
+function score_number_scale(scale, amt)
+    return clamp_bignum(sns(scale, amt))
+end
+
+local B100 = to_big(100)
+local k = to_big(0.75)
+
+local amts = {
+    { 300, 800, 2000, 5000, 11000, 20000, 35000, 50000 },
+    { 300, 900, 2600, 8000, 20000, 36000, 60000, 100000 },
+    { 300, 1000, 3200, 9000, 25000, 60000, 110000, 200000 },
+}
+for i, list in ipairs(amts) do
+    for j, chips in ipairs(list) do
+        list[j] = to_big(chips)
+    end
+end
+
+-- There's too much to override here so we just fully replace this function
+-- Note that any ante scaling tweaks will need to manually changed...
+local gba = get_blind_amount
+function get_blind_amount(ante)
+    if not Big then return gba(ante) end
+
+    local amounts = amts[G.GAME.modifiers.scaling or 1]
+    if not amounts then
+        if SMODS then return SMODS.get_blind_amount(ante)
+        else return 0 end
+    end
+
+    if ante < 1 then return B100 end
+    if ante <= 8 then return amounts[to_number(ante)] end
+
+    local a, b, c, d = amounts[8], 1.6, ante - 8, 1 + 0.2 * (ante - 8)
+    local amount = a * (b + (k * c) ^ d) ^ c
+    if (amount:lt(BigC.E_MAX_SAFE_INTEGER)) then
+        local exponent = BigC.TEN ^ (math.floor(amount:log10() - BigC.ONE))
+        amount = math.floor(amount / exponent) * exponent
+    end
+    return amount
+end
+
+function check_and_set_high_score(score, amt)
+    amt = math.floor(amt)
+    local hs = G.PROFILES[G.SETTINGS.profile].high_scores[score]
+    local rs = G.GAME.round_scores[score]
+    if rs and amt > rs.amt then
+        rs.amt = amt
+    end
+    if G.GAME.seeded then return end
+
+    if hs and math.floor(amt) > hs.amt then
+        if rs then rs.high_score = true end
+        hs.amt = amt
+        G:save_settings()
+    end
+end
+
+local ics = inc_career_stat
+-- This is used often for unlocks, so we can't just prevent big money from being added
+-- Also, I'm completely overriding this, since I don't think any mods would want to change it
+function inc_career_stat(stat, mod)
+    if G.GAME.seeded or G.GAME.challenge then return end
+    local stats = G.PROFILES[G.SETTINGS.profile].career_stats
+
+    if not stats[stat] then stats[stat] = 0 end
+    stats[stat] = stats[stat] + (mod or 0)
+    stats[stat] = clamp_bignum(stats[stat])
+
+    G:save_settings()
+end
+
+local sn = scale_number
+function scale_number(number, scale, max, e_switch_point)
+    if not number or not is_number(number) then return scale end
+    if not Big then return sn(number, scale, max, e_switch_point) end
+
+    if not max then max = 10000 end
+    scale = Big:ensureBig(scale)
+    number = Big:ensureBig(number)
+    local nabs = number:abs()
+
+    local maxl = math.floor(math.log(max * 10, 10))
+
+    if (not e_switch_point and number.asize > 2) or (nabs >= (e_switch_point or G.E_SWITCH_POINT)) then
+        if number.asize <= 2 and (number:get_array()[1] or 0) <= 999 then
+            scale = scale * maxl / 7
+        else
+            scale = scale * maxl / math.floor(math.max(7, string.len(number_format(number)) - 1))
+        end
+    elseif nabs >= max then
+        scale = scale * maxl / nabs:mul(10):log10():floor()
+    end
+
+    scale = math.min(3, scale:to_number())
+    return scale
+end
+
+if SMODS then
+    function SMODS.get_blind_amount(ante)
+        if ante < 1 then return to_big(100) end
+
+        local scale = G.GAME.modifiers.scaling
+        local amounts = {
+            to_big(300),
+            to_big(700 + 100 * scale),
+            to_big(1400 + 600 * scale),
+            to_big(2100 + 2900 * scale),
+            to_big(15000 + 5000 * scale * math.log(scale)),
+            to_big(12000 + 8000 * (scale + 1) * (0.4 * scale)),
+            to_big(10000 + 25000 * (scale + 1) * ((scale / 4) ^ 2)),
+            to_big(50000 * (scale + 1) ^ 2 * (scale / 7) ^ 2)
+        }
+
+        local amount
+        if ante <= 8 then
+            amount = amounts[to_number(ante)]
+        else
+            local a, b, c, d = amounts[8], amounts[8] / amounts[7], ante - 8, 1 + 0.2 * (ante - 8)
+            amount = math.floor(a * (b + (b * k * c) ^ d) ^ c)
+        end
+
+        if (amount:lt(BigC.E_MAX_SAFE_INTEGER)) then
+            local exponent = BigC.TEN ^ (math.floor(amount:log10() - BigC.ONE))
+            amount = math.floor(amount / exponent) * exponent
+        end
+        return amount
+    end
+end
+
+G.SAVED_GAME = nil
+
+if Talisman then
+
+Talisman.to_big = to_big
+Talisman.to_number = to_number
+Talisman.debug.omeganum = nil
+
+end
+
+if Game then
+
+local g_start_run = Game.start_run
+function Game:start_run(args)
+    local ret = g_start_run(self, args)
+    self.GAME.round_resets.ante_disp = self.GAME.round_resets.ante_disp or number_format(self.GAME.round_resets.ante, Talisman.ante_switch_point)
+    return ret
+end
+
+-- check to_big overrides
+local splash_screen = Game.splash_screen
+function Game:splash_screen()
+    if not Talisman.patch_ok then
+        error('Amulet is loaded but patches failed to load. Make sure Amulet is installed properly. \n(did you take out the "lovely" folder from Amulet installation ?)', 0)
+    end
+	if Talisman.to_big and to_big ~= Talisman.to_big then
+        local x = debug.getinfo(to_big)
+        Talisman.debug.to_big_override = string.format('%s:%s-%s', x.source, x.linedefined, x.lastlinedefined)
+        to_big = Talisman.to_big
+    end
+	if Talisman.to_number and to_number ~= Talisman.to_number then
+        local x = debug.getinfo(to_number)
+        Talisman.debug.to_number_override = string.format('%s:%s-%s', x.source, x.linedefined, x.lastlinedefined)
+        to_number = Talisman.to_number
+    end
+    return splash_screen(self)
+end
+
+end

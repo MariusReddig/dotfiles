@@ -1,0 +1,105 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# remove more animations from event queue
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if effects[ii].card then"
+position = "at"
+payload = "if effects[ii].card and not Talisman.config_file.disable_anims then"
+match_indent = true
+
+#enhancement animation removing
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.edition and not silent then"
+position = "at"
+payload = "if self.edition and (silent or Talisman.no_anims_calculating_misc()) then"
+match_indent = true
+
+# dollar buffer thingy
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "G.E_MANAGER:add_event(Event({func = (function() G.GAME.dollar_buffer = 0; return true end)}))"
+position = "at"
+payload = "if not Talisman.config_file.disable_anims then G.E_MANAGER:add_event(Event({func = (function() G.GAME.dollar_buffer = 0; return true end)})) else G.GAME.dollar_buffer = 0 end"
+match_indent = true
+
+# add card
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if G.GAME.blind then G.E_MANAGER:add_event(Event({ func = function() G.GAME.blind:set_blind(nil, true, nil); return true end })) end"
+position = "at"
+payload = "if G.GAME.blind and (not SMODS or G.GAME.blind.in_blind) and not Talisman.no_anims_calculating_misc() then G.E_MANAGER:add_event(Event({ func = function() G.GAME.blind:set_blind(nil, true, nil); return true end })) end"
+match_indent = true
+
+# hand level ups
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not instant then"
+position = "at"
+payload = "if not instant and not Talisman.config_file.disable_anims then"
+match_indent = true
+
+# Juice Issues
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "func = (function() card:juice_up(0.7);return true end)"
+position = "at"
+payload = "func = (function() if card and card.juice_up then card:juice_up(0.7) end;return true end)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if card then card:juice_up(0.8, 0.5) end"
+position = "at"
+payload = "if card and card.juice_up then card:juice_up(0.8, 0.5) end"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "card:juice_up(0.6, 0.1)"
+position = "at"
+payload = "if card and card.juice_up then card:juice_up(0.6, 0.1) end"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "func = (function() if eval_func(card) then if not first or first then card:juice_up(0.1, 0.1) end;juice_card_until(card, eval_func, nil, 0.8) end return true end)"
+position = "at"
+payload = "func = (function() if eval_func(card) then if card and card.juice_up then card:juice_up(0.1, 0.1) end;juice_card_until(card, eval_func, nil, 0.8) end return true end)"
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = "not G.TAROT_INTERRUPT then"
+position = "at"
+payload = "not Talisman.no_anims_calculating() and not G.TAROT_INTERRUPT then"
+
+# return eval_round value
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars})"
+position = "after"
+payload = "Talisman.dollars = dollars"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''create_option_cycle({label = localize('b_set_gamespeed'),scale = 0.8, options = {0.5, 1, 2, 4}, opt_callback = 'change_gamespeed', current_option = (G.SETTINGS.GAMESPEED == 0.5 and 1 or G.SETTINGS.GAMESPEED == 4 and 4 or G.SETTINGS.GAMESPEED + 1)}),'''
+position = "after"
+payload = "Talisman.config_sections.disable_anim(),"
+match_indent = true

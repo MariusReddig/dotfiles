@@ -1,0 +1,19 @@
+INFO - [♥] Lovely 0.9.0
+INFO - [♥] Game directory is at "/nix/store/4nrfmax3pfy187nkxcz5bnf4xnx1hl9v-love-11.5/bin"
+INFO - [♥] Writing logs to "/home/marius/.local/share/love/Mods/lovely/log"
+INFO - [♥] Using mod directory at "/home/marius/.local/share/love/Mods"
+INFO - [♥] 'smods-1.0.0-beta-1814a' was found in blacklist, skipping it.
+INFO - [♥] 'balatroDarkMode' was found in blacklist, skipping it.
+INFO - [♥] 'Cryptid-0.5.16d' was found in blacklist, skipping it.
+INFO - [♥] 'Amulet' was found in blacklist, skipping it.
+INFO - [♥] 'Malverk-1.1.4a' was found in blacklist, skipping it.
+INFO - [♥] Initialization complete in 0ms
+INFO - [G] Error: [love "boot.lua"]:330: Cannot load game at path '/home/marius/nix/home/balatro/config/Mods/Balatro.love'.
+Make sure a folder exists at the specified path.
+stack traceback:
+	[love "boot.lua"]:352: in function <[love "boot.lua"]:348>
+	[C]: in function 'error'
+	[love "boot.lua"]:330: in function <[love "boot.lua"]:126>
+	[C]: in function 'xpcall'
+	[love "boot.lua"]:362: in function <[love "boot.lua"]:355>
+	[C]: in function 'xpcall'

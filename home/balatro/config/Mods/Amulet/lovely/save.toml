@@ -1,0 +1,105 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = 'if v.is and v:is(Object) then ret_t[k] = [["]].."MANUAL_REPLACE"..[["]]'
+position = 'at'
+payload = '''
+if Big and Big.is(v) then ret_t[k] = v:as_table()
+elseif v.is and v:is(Object) then ret_t[k] = [["]].."MANUAL_REPLACE"..[["]]
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "engine/string_packer.lua"
+pattern = 'function STR_PACK(data, recursive)'
+position = "before"
+payload = '''
+local function STR_BIG(v)
+	local arr, sign, num
+	if Big and Big.is(v) then
+		arr, sign, num = v:get_array(), v.sign, math.min(v.number, 1e308)
+	elseif type(v) == "table" and v.__talisman then
+		arr, sign, num = v.array, v.sign, v.val
+	else
+		return
+	end
+
+	local arrstr = {}
+	for i, val in pairs(arr) do
+		table.insert(arrstr, string.format("[%s]=%s,", i, val or 0))
+	end
+	return string.format("(Big and to_big({%s}, %s) or %s)", table.concat(arrstr), sign, num)
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "engine/string_packer.lua"
+pattern = '''
+assert((type_i ~= "table"), "Data table cannot have an table as a key reference")
+if type_i == "string" then
+	i = '['..string.format("%q",i)..']'
+else
+	i = "["..i.."]"
+end
+'''
+position = "at"
+payload = '''
+local bigi = STR_BIG(i)
+if bigi then
+	i = "["..bigi.."]"
+else
+	assert((type_i ~= "table"), "Data table cannot have an table as a key reference")
+	if type_i == "string" then
+		i = '['..string.format("%q",i)..']'
+	else
+		i = "["..i.."]"
+	end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "engine/string_packer.lua"
+pattern = 'if type_v == "table" then'
+position = "at"
+payload = '''
+local bigv = STR_BIG(v)
+if bigv then
+	v = bigv
+elseif type_v == "table" then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = 'if G.FILE_HANDLER.progress then'
+position = "after"
+payload = '''
+G.ARGS.save_progress.PROFILE = Talisman.sanitizer.copy_table(G.ARGS.save_progress.PROFILE, Talisman.sanitizer.copy_for_thread)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = 'if G.FILE_HANDLER.run then'
+position = "after"
+payload = 'Talisman.sanitizer.sanitize(G.ARGS.save_run)'
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = 'save_profile = G.PROFILES[G.SETTINGS.profile]'
+position = "at"
+payload = 'save_profile = Talisman.sanitizer.copy_table(G.PROFILES[G.SETTINGS.profile], Talisman.sanitizer.copy_for_thread)'
+match_indent = true
