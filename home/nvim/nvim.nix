@@ -30,7 +30,7 @@
     stylua
     cmake-format
     nixfmt-classic
-    nodePackages.prettier
+    prettier
 
     #linters
     selene
@@ -114,6 +114,7 @@
 
       lean-nvim
       neorg
+      image-nvim
     ]);
   };
 

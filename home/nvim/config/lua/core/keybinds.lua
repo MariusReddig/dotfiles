@@ -24,10 +24,11 @@ wk.add({
     { "<leader>fr", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" },
     { "<leader>fu", "<cmd>Telescope ui-select<cr>", desc = "UI Select" },
 
-    { "<leader>w", group = "Window management" },
-    { "<leader>ws", proxy = "<C-W>s", desc = "Split window right" },
-    { "<leader>wv", proxy = "<C-W>v", desc = "Split window below" },
-    { "<leader>wd", "<cmd>bp | bd#<cr>", desc = "Delete window" },
+    { "<leader>b", group = "Buffer management" },
+    { "<leader>bb", "<cmd>bnext<cr>", desc = "go to the next buffer" },
+    { "<leader>bB", "<cmd>bprev<cr>", desc = "go to the previous buffer" },
+    { "<leader>b0", "<cmd>b 10<cr>", desc = "go to buffer 10" },
+    { "<leader>bd", "<cmd>bp | bd#<cr>", desc = "Delete window" },
 
     -- Neotree
     { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle File Explorer" },
