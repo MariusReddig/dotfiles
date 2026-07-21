@@ -5,8 +5,7 @@ pkgs.stdenvNoCC.mkDerivation rec {
   version = "1.3.0";
 
   src = pkgs.fetchurl {
-    url =
-      "https://github.com/stoatchat/for-desktop/releases/download/v${version}/Stoat-linux-x64-${version}.zip";
+    url = "https://github.com/stoatchat/for-desktop/releases/download/v${version}/Stoat-linux-x64-${version}.zip";
     hash = "sha256-n4dfAHWJ2Tv1lKvGDGUIA9oaGK1IpLI3ZrX5y379/TQ=";
   };
 
@@ -24,7 +23,11 @@ pkgs.stdenvNoCC.mkDerivation rec {
       icon = "stoat";
       desktopName = "Stoat";
       comment = meta.description;
-      categories = [ "Network" "InstantMessaging" "Chat" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
       mimeTypes = [ "x-scheme-handler/stoat" ];
     })
   ];
@@ -49,12 +52,12 @@ pkgs.stdenvNoCC.mkDerivation rec {
     pango
     udev
     wayland
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
+    libX11
+    libXcomposite
+    libXdamage
+    libXext
+    libXfixes
+    libXrandr
   ];
 
   sourceRoot = ".";
@@ -114,10 +117,12 @@ pkgs.stdenvNoCC.mkDerivation rec {
   meta = with pkgs.lib; {
     description = "Open source user-first chat platform";
     homepage = "https://stoat.chat/";
-    changelog =
-      "https://github.com/stoatchat/for-desktop/releases/tag/v${version}";
+    changelog = "https://github.com/stoatchat/for-desktop/releases/tag/v${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ heyimnova magistau ];
+    maintainers = with maintainers; [
+      heyimnova
+      magistau
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "stoat";
   };

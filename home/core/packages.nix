@@ -95,6 +95,7 @@
     # wofi
     wl-clipboard
     cliphist
+      (callPackage ../../nixpkgs { }).stoat
 
     # Communication
     vesktop
