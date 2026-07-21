@@ -1,5 +1,14 @@
-{ config, pkgs, lib, username, ... }: {
-  options = { steam.enable = lib.mkEnableOption "enable steam module"; };
+{
+  config,
+  pkgs,
+  lib,
+  username,
+  ...
+}:
+{
+  options = {
+    steam.enable = lib.mkEnableOption "enable steam module";
+  };
 
   config = lib.mkIf (config.steam.enable || config.ubisoft.enable) {
 
@@ -13,9 +22,11 @@
 
     users.groups.gamemode.members = [ "${username}" ];
 
+    hardware.steam-hardware.enable = true;
     programs = {
       steam = {
         enable = true;
+        extest.enable = true;
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
