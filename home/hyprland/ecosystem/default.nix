@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./hypridle.nix ./hyprlock.nix ]; }
+{ ... }: { imports = [ ./hypridle.nix ./hyprlock.nix ./xdph.nix ]; }

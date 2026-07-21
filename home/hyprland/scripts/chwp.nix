@@ -17,7 +17,7 @@
       wallpaperPath="/home/${username}/nix/hosts/${host}/home/stylix/wallpaper"
       stylixPath="/home/${username}/nix/hosts/${host}/home/stylix/wallpaper"
       sddmPath="/home/${username}/nix/nixpkgs/custom-sddm-theme/wallpaper"
-      cachepath="/home/${username}/.cache/swww"
+      cachepath="/home/${username}/.cache/awww"
 
       # Functions #
 
@@ -26,7 +26,7 @@
         cat <<EOF
         Usage: chwp [-r <transition_type>] [-t <transition_type>] [-l] [<filename>]
 
-        Set a new wallpaper on the system using the swww command.
+        Set a new wallpaper on the system using the awww command.
 
         Options:
           -r <transition_type>  Set the transition type when reloading the wallpaper (default value: $transition_type)
@@ -51,7 +51,7 @@
 
       ## Usage-functions ##
       load_loadingscreen() {
-        swww img "$loadingscreenPath" --transition-type "$transition_type"
+        awww img "$loadingscreenPath" --transition-type "$transition_type"
 
         if [ "$verbose" = true ]; then
           echo "[Info] displaying loading-screen"
@@ -63,7 +63,7 @@
         if [ "$2" != "none" ]; then
           load_loadingscreen
         fi
-        swww img "$1" --transition-type "$2"
+        awww img "$1" --transition-type "$2"
 
         if [ "$verbose" = true ]; then
           echo "[Info] displaying wallpaper"
@@ -86,7 +86,7 @@
           )
 
           if [ "$verbose" = true ]; then
-            echo "[Info] cleared swww cache at $cachepath"
+            echo "[Info] cleared awww cache at $cachepath"
           fi
         else
           cp "$filepath" "$lockscreenpath"

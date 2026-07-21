@@ -25,7 +25,11 @@
       hypridle
       hyprpolkitagent
       hyprland-protocols
+      hyprshutdown
+      hyprpicker
+      hyprpwcenter
       waybar
+      # hyprqt6engine
     ];
   };
 }

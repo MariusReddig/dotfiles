@@ -12,9 +12,9 @@
 
   "modules-left": [
     "custom/smallspacer",
-    "hyprland/workspaces",
+    "ext/workspaces",
     "custom/spacer",
-    "mpris"
+    "mpris",
   ],
   "modules-center": ["custom/padd", "hyprland/window", "custom/padd"],
   "modules-right": [
@@ -43,24 +43,33 @@
       "HDMI-A-2": [1]
     }
   },
+  "ext/workspaces": {
+	  "format": "{icon}",
+	  "on-click": "activate",
+    "format-icons": {
+      "default": "",
+      "active": ""
+    },
+	  "sort-by-id": true
+  },
   "mpris": {
     "format": "{player_icon} {dynamic}",
     "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
     "max-length": 50,
     "player-icons": {
       "default": "⏸",
-      "mpv": "🎵"
+      "mpv": "🎵",
     },
     "status-icons": {
-      "paused": "▶"
-    }
+      "paused": "▶",
+    },
   },
 
   "hyprland/window": {
     "format": "<span  weight='bold' >{title}</span>",
     "max-length": 120,
     "icon": false,
-    "icon-size": 13
+    "icon-size": 13,
   },
 
   "group/expand": {
@@ -68,31 +77,36 @@
     "drawer": {
       "transition-duration": 600,
       "children-class": "not-power",
-      "transition-to-left": true
+      "transition-to-left": true,
     },
-    "modules": ["custom/expand-l", "custom/smallpadd", "tray"]
+    "modules": ["custom/expand-l", "custom/smallpadd", "tray"],
   },
 
   "tray": {
     "icon-size": 16,
     "rotate": 0,
-    "spacing": 3
+    "spacing": 3,
   },
 
-    "group/monitors": {
+  "group/monitors": {
     "orientation": "horizontal",
     "drawer": {
       "transition-duration": 600,
       "children-class": "monitor-group",
-      "transition-to-left": true
+      "transition-to-left": true,
     },
-    "modules": ["custom/monitor-expand", "custom/monitor-left", "custom/monitor-middle", "custom/monitor-right"]
+    "modules": [
+      "custom/monitor-expand",
+      "custom/monitor-left",
+      "custom/monitor-middle",
+      "custom/monitor-right",
+    ],
   },
 
   "custom/monitor-expand": {
     "format": "󰍹 ",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
 
   "custom/monitor-left": {
@@ -100,7 +114,7 @@
     "rotate": 90,
     "on-click": "hyprctl dispatch dpms toggle HDMI-A-1",
     "tooltip-format": "toggle left monitor",
-    "tooltip": true
+    "tooltip": true,
   },
 
   "custom/monitor-middle": {
@@ -108,7 +122,7 @@
     "rotate": 0,
     "on-click": "hyprctl dispatch dpms toggle DP-2",
     "tooltip-format": "toggle middle monitor",
-    "tooltip": true
+    "tooltip": true,
   },
 
   "custom/monitor-right": {
@@ -116,7 +130,7 @@
     "rotate": 270,
     "on-click": "hyprctl dispatch dpms toggle HDMI-A-2",
     "tooltip-format": "toggle right monitor",
-    "tooltip": true
+    "tooltip": true,
   },
 
   "custom/uair": {
@@ -137,18 +151,18 @@
     "rotate": 0,
     "format-ethernet": "󰈀 ",
     "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>",
-    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-linked": "󰈀 {ifname}",
     "format-disconnected": " ",
     "tooltip-format-disconnected": "Disconnected",
     "on-click": "/usr/local/bin/ags -t ControlPanel",
-    "interval": 2
+    "interval": 2,
   },
 
   "pulseaudio#microphone": {
     "format": "{format_source}",
     "format-source": "",
     "format-source-muted": "",
-    "on-click": "wpctl set-mute @DEFAULT_SOURCE@ toggle"
+    "on-click": "wpctl set-mute @DEFAULT_SOURCE@ toggle",
   },
 
   "wireplumber": {
@@ -156,7 +170,7 @@
     "format-muted": " 󰝟 ",
     "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
     "on-click-middle": "playerctl play-pause",
-    "format-icons": [" ", " ", " "]
+    "format-icons": [" ", " ", " "],
   },
 
   "clock": {
@@ -172,8 +186,8 @@
       "format": {
         "months": "<span color='#ffead3'><b>{}</b></span>",
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b>{}</b></span>"
-      }
+        "today": "<span color='#ff6699'><b>{}</b></span>",
+      },
     },
 
     "actions": {
@@ -181,8 +195,8 @@
       "on-click-forward": "tz_up",
       "on-click-backward": "tz_down",
       "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
+      "on-scroll-down": "shift_down",
+    },
   },
 
   "idle_inhibitor": {
@@ -190,8 +204,8 @@
     "start-activated": true,
     "format-icons": {
       "activated": "󰈈 ",
-      "deactivated": "󰈉 "
-    }
+      "deactivated": "󰈉 ",
+    },
   },
 
   "custom/power": {
@@ -199,7 +213,7 @@
     "rotate": 0,
     "on-click": "ags -t ControlPanel",
     "on-click-right": "pkill ags",
-    "tooltip": true
+    "tooltip": true,
   },
 
   "cava": {
@@ -220,8 +234,8 @@
     "input_delay": 2,
     "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
     "actions": {
-      "on-click-right": "mode"
-    }
+      "on-click-right": "mode",
+    },
   },
 
   //"custom/theme": {
@@ -254,12 +268,12 @@
     "format": "󰅃",
     "rotate": 90,
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/spacer": {
     "format": "|",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
 
   // modules for padding //
@@ -267,12 +281,12 @@
   "custom/smallpadd": {
     "format": " ",
     "interval": "once",
-    "tooltip": false
+    "tooltip": false,
   },
 
   "custom/padd": {
     "format": "  ",
     "interval": "once",
-    "tooltip": false
-  }
+    "tooltip": false,
+  },
 }
