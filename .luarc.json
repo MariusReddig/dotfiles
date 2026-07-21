@@ -1,0 +1,10 @@
+{
+  "workspace": {
+    "library": ["/run/current-system/usr/share/hypr/stubs"],
+    "ignoreDir": ["home/balatro"]
+    ],
+  },
+  "runtime": {
+    "version": "Lua 5.1"
+  }
+}
