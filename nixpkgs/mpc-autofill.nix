@@ -1,4 +1,9 @@
-{ stdenv, fetchurl, pkgs, buildFHSEnv }:
+{
+  stdenv,
+  fetchurl,
+  pkgs,
+  buildFHSEnv,
+}:
 
 let
   baseApp = stdenv.mkDerivation rec {
@@ -37,15 +42,15 @@ let
       pkgs.dbus
       pkgs.chromium
       pkgs.gtk3
-      pkgs.xorg.libX11
+      pkgs.libX11
     ];
 
     runScript = "${baseApp}/bin/autofill-linux";
 
     extraBwrapArgs = [
-      "--bind /tmp /tmp"  # Allow writing to /tmp
-      "--bind ~/.cache ~/.cache"  # Allow writing to user cache
-      "--bind ~/.config ~/.config"  # Allow writing to user config
+      "--bind /tmp /tmp" # Allow writing to /tmp
+      "--bind ~/.cache ~/.cache" # Allow writing to user cache
+      "--bind ~/.config ~/.config" # Allow writing to user config
     ];
 
     meta = with pkgs.lib; {
@@ -56,4 +61,5 @@ let
     };
   };
 
-in fhsEnv
+in
+fhsEnv
