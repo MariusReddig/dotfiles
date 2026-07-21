@@ -1,11 +1,16 @@
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   #Base package for the MoreWaita icon theme, without it the package is incomplete.
   home.packages = [ pkgs.adwaita-icon-theme ];
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme =
-      "${pkgs.base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
     cursor = {
       package = pkgs.capitaine-cursors;
       name = "capitaine-cursors";
@@ -27,7 +32,7 @@
         name = "Noto Color Emoji";
       };
     };
-    iconTheme = {
+    icons = {
       enable = true;
       package = pkgs.papirus-icon-theme;
       dark = "Papirus";
