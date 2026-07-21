@@ -19,19 +19,22 @@
         videos = "$HOME/Videos/";
         music = "$HOME/Music/";
         git = "$HOME/git/";
+        notes = "$HOME/notes/";
       };
 
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
         nixos-update = "sudo nixos-rebuild switch --flake $HOME/nix#${host}";
-        nixos-build = "sudo nixos-rebuild build --flake $HOME/nix${host}";
+        nixos-build = "sudo nixos-rebuild build --flake $HOME/nix#${host}";
+        nixos-test = "sudo nixos-rebuild test --flake $HOME/nix#${host}";
         nixos-cleanup =
           "sudo nix-collect-garbage -d; sudo nix-store --optimise -v";
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";
         ts = "tmux source ~/.config/tmux/tmux.conf";
+        spf = "supferfile";
       };
 
       initContent = ''
