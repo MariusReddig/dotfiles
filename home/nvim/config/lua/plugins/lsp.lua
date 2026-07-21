@@ -1,143 +1,196 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
--- local lspconfig = require(lspconfig)
-local lspconfig = vim.lsp.config
 local wk = require("which-key")
-local create_format_autocommand = function(client, bufnr, name)
-    if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.buf.format({
-                    async = false,
-                    bufnr = bufnr,
-                    filter = function(client_filter)
-                        return client_filter.name == name
-                    end,
-                })
-            end,
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+local code_filetypes = {
+  "lua",
+  "nix",
+  "c",
+  "cpp",
+  "objc",
+  "objcpp",
+  "java",
+  "python",
+  "rust",
+  "go",
+  "javascript",
+  "typescript",
+  "html",
+  "css",
+  "json",
+  "yaml",
+  "toml",
+  "sh",
+  "bash",
+  "zsh",
+  "vim",
+  "vimwiki",
+}
+
+-- Format on save
+local function setup_formatting(client, bufnr, name)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format({
+          async = false,
+          bufnr = bufnr,
+          filter = function(c)
+            return c.name == name
+          end,
         })
-    end
-end
-local on_attach = function(_, bufnr)
-    local bufmap = function(keys, func)
-        vim.keymap.set("n", keys, func, { buffer = bufnr })
-    end
-    bufmap("<leader>cr", vim.lsp.buf.rename)
-    bufmap("<leader>ca", vim.lsp.buf.code_action)
-
-    -- Go-to
-    bufmap("gd", vim.lsp.buf.definition)
-    bufmap("gD", vim.lsp.buf.declaration)
-    bufmap("gI", vim.lsp.buf.implementation)
-    bufmap("gr", require("telescope.builtin").lsp_references)
-    bufmap("<leader>gt", vim.lsp.buf.type_definition)
-    bufmap("<leader>s", require("telescope.builtin").lsp_document_symbols)
-    bufmap("<leader>S", require("telescope.builtin").lsp_dynamic_workspace_symbols)
-
-    -- Documentation
-    bufmap("K", vim.lsp.buf.hover)
-
-    wk.add({
-        { "<leader>g", group = "Go To" },
-        { "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go to Definition" },
-        { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Go to Declaration" },
-        { "<leader>gI", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "Go to Implementation" },
-        { "<leader>gr", "<cmd>lua vim.lsp.buf.references()<cr>", desc = "Go to References" },
-        { "<leader>gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Go to Type Definition" },
-
-        -- Documentation
-        { "<leader>K", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Show Documentation" },
+      end,
     })
-    vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-        vim.lsp.buf.format()
-    end, {})
+  end
 end
 
--- lspconfig.nil_ls.setup({ capabilities = capabilities })
-lspconfig("nil_ls", { capabilities = capabilities })
+-- Buffer-local keymaps
+local function bufmap(bufnr, keys, func, desc)
+  vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+end
 
--- Clang (cpp)
+-- Check if buffer is a code file
+local function is_code_file(bufnr)
+  local ft = vim.bo[bufnr].filetype
+  return vim.tbl_contains(code_filetypes, ft)
+end
 
--- lspconfig.clangd.setup({
---     capabilities = capabilities,
---     on_attach = function(client, bufnr)
---         on_attach(client, bufnr)
---         create_format_autocommand(client, bufnr, "clangd")
---         vim.keymap.set("n", "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", { buffer = bufnr })
---         vim.lsp.inlay_hint.enable(true)
---     end,
---     cmd = {
---         "clangd",
---         "--background-index",
---         "--clang-tidy",
---         "--header-insertion=iwyu",
---         "--header-insertion-decorators",
---         "--completion-style=detailed",
---         "--compile-commands-dir=build",
---         "--function-arg-placeholders",
---         "--limit-results=0",
---     },
---     init_options = {
---         usePlaceholders = true,
---         completeUnimported = true,
---         clangdFileStatus = true,
---     },
--- })
---
-lspconfig("clangd", {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-        create_format_autocommand(client, bufnr, "clangd")
-        vim.keymap.set("n", "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", { buffer = bufnr })
-        vim.lsp.inlay_hint.enable(true)
-    end,
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--clang-tidy",
-        "--header-insertion=iwyu",
-        "--header-insertion-decorators",
-        "--completion-style=detailed",
-        "--compile-commands-dir=build",
-        "--function-arg-placeholders",
-        "--limit-results=0",
+-- LSP attach function
+local function on_attach(client, bufnr)
+  -- Format on save
+  setup_formatting(client, bufnr, client.name)
+
+  -- User command
+  vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
+    vim.lsp.buf.format()
+  end, {})
+
+  -- Only add LSP keymaps for code files
+  if is_code_file(bufnr) then
+    -- LSP keymaps (which-key auto-detects them from the 'desc' parameter)
+    bufmap(bufnr, "<localleader>r", vim.lsp.buf.rename, "Rename")
+    bufmap(bufnr, "<localleader>a", vim.lsp.buf.code_action, "Code Action")
+    bufmap(bufnr, "<localleader>f", function()
+      vim.lsp.buf.format()
+    end, "Format")
+
+    bufmap(bufnr, "gd", vim.lsp.buf.definition, "Go to Definition")
+    bufmap(bufnr, "gD", vim.lsp.buf.declaration, "Go to Declaration")
+    bufmap(bufnr, "gI", vim.lsp.buf.implementation, "Go to Implementation")
+    bufmap(bufnr, "gr", require("telescope.builtin").lsp_references, "Go to References")
+    bufmap(bufnr, "gt", vim.lsp.buf.type_definition, "Go to Type Definition")
+
+    bufmap(bufnr, "K", vim.lsp.buf.hover, "Hover Documentation")
+
+    bufmap(bufnr, "<localleader>s", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+    bufmap(bufnr, "<localleader>S", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+
+    -- Only need this to group LSP keymaps under <localleader>
+    wk.add({ { "<localleader>", group = "LSP", buffer = bufnr } })
+  end
+end
+
+-- ============================================================================
+-- LSP Server Configurations
+-- ============================================================================
+
+-- Lua Language Server (with Hyprland stubs)
+vim.lsp.config("lua_ls", {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = { ".luarc.json", ".git" },
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = {
+        globals = { "vim", "hl" },
+        disable = { "lowercase-global" },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+          ["/run/current-system/usr/share/hypr/stubs"] = true,
+        },
+        maxPreload = 100000,
+        preloadFileSize = 10000,
+        checkThirdParty = false,
+      },
+      telemetry = { enable = false },
     },
-    init_options = {
-        usePlaceholders = true,
-        completeUnimported = true,
-        clangdFileStatus = true,
-    },
+  },
+})
+
+-- Nix
+vim.lsp.config("nil_ls", {
+  cmd = { "nil" },
+  filetypes = { "nix" },
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- C/C++
+vim.lsp.config("clangd", {
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--header-insertion-decorators",
+    "--completion-style=detailed",
+    "--compile-commands-dir=build",
+    "--function-arg-placeholders",
+    "--limit-results=0",
+  },
+  filetypes = { "c", "cpp", "objc", "objcpp" },
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+
+    -- Clangd-specific keymap (only for code files)
+    if is_code_file(bufnr) then
+      vim.keymap.set("n", "<localleader>h", "<cmd>ClangdSwitchSourceHeader<cr>", {
+        buffer = bufnr,
+        desc = "Switch Source/Header",
+      })
+      -- No wk.add needed! which-key auto-detects it
+    end
+
+    vim.lsp.inlay_hint.enable(true)
+  end,
+  init_options = {
+    usePlaceholders = true,
+    completeUnimported = true,
+    clangdFileStatus = true,
+  },
 })
 
 -- Java
--- lspconfig.jdtls.setup({
---     capabilities = capabilities,
---     on_attach = function(client, bufnr)
---         -- Auto-completion
---         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
---
---         -- Diagnostic config
---         vim.diagnostic.config({
---             virtual_text = true,
---             signs = true,
---             update_in_insert = false,
---         })
---     end,
--- })
-lspconfig('jdtls',{
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        -- Auto-completion
-        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-        -- Diagnostic config
-        vim.diagnostic.config({
-            virtual_text = true,
-            signs = true,
-            update_in_insert = false,
-        })
-    end,
+vim.lsp.config("jdtls", {
+  cmd = { "jdtls" },
+  filetypes = { "java" },
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    vim.diagnostic.config({
+      virtual_text = true,
+      signs = true,
+      update_in_insert = false,
+    })
+  end,
 })
+
+-- ============================================================================
+-- Enable LSP Servers
+-- ============================================================================
+
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("nil_ls")
+vim.lsp.enable("clangd")
+vim.lsp.enable("jdtls")
