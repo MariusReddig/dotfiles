@@ -3,13 +3,13 @@
 
   inputs = {
     # Stable channels
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,9 +33,9 @@
     };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    swww.url = "github:LGFae/swww";
+    awww.url = "git+https://codeberg.org/LGFae/awww";
 
     neorg-overlay = {
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
@@ -89,7 +89,6 @@
             (coreModule "upower")
             (coreModule "certificates")
             (coreModule "nix-ld")
-            (coreModule "docker")
             (coreModule "battery-monitor")
             (coreModule "cups")
 
@@ -129,7 +128,6 @@
             (coreModule "upower")
             (coreModule "certificates")
             (coreModule "nix-ld")
-            (coreModule "docker")
             (coreModule "battery-monitor")
             (coreModule "cups")
 
