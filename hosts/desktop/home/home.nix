@@ -3,7 +3,8 @@ let
   # Module system
   mkModule = path: { imports = [ path ]; };
   homeModule = name: mkModule ../../../home/${name}.nix;
-in {
+in
+{
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
@@ -33,7 +34,6 @@ in {
     (homeModule "balatro/balatro")
 
     (homeModule "core/games")
-    (homeModule "mangohud/mangohud")
 
     (homeModule "hyprland/base-config")
     ./hyprland/hyprland.nix
@@ -48,12 +48,11 @@ in {
     MANPAGER = "nvim +Man!";
   };
 
-  home.activation.linkDotFiles =
-    config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfr -T ~/nix/home/thunar        ~/.config/Thunar
-      ln -sfr -T ~/nix/home/.editorconfig ~/.editorconfig
-      ln -sfr -T ~/nix/home/waybar        ~/.config/waybar
-    '';
+  home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfr -T ~/nix/home/thunar        ~/.config/Thunar
+    ln -sfr -T ~/nix/home/.editorconfig ~/.editorconfig
+    ln -sfr -T ~/nix/home/waybar        ~/.config/waybar
+  '';
 
   programs.fuzzel.enable = true;
 
