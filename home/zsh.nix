@@ -1,5 +1,14 @@
-{ lib, config, pkgs, host, ... }: {
-  options = { zsh.enable = lib.mkEnableOption "enable zsh module"; };
+{
+  lib,
+  config,
+  pkgs,
+  host,
+  ...
+}:
+{
+  options = {
+    zsh.enable = lib.mkEnableOption "enable zsh module";
+  };
 
   config = lib.mkIf config.zsh.enable {
 
@@ -28,8 +37,7 @@
         nixos-update = "sudo nixos-rebuild switch --flake $HOME/nix#${host}";
         nixos-build = "sudo nixos-rebuild build --flake $HOME/nix#${host}";
         nixos-test = "sudo nixos-rebuild test --flake $HOME/nix#${host}";
-        nixos-cleanup =
-          "sudo nix-collect-garbage -d; sudo nix-store --optimise -v";
+        nixos-cleanup = "sudo nix-collect-garbage -d; sudo nix-store --optimise -v";
         v = "nvim";
         vv = "sudo nvim";
         sd = "shutdown 0";
@@ -44,7 +52,10 @@
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "git" "bun" ];
+        plugins = [
+          "git"
+          "bun"
+        ];
         theme = "robbyrussell";
       };
     };
