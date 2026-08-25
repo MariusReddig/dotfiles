@@ -8,6 +8,7 @@ require("core-config.animation")
 require("core-config.binds")
 require("core-config.gestures")
 require("core-config.autostart")
+require("core-config.monitors")
 
 ---Host-specific-configs---
 if is_file_exists(HOME .. "/.config/hypr/host-config/monitors.lua") then

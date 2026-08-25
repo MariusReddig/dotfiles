@@ -4,14 +4,14 @@ local mainMod = "MOD3"
 
 -- predefined functions
 local function toggle_displays()
-    hl.timer(function()
-        hl.dispatch(hl.dsp.dpms({ action = "toggle" }))
-    end, { timeout = 500, type = "oneshot" })
+  hl.timer(function()
+    hl.dispatch(hl.dsp.dpms({ action = "toggle" }))
+  end, { timeout = 500, type = "oneshot" })
 end
 
 local function waybar_toggle()
-    hl.dsp.exec_cmd("pkill -SIGUSR1 waybar")
-    -- TODO: set bordersize to 0 (pseudo-fullscreen)
+  hl.dsp.exec_cmd("pkill -SIGUSR1 waybar")
+  -- TODO: set bordersize to 0 (pseudo-fullscreen)
 end
 
 ---Config---
@@ -19,7 +19,7 @@ end
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = true })
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { repeating = true })
 hl.bind("XF86Display", function()
-    toggle_displays()
+  toggle_displays()
 end, {})
 
 -- Audio
@@ -90,7 +90,8 @@ hl.bind(mainMod .. " + D", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.window.kill())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + V", hl.dsp.window.float())
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + P", hl.dsp.window.pin())
 
 --Master-layout--
 hl.bind(mainMod .. " + S", hl.dsp.layout("swapwithmaster master"))
@@ -110,10 +111,10 @@ hl.bind(mainMod .. " + ALT + R", hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down
 -- Waybar
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + SHIFT + B", function()
-    waybar_toggle()
+  waybar_toggle()
 end)
 hl.bind(mainMod .. " + SHIFT + M ", function()
-    toggle_displays()
+  toggle_displays()
 end)
 
 --Screenshot
