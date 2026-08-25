@@ -32,6 +32,7 @@ in
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "superfile/superfile")
     (homeModule "balatro/balatro")
+    (homeModule "quickshell/quickshell")
 
     (homeModule "core/games")
 
