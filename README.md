@@ -1,16 +1,39 @@
-# This is my current NIXOS-configuration
+# Checklist:
 
-## Installation:
-1. clone repo
-```
-cd /home/${USER} && git clone https://github.com/MariusReddig/dotfiles.git
-```
-2. reconfigure host to your liking
-3. rebuild
-```
-sudo nixos-rebuild switch --flake /home/${USER}/nix#desktop
-```
-or
-```
-sudo nixos-rebuild switch --flake /home/${USER}/nix#laptop
-```
+- [ ] System config
+  - [ ] Core
+    - [ ] boot
+      - [x] bootloader
+      - [x] display-manager
+    - [x] locale
+    - [x] nix
+      - [x] garbage-collection
+      - [x] nix-ld
+    - [ ] audio
+      - [x] pipewire
+    - [x] networkmanager
+      - [x] certificates
+      - [x] firewall
+    - [x] bluetooth
+    - [x] cups
+    - [x] drivers
+      - [x] upower
+      - [x] gpu-drivers
+  - [ ] services
+    - [x] openssh
+    - [x] cups
+    - [x] lact
+    - [x] avahi
+    - [ ] flatpak
+    - [ ] virt-manager
+    - [ ] docker
+
+  - [ ] home-manager
+
+- [ ] Features
+  - [ ]
+
+- [ ] User-config
+  - [ ] dekstop
+  - [ ] laptop
+    - [ ] battery-monitor
