@@ -26,12 +26,12 @@
     - [x] avahi
     - [ ] flatpak
     - [ ] virt-manager
-    - [ ] docker
+    - [x] docker
 
   - [ ] home-manager
 
 - [ ] Features
-  - [ ]
+  - [x] zsh
 
 - [ ] User-config
   - [ ] dekstop
