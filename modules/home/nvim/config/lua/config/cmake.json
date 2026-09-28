@@ -1,0 +1,95 @@
+{
+  "additional_commands": {
+    "foo": {
+      "flags": ["BAR", "BAZ"],
+      "kwargs": {
+        "DEPENDS": "*",
+        "HEADERS": "*",
+        "SOURCES": "*"
+      }
+    }
+  },
+  "bullet_char": "*",
+  "dangle_parens": false,
+  "enum_char": ".",
+  "first_comment_is_literal": false,
+  "format": {
+    "command_case": "canonical",
+    "keyword_case": "upper",
+    "line_ending": "unix",
+    "line_width": 140,
+    "max_lines_hwrap": 2,
+    "max_pargs_hwrap": 3,
+    "separate_ctrl_name_with_space": false,
+    "separate_fn_name_with_space": false,
+    "tab_size": 2
+  },
+  "hashruler": {
+    "min_length": 0,
+    "style": "hash"
+  },
+  "line_ending": "unix",
+  "markup": {
+    "enable": true,
+    "first_comment_is_literal": false,
+    "fence_pattern": ["^\\s*```", "^\\s*```\\s*$"],
+    "literal_comment_pattern": "^\\s*```",
+    "always_wrap": []
+  },
+  "max_lines_hwrap": 2,
+  "max_pargs_hwrap": 3,
+  "separate_ctrl_name_with_space": false,
+  "separate_fn_name_with_space": false,
+  "tab_size": 2,
+  "enable_markup": true,
+  "fence_pattern": ["^\\s*```", "^\\s*```\\s*$"],
+  "literal_comment_pattern": "^\\s*```",
+  "always_wrap": [],
+  "per_command": {
+    "add_executable": {
+      "kwargs": {
+        "SOURCES": "always-wrap",
+        "HEADERS": "always-wrap"
+      }
+    },
+    "add_library": {
+      "kwargs": {
+        "SOURCES": "always-wrap",
+        "HEADERS": "always-wrap"
+      }
+    },
+    "target_link_libraries": {
+      "kwargs": {
+        "LINK_LIBRARIES": "always-wrap"
+      }
+    },
+    "target_include_directories": {
+      "kwargs": {
+        "INCLUDE_DIRECTORIES": "always-wrap"
+      }
+    },
+    "target_compile_definitions": {
+      "kwargs": {
+        "COMPILE_DEFINITIONS": "always-wrap"
+      }
+    },
+    "target_compile_options": {
+      "kwargs": {
+        "COMPILE_OPTIONS": "always-wrap"
+      }
+    },
+    "set_target_properties": {
+      "kwargs": {
+        "PROPERTIES": "always-wrap"
+      }
+    },
+    "set": {
+      "kwargs": {
+        "VARIABLE": "always-wrap"
+      }
+    },
+    "find_package": {
+      "flags": ["REQUIRED", "QUIET", "EXACT", "CONFIG", "MODULE", "NO_MODULE"]
+    }
+  }
+}
