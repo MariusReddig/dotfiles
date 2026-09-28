@@ -6,7 +6,7 @@
       ...
     }:
     let
-      modules = with self.nixosModules; [
+      modules = with self.nixosmodules; [
         user
         bootloader
         nix

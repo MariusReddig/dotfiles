@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixModules.amd =
+  flake.nixosModules.amd =
     {
       config,
       lib,

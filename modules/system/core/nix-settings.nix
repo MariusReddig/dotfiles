@@ -1,11 +1,14 @@
 { inputs, ... }: {
   perSystem = { system, ... }: {
-    _module.args.unfreePkgs = import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
+    _module.args = {
+      unfreePkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      flakeLocation = builtins.getEnv "PWD";
     };
   };
-  flake.nixosModules.nix = { username, ... }: {
+  flake.nixosModules.nix = { username, flakeLocation, ... }: {
     nix = {
       settings = {
         cores = 6;
@@ -21,7 +24,7 @@
       };
       nixPath = [
         "nixpkgs=${inputs.nixpkgs}"
-        "nixos-config=/home/${username}/nix"
+        "nixos-config=${flakeLocation}"
       ];
       optimise.automatic = true;
       gc = {
