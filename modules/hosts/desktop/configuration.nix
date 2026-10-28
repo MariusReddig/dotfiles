@@ -57,6 +57,7 @@ in
             balatro
             hyprland
             quickshell
+            desktop
           ];
 
           home.stateVersion = "24.11"; # don't remove for compatibility

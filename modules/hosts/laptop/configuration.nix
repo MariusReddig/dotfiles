@@ -63,10 +63,10 @@ in
             balatro
             hyprland
             quickshell
+            laptop
           ];
 
           home.stateVersion = "24.11"; # Don't remove for compatibility
-          home.packages = [ pkgs.brightnessctl ];
         };
     }
   );

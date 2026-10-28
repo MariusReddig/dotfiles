@@ -37,3 +37,9 @@ end
 if is_file_exists(HOME .. "/.config/hypr/host-config/autostart.lua") then
   require("host-config.autostart")
 end
+
+---Optional-modules---
+-- linked by homeModules.quickshell
+if is_file_exists(HOME .. "/.config/hypr/quickshell.lua") then
+  require("quickshell")
+end

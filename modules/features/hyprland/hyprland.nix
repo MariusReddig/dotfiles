@@ -1,6 +1,7 @@
 # Hyprland: compositor on the system side, config links + helper scripts on the user side.
 # chwp.nix, toggles.nix, hyprlock.nix and hypridle.nix in this folder add to the same
-# homeModules.hyprland; the per-host lua config lives in modules/hosts/<host>/hyprland.
+# homeModules.hyprland; the per-host lua config lives in modules/hosts/<host>/hyprland
+# and is linked by homeModules.<host>.
 {
   self,
   moduleWithSystem,
@@ -39,20 +40,22 @@
       };
     };
 
+  # The host-specific part (~/.config/hypr/host-config) is linked by the host's own
+  # Home Manager module, see modules/hosts/<host>/home.nix.
   flake.homeModules.hyprland = moduleWithSystem (
-    { flakeLocation, ... }:
+    { self', flakeLocation, ... }:
     {
       config,
       pkgs,
-      hostname,
       ...
     }:
+    let
+      link = "${self'.packages.link-config}/bin/link-config";
+    in
     {
       home.activation.linkHyprConfig = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-        mkdir -p ~/.config/hypr
-        ln -sfrT ${flakeLocation}/modules/features/hyprland/core-config  ~/.config/hypr/core-config
-        ln -sfrT ${flakeLocation}/modules/features/hyprland/hyprland.lua ~/.config/hypr/hyprland.lua
-        ln -sfrT ${flakeLocation}/modules/hosts/${hostname}/hyprland     ~/.config/hypr/host-config
+        ${link} ${flakeLocation}/modules/features/hyprland/core-config  ~/.config/hypr/core-config
+        ${link} ${flakeLocation}/modules/features/hyprland/hyprland.lua ~/.config/hypr/hyprland.lua
       '';
 
       home.file.".config/hypr/xdph.conf".text = ''
