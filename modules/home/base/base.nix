@@ -7,7 +7,12 @@
 {
   flake.homeModules.base = moduleWithSystem (
     { flakeLocation, ... }:
-    { config, username, ... }:
+    {
+      config,
+      username,
+      hostname,
+      ...
+    }:
     {
       home = {
         inherit username;
@@ -21,10 +26,10 @@
           MANPAGER = "nvim +Man!";
         };
 
-        # Thunar writes into its config folder, so modules/home/base/thunar is gitignored
+        # Per-host Thunar config and .editorconfig
         activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-          ln -sfr -T ${flakeLocation}/modules/home/base/thunar       ~/.config/Thunar
-          ln -sfr -T ${flakeLocation}/modules/home/base/editorconfig ~/.editorconfig
+          ln -sfr -T ${flakeLocation}/modules/hosts/${hostname}/thunar        ~/.config/Thunar
+          ln -sfr -T ${flakeLocation}/modules/hosts/${hostname}/.editorconfig ~/.editorconfig
         '';
       };
 

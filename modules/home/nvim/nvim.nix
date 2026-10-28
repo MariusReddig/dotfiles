@@ -100,6 +100,7 @@
                 tree-sitter-nix
                 tree-sitter-norg
                 tree-sitter-norg-meta
+                tree-sitter-qmljs
               ]
             ))
             tokyonight-nvim

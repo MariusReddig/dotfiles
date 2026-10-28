@@ -10,7 +10,7 @@ let
 in
 {
   flake.nixosModules.laptopConfiguration = moduleWithSystem (
-    { self', flakeLocation, ... }:
+    { self', ... }:
     { pkgs, lib, ... }:
     {
       _module.args = {
@@ -40,7 +40,7 @@ in
 
       # ============== home-manager =============== #
       home-manager.users.${username} =
-        { config, ... }:
+        { ... }:
         {
           imports = with self.homeModules; [
             packages
@@ -66,10 +66,6 @@ in
 
           home.stateVersion = "24.11"; # Don't remove for compatibility
           home.packages = [ pkgs.brightnessctl ];
-
-          home.activation.linkHostDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-            ln -sfr -T ${flakeLocation}/modules/hosts/laptop/waybar ~/.config/waybar
-          '';
         };
     }
   );

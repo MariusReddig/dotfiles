@@ -1,37 +1,10 @@
-# Toggles for waybar, gaps, rounding and a "pseudo fullscreen" combining them.
+# Toggles for gaps, rounding and a "pseudo fullscreen" combining them.
 { ... }:
 {
   flake.homeModules.hyprland =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        #waybar-toggle
-        (writeShellScriptBin "hyprland-waybar" ''
-          if [ $# -eq 0 ]; then
-            echo "Usage: $0 [on|off|toggle]"
-            exit 1
-          fi
-
-          case "$1" in
-            on)
-              pkill -SIGUSR2 waybar  # Show waybar
-              echo "Waybar shown"
-              ;;
-            off)
-              pkill -SIGINT waybar  # Hide waybar
-              echo "Waybar hidden"
-              ;;
-            toggle)
-              pkill -SIGUSR1 waybar  # Toggles waybar (USR1 works as toggle)
-              echo "Waybar toggled"
-              ;;
-            *)
-              echo "Invalid argument. Usage: $0 [on|off|toggle]"
-              exit 1
-              ;;
-          esac
-        '')
-
         #window-gaps-toggle
         (writeShellScriptBin "hyprland-gabs" ''
           # Get values from config (handles spaces, tabs, etc.)
@@ -117,19 +90,16 @@
 
           case "$1" in
             on)
-              hyprland-waybar on
               hyprland-gabs on
-              hytrland-borderrounding on
+              hyprland-borderrounding on
               echo "psudo-fullscreen on"
               ;;
             off)
-              hyprland-waybar off
               hyprland-gabs off
               hyprland-borderrounding off
               echo "psudo-fullscreen off"
               ;;
             toggle)
-              hyprland-waybar toggle
               hyprland-gabs toggle
               hyprland-borderrounding toggle
               echo "toggle psudo-fullscreen"

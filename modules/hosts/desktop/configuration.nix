@@ -11,7 +11,7 @@ in
 {
   # drives.nix in this folder adds to the same module
   flake.nixosModules.desktopConfiguration = moduleWithSystem (
-    { self', flakeLocation, ... }:
+    { self', ... }:
     { pkgs, lib, ... }:
     {
       _module.args = {
@@ -34,7 +34,7 @@ in
 
       # ============== home-manager =============== #
       home-manager.users.${username} =
-        { config, ... }:
+        { ... }:
         {
           imports = with self.homeModules; [
             packages
@@ -49,7 +49,6 @@ in
             fuzzel
             kitty
             pferd
-            dunst
             zoxide
             fzf
             stylix
@@ -60,10 +59,6 @@ in
           ];
 
           home.stateVersion = "24.11"; # don't remove for compatibility
-
-          home.activation.linkHostDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-            ln -sfr -T ${flakeLocation}/modules/home/waybar ~/.config/waybar
-          '';
         };
     }
   );

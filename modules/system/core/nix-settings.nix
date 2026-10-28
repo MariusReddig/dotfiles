@@ -49,6 +49,7 @@
               config = {
                 allowUnfree = true;
               };
+              overlays = [ inputs.fluxer.overlays.default ];
             };
           };
         };

@@ -61,6 +61,7 @@
 
         initContent = ''
           export PATH="$HOME/.local/bin:$PATH"
+          export GTK_THEME=Adwaita:dark
           eval "$(direnv hook zsh)"
         '';
 

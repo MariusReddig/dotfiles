@@ -35,10 +35,19 @@
       url = "github:gmodena/nix-flatpak";
     };
     awww.url = "git+https://codeberg.org/LGFae/awww";
+    caelestia = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neorg-overlay = {
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    wine-sni-bridge = {
+      url = "github:waliori/wine-sni-bridge";
+      flake = false;
+    };
+    fluxer.url = "github:Hy4ri/fluxer-flake";
   };
 
   # https://flake.parts/module-arguments.html

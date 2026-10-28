@@ -24,7 +24,6 @@
       docker
       virt-manager
       gpu-screen-recorder
-      flatpak
       stylix
       home-manager
     ];
