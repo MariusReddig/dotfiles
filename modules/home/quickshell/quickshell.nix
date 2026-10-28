@@ -17,9 +17,9 @@
       ...
     }:
     {
-      home.packages = [ self'.packages.quickshell ];
+      home.packages = [ pkgs.quickshell ];
 
-      home.activation.linkName = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      home.activation.linkQuickshellConfig = config.lib.dag.entryAfter [ "writeBoundary" ] ''
         ln -sfr -T ${flakeLocation}/modules/home/quickshell/config ~/.config/quickshell
       '';
     }

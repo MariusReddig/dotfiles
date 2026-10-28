@@ -62,6 +62,7 @@ in
             superfile
             balatro
             hyprland
+            quickshell
           ];
 
           home.stateVersion = "24.11"; # Don't remove for compatibility
