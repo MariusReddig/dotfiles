@@ -2,14 +2,14 @@
 --Persistent-Workspaces--
 hl.workspace_rule({ workspace = "name:game", monitor = "desc:AOC Q27G4N 2KQR1HA000189" })
 hl.workspace_rule({
-  workspace = "3",
+  workspace = "1",
   monitor = "desc:Samsung Electric Company SAMSUNG",
   default = true,
   persistent = true,
 })
 hl.workspace_rule({ workspace = "2", monitor = "desc:AOC Q27G4N 2KQR1HA000189", default = true, persistent = true })
 hl.workspace_rule({
-  workspace = "1",
+  workspace = "3",
   monitor = "desc:Fujitsu Siemens Computers GmbH B19-7 LED YV6V005490",
   default = true,
   persistent = true,
@@ -35,4 +35,15 @@ hl.window_rule({
 hl.window_rule({
   match = { workspace = "m[desc:Samsung Electric Company SAMSUNG]" },
   animation = "slide left",
+})
+
+hl.window_rule({
+  match = { class = "wine-sni-bridge" },
+  float = true,
+  no_focus = true,
+  opacity = "0.0",
+  border_size = false,
+  no_shadow = true,
+  no_blur = true,
+  no_anim = true,
 })

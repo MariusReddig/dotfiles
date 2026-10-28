@@ -36,14 +36,25 @@
       # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     awww.url = "git+https://codeberg.org/LGFae/awww";
+    caelestia = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     neorg-overlay = {
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    wine-sni-bridge = {
+      url = "github:waliori/wine-sni-bridge";
+      flake = false;
+    };
+
+    fluxer.url = "github:Hy4ri/fluxer-flake";
   };
 
-  outputs = { self, ... }@inputs:
+  outputs =
+    { self, ... }@inputs:
     let
       username = "marius";
 
@@ -54,6 +65,7 @@
           overlays = [
             inputs.nur.overlays.default
             inputs.neorg-overlay.overlays.default
+            inputs.fluxer.overlays.default
           ];
         };
       };
@@ -65,7 +77,8 @@
       # Module system
       mkModule = path: { imports = [ path ]; };
       coreModule = name: mkModule ./nixos/core/${name}.nix;
-    in {
+    in
+    {
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = {
@@ -74,7 +87,12 @@
           };
           modules = [
             # Core system modules
-            { nixpkgs.overlays = [ unstableOverlay localOverlay ]; }
+            {
+              nixpkgs.overlays = [
+                unstableOverlay
+                localOverlay
+              ];
+            }
             (coreModule "bluetooth")
             (coreModule "bootloader")
             (coreModule "drivers/amd")
@@ -113,7 +131,12 @@
           };
           modules = [
             # Core system modules
-            { nixpkgs.overlays = [ unstableOverlay localOverlay ]; }
+            {
+              nixpkgs.overlays = [
+                unstableOverlay
+                localOverlay
+              ];
+            }
             (coreModule "bluetooth")
             (coreModule "bootloader")
             (coreModule "drivers/amd")
@@ -142,7 +165,7 @@
             inputs.stylix.nixosModules.stylix
             ./stylix/stylix.nix
 
-            inputs.nix-flatpak.nixosModules.nix-flatpak
+            # inputs.nix-flatpak.nixosModules.nix-flatpak
           ];
         };
 

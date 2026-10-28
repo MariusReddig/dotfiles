@@ -1,10 +1,16 @@
-{ username, config, ... }:
+{
+  username,
+  config,
+  inputs,
+  ...
+}:
 let
   # Module system
   mkModule = path: { imports = [ path ]; };
   homeModule = name: mkModule ../../../home/${name}.nix;
 in
 {
+
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
@@ -25,14 +31,14 @@ in
     (homeModule "fuzzel/fuzzel")
     (homeModule "kitty/kitty")
     (homeModule "pferd/pferd")
-    (homeModule "dunst/dunst")
+    # (homeModule "dunst/dunst")
     (homeModule "zoxide/zoxide")
     (homeModule "fzf/fzf")
     (homeModule "stylix/stylix")
     (homeModule "oh-my-posh/oh-my-posh")
     (homeModule "superfile/superfile")
     (homeModule "balatro/balatro")
-    (homeModule "quickshell/quickshell")
+    # (homeModule "caelestia/caelestia")
 
     (homeModule "core/games")
 
@@ -50,13 +56,15 @@ in
   };
 
   home.activation.linkDotFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfr -T ~/nix/home/thunar        ~/.config/Thunar
-    ln -sfr -T ~/nix/home/.editorconfig ~/.editorconfig
-    ln -sfr -T ~/nix/home/waybar        ~/.config/waybar
+    ln -sfr -T /home/${username}/nix/hosts/desktop/home/thunar        ~/.config/Thunar
+    ln -sfr -T /home/${username}/nix/hosts/desktop/home/.editorconfig ~/.editorconfig
+    ln -sfr -T /home/${username}/nix/hosts/desktop/home/waybar        ~/.config/waybar
   '';
 
   programs.fuzzel.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  services.wine-sni-bridge.enable = true;
 }

@@ -2,13 +2,13 @@
   home.packages =
     (with pkgs; [
 
-      # controller test
-      jstest-gtk
-
       forge-mtg
       linuxKernel.packages.linux_zen.xpadneo
-      lutris
       # gamescope
+
+      wineWow64Packages.stable
+      winetricks
+      heroic
 
       # Minecraft
       (prismlauncher.override {
@@ -28,7 +28,6 @@
 
       # archipelago stuff
       archipelago
-      # freetype
     ]);
 
 }

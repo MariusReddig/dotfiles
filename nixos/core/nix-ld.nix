@@ -6,7 +6,7 @@
       zstd
       stdenv.cc.cc
       curl
-      openssl
+      openssl.out
       attr
       libssh
       bzip2

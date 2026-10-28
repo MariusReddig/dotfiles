@@ -1,4 +1,4 @@
-{ specialArgs, ... }:
+{ specialArgs, inputs, ... }:
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -6,4 +6,5 @@
     users.${specialArgs.username} = import ../../hosts/${specialArgs.host}/home/home.nix;
     extraSpecialArgs = specialArgs;
   };
+
 }

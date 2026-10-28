@@ -1,0 +1,8 @@
+hl.on("hyprland.start", function()
+  hl.exec_cmd("quickshell -c /home/marius/.config/quickshell/pillbar")
+  hl.exec_cmd("legcord --disable-features=WaylandFractionalScaleV1")
+  hl.exec_cmd("signal-desktop --disable-features=WaylandFractionalScaleV1")
+end)
+hl.on("config.reloaded", function()
+  hl.exec_cmd("pkill .quickshell-wra; quickshell -c /home/marius/.config/quickshell/pillbar")
+end)

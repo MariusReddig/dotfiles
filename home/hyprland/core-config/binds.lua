@@ -1,5 +1,6 @@
 -- predefined parameters
 local mainMod = "MOD3"
+local is_close_bound = true
 --local  mainMod = "SUPER"
 
 -- predefined functions
@@ -12,6 +13,18 @@ end
 local function waybar_toggle()
   hl.dsp.exec_cmd("pkill -SIGUSR1 waybar")
   -- TODO: set bordersize to 0 (pseudo-fullscreen)
+end
+
+local function close_window_toggle()
+  if is_close_bound then
+    hl.unbind(mainMod .. " + D")
+    is_close_bound = false
+    hl.exec_cmd("notify-send 'close window unbound'")
+  else
+    hl.bind(mainMod .. " + D", hl.dsp.window.close())
+    is_close_bound = true
+    hl.exec_cmd("notify-send 'close window bound'")
+  end
 end
 
 ---Config---
@@ -86,6 +99,9 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { keep_aspect_ratio =
 hl.bind(mainMod .. " + mouse:274", hl.dsp.window.resize(), { mouse = true })
 
 -- Window-modification
+hl.bind(mainMod .. " + ALT + D", function()
+  close_window_toggle()
+end)
 hl.bind(mainMod .. " + D", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.window.kill())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
@@ -103,16 +119,11 @@ hl.bind(mainMod .. " + Right", hl.dsp.layout("mfact +0.1"))
 ---Specific-keybinds---
 
 -- Hyprland shortcuts
-hl.bind(mainMod .. " + SHIFT + U ", hl.dsp.exec_cmd("hyprctl reload; chwp -r"))
+hl.bind(mainMod .. " + SHIFT + U ", hl.dsp.exec_cmd("hyprctl reload && notify-send 'reloaded'"))
 hl.bind(mainMod .. " + ALT + Q", hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"))
 hl.bind(mainMod .. " + ALT + R", hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down...' --post-cmd 'reboot'"))
 -- TODO: Add Sessionlock and Idlesleep
 
--- Waybar
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
-hl.bind(mainMod .. " + SHIFT + B", function()
-  waybar_toggle()
-end)
 hl.bind(mainMod .. " + SHIFT + M ", function()
   toggle_displays()
 end)

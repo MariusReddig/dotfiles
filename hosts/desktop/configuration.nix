@@ -1,7 +1,14 @@
-{ pkgs, username, host, ... }:
+{
+  pkgs,
+  username,
+  host,
+  ...
+}:
 
-let hostname = "${username}-${host}";
-in {
+let
+  hostname = "${username}-${host}";
+in
+{
   # ============== System Settings ============== #
   system.stateVersion = "24.11"; # Don't remove for compatibility
   networking.hostName = hostname;
@@ -9,7 +16,10 @@ in {
   # ============== Nix Configuration ============== #
   nix = {
     nixPath = [ "nixos-config=/home/${username}/nix" ];
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   # ============== Package Management ============== #
@@ -19,22 +29,25 @@ in {
   documentation.nixos.enable = false;
 
   # ============== System Packages ============== #
-  environment.systemPackages = (with pkgs; [
-    # Core utilities
-    vim
-    neovim
-    wget
-    git
-    git-doc
-    gptfdisk
-    bash
+  environment.systemPackages = (
+    with pkgs;
+    [
+      # Core utilities
+      vim
+      neovim
+      wget
+      git
+      git-doc
+      gptfdisk
+      bash
 
-    # Nix stuff
-    nix-prefetch-git
+      # Nix stuff
+      nix-prefetch-git
 
-    # GUI applications
-    kitty
-  ]);
+      # GUI applications
+      kitty
+    ]
+  );
 
   # ============== System Services ============== #
   mullvad.enable = true;
@@ -44,7 +57,10 @@ in {
   users.users.${username} = {
     isNormalUser = true;
     description = "main user";
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -60,6 +76,7 @@ in {
     ./drives.nix
     ../../nixos/applications
     ../../nixos/applications/droidcam.nix
+    ../../nixos/applications/flatpak/packages.nix
     ../../nixos/window-managers/hyprland.nix
     ../../nixos/window-managers/gnome.nix
   ];

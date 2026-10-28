@@ -39,5 +39,6 @@
       light = "Papirus";
     };
     targets.qt.platform = "qtct";
+    targets.gtk.enable = false;
   };
 }

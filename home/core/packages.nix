@@ -2,11 +2,9 @@
   programs.btop.enable = true;
   home.packages =
     (with pkgs; [
-      pomodoro-gtk
+      quickshell
 
       # System Utilities
-      man-pages-posix
-      man-pages
       usbutils
       unzip
       android-tools
@@ -36,27 +34,21 @@
       corefonts
       noto-fonts
       noto-fonts-cjk-sans
-
       papirus-icon-theme
       ipafont
 
       # Audio/Video Control
       crosspipe
       pavucontrol
-      pamixer
       easyeffects
-      vlc
-      kdePackages.phonon-vlc
-      kdePackages.phonon
       kdePackages.qtimageformats
 
       # Productivity
-      chromium
       anki
       xournalpp
       uair
       signal-desktop
-      karere
+      zapzap
       thunderbird
       nextcloud-client
       libreoffice-still
@@ -70,7 +62,7 @@
       cozy
 
       # File Management
-      qview
+      qimgv
 
       # Graphics and Design
       inkscape
@@ -86,10 +78,9 @@
       cliphist
 
       # Communication
-      vesktop
-      element-desktop
-      teams-for-linux
-      (callPackage ../../nixpkgs { }).stoat
+      legcord
+      unstable.fluxer
+      # (callPackage ../../nixpkgs { }).stoat
 
       # Development Tools
       python312Packages.pip
@@ -103,4 +94,16 @@
       libnotify
     ])
     ++ (with inputs; [ awww.packages.${pkgs.stdenv.hostPlatform.system}.awww ]);
+  xdg.desktopEntries = {
+    signal = {
+      name = "Signal";
+      exec = "signal-desktop --disable-features=WaylandFractionalScaleV1 %U";
+      icon = "signal-desktop";
+    };
+    legcord = {
+      name = "Legcord";
+      exec = "legcord --disable-features=WaylandFractionalScaleV1 %U";
+      icon = "legcord";
+    };
+  };
 }
