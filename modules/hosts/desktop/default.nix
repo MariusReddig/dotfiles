@@ -1,35 +1,35 @@
-{ self, inputs, ... }:
-let
-  username = "marius";
-  hostname = "desktop";
-in
 {
-  flake.nixosModules.desktopconfiguration = { pkgs, lib, ... }: {
-    _module.args = {
-      inherit hostname username;
-    };
-    system.stateversion = "24.11"; # don't remove for compatibility
-    networking.hostname = hostname;
-
-    documentation.nixos.enable = false;
-
-    imports = [
+  self,
+  inputs,
+  ...
+}:
+{
+  # Name = networking.hostName, so `nixos-rebuild switch --flake .` picks it automatically
+  flake.nixosConfigurations.marius-desktop = inputs.nixpkgs.lib.nixosSystem {
+    modules = with self.nixosModules; [
+      desktopConfiguration
+      core
+      pipewire
+      amd
+      upower
+      networking
+      kde-connect
+      nix-ld
+      gnome-keyring
+      plymouth
+      battery-monitor
+      thunar
+      steam
+      ubisoft
+      droidcam
+      hyprland
+      gnome
+      docker
+      virt-manager
+      gpu-screen-recorder
+      flatpak
+      stylix
+      home-manager
     ];
-
-    home-manager.users.${username} =
-      { ... }@homeConfig:
-      {
-        imports = [
-        ];
-      };
-
-    environment.systempackages = (
-      with pkgs;
-      [
-        wget
-        git
-        bash
-      ]
-    );
   };
 }

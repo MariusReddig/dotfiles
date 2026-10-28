@@ -1,9 +1,0 @@
-{ config, ... }: {
-  stylix.targets.fuzzel.enable = false;
-  programs.fuzzel = { enable = true; };
-
-  home.activation.linkFuzzelConfig =
-    config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfr -T ~/nix/home/fuzzel/config ~/.config/fuzzel
-    '';
-}

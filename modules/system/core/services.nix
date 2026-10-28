@@ -1,4 +1,5 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+{
   flake.nixosModules.services =
     {
       pkgs,
@@ -21,7 +22,7 @@
           nssmdns4 = true;
           openFirewall = true;
         };
-        services.mullvad-vpn = {
+        mullvad-vpn = {
           enable = true;
           package = pkgs.mullvad-vpn;
         };

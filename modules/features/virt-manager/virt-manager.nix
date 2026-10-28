@@ -1,31 +1,23 @@
 {
   self,
-  moduleWithSystem,
   ...
 }:
 {
-  flake.nixosModules.name = moduleWithSystem (
+  flake.nixosModules.virt-manager =
     {
       pkgs,
-      self',
-      inputs',
       username,
       ...
     }:
-    let
-      modules = with self.nixosModules; [ ];
-    in
     {
-      imports = modules;
       environment.systemPackages = with pkgs; [
         virt-manager
         # libvirt
         # OVMF
       ];
       programs.virt-manager.enable = true;
-      users.groups.libvirtd.members = [ "${username}" ];
+      users.groups.libvirtd.members = [ username ];
       virtualisation.libvirtd.enable = true;
       virtualisation.spiceUSBRedirection.enable = true;
-    }
-  );
+    };
 }

@@ -4,10 +4,11 @@
   ...
 }:
 {
-  flake.nixosModules.user-marius =
+  flake.nixosModules.user =
     {
       pkgs,
       lib,
+      username,
       ...
     }:
     let
@@ -17,7 +18,7 @@
     in
     {
       imports = modules;
-      users.users.marius = {
+      users.users.${username} = {
         isNormalUser = true;
         initialPassword = "qwer";
         shell = pkgs.zsh;

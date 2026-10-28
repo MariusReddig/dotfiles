@@ -1,4 +1,5 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+{
   flake.nixosModules.core =
     {
       pkgs,
@@ -6,15 +7,18 @@
       ...
     }:
     let
-      modules = with self.nixosmodules; [
+      modules = with self.nixosModules; [
         user
         bootloader
         nix
         locale
+        services
+        bluetooth
       ];
     in
     {
       imports = [
+        # impure: build with --impure (the nixos-update alias does)
         /etc/nixos/hardware-configuration.nix
       ]
       ++ modules;

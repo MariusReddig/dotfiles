@@ -1,37 +1,18 @@
 {
   self,
-  moduleWithSystem,
   ...
 }:
 {
-  flake.nixosModules.docker = moduleWithSystem (
+  flake.nixosModules.docker =
     {
-      pkgs,
-      self',
-      inputs',
-      user,
+      username,
       ...
     }:
-    let
-      modules = with self.nixosModules; [ ];
-    in
     {
-      imports = modules;
       virtualisation.docker.rootless = {
         enable = true;
         setSocketVariable = true;
       };
-      users.user.${user}.extraGroups = [ "docker" ];
-
-    }
-  );
-  perSystem =
-    {
-      pkgs,
-      lib,
-      self',
-      ...
-    }:
-    {
+      users.users.${username}.extraGroups = [ "docker" ];
     };
 }

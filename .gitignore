@@ -1,6 +1,7 @@
-home/thunar
-/home/balatro/config/Balatro
-/home/balatro/config/Mods/lovely/dump
-/home/balatro/config/Mods/lovely/game-dump
-/home/balatro/config/Mods/lovely/log
-/home/balatro/config/Mods/lovely
+result
+modules/home/base/thunar
+/modules/home/balatro/config/Balatro
+/modules/home/balatro/config/Mods/lovely/dump
+/modules/home/balatro/config/Mods/lovely/game-dump
+/modules/home/balatro/config/Mods/lovely/log
+/modules/home/balatro/config/Mods/lovely

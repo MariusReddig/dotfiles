@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.netwworkmanager = { username, pkgs, ... }: {
+  flake.nixosModules.networkmanager = { pkgs, ... }: {
     environment.systemPackages = (
       with pkgs;
       [

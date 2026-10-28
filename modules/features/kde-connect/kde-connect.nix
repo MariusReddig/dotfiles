@@ -1,5 +1,6 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.kde-connect = { username, pkgs, ... }: {
+{ self, inputs, ... }:
+{
+  flake.nixosModules.kde-connect = {
     networking.firewall = {
       enable = true;
       allowedUDPPortRanges = [

@@ -4,16 +4,19 @@
   ...
 }:
 {
+  # System side: zsh has to be enabled system-wide to be a login shell
+  flake.nixosModules.zsh = {
+    programs.zsh.enable = true;
+  };
+
   flake.homeModules.zsh = moduleWithSystem (
     {
-      pkgs,
-      self',
-      inputs',
       flakeLocation,
       ...
     }:
+    { ... }:
     let
-      modules = with self.nixosModules; [ ];
+      modules = with self.homeModules; [ ];
     in
     {
       imports = modules;
@@ -25,12 +28,23 @@
         history.append = true;
         history.size = 10000;
 
+        dirHashes = {
+          download = "$HOME/Downloads/";
+          documents = "$HOME/Documents";
+          pictures = "$HOME/Pictures/";
+          config = "$HOME/.config/";
+          videos = "$HOME/Videos/";
+          music = "$HOME/Music/";
+          git = "$HOME/git/";
+          notes = "$HOME/notes/";
+        };
+
         shellAliases = {
           ll = "ls -l";
           la = "ls -la";
           nixos-update =
             if flakeLocation != "" then
-              "( cd ${flakeLocation} && sudo nixos-rebuild switch --impire --flake .)"
+              "( cd ${flakeLocation} && sudo nixos-rebuild switch --impure --flake .)"
             else
               " echo 'Flake location not specified. Did you bild with --impure?'";
           nixos-build =
@@ -42,8 +56,7 @@
           v = "nvim";
           vv = "sudo nvim";
           sd = "shutdown 0";
-          ts = "tmux source ~/.config/tmux/tmux.conf";
-          spf = "supferfile";
+          ts = "tmux source ~/.config/tmux/custom-tmux.conf";
         };
 
         initContent = ''
@@ -62,13 +75,4 @@
       };
     }
   );
-  perSystem =
-    {
-      pkgs,
-      lib,
-      self',
-      ...
-    }:
-    {
-    };
 }

@@ -1,4 +1,5 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+{
   flake.nixosModules.amd =
     {
       config,
@@ -24,10 +25,10 @@
             mesa
             clinfo
           ];
-          amdgpu = {
-            initrd.enable = true;
-            opencl.enable = true;
-          };
+        };
+        amdgpu = {
+          initrd.enable = true;
+          opencl.enable = true;
         };
       };
       systemd = {

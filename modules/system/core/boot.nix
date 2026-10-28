@@ -1,10 +1,11 @@
 {
   self,
-  inputs,
+  moduleWithSystem,
   ...
 }:
 {
-  flake.nixosModules.bootloader =
+  flake.nixosModules.bootloader = moduleWithSystem (
+    { self', ... }:
     {
       pkgs,
       lib,
@@ -34,24 +35,25 @@
         tmp.cleanOnBoot = true;
 
         supportedFilesystems = [ "ntfs" ];
+      };
 
-        #SDDM-Display-manager
-        environment.systemPackages = with pkgs; [
-          local.japanese-aesthetic
-          kdePackages.qtmultimedia
-        ];
+      #SDDM-Display-manager
+      environment.systemPackages = with pkgs; [
+        self'.packages.japanese-aesthetic
+        kdePackages.qtmultimedia
+      ];
 
-        services = {
-          displayManager = {
-            sddm = {
-              enable = true;
-              wayland.enable = true;
-              autoNumlock = true;
-              theme = "japanese-aesthetic";
-            };
+      services = {
+        displayManager = {
+          defaultSession = "hyprland";
+          sddm = {
+            enable = true;
+            wayland.enable = true;
+            autoNumlock = true;
+            theme = "japanese-aesthetic";
           };
         };
-
       };
-    };
+    }
+  );
 }

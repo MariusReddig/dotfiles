@@ -1,39 +1,31 @@
 {
   self,
-  moduleWithSystem,
   ...
 }:
 {
-  flake.nixosModules.thunar = moduleWithSystem (
+  flake.nixosModules.thunar =
     {
       pkgs,
-      self',
-      inputs',
       ...
     }:
-    let
-      modules = with self.nixosModules; [ ];
-    in
     {
-      imports = modules;
       programs.thunar.enable = true;
       programs.xfconf.enable = true;
 
-      programs.thunar.plugins = [
-        pkgs.xfce.thunar
-        pkgs.xfce.xfconf
-        pkgs.xfce.tumbler
-        pkgs.xfce.thunar-archive-plugin
-        pkgs.xfce.thunar-volman
-        pkgs.xfce.thunar-media-tags-plugin
-        pkgs.gvfs
-        pkgs.glib
-        pkgs.file-roller
+      # the xfce.* names are deprecated, these packages live at top level now
+      programs.thunar.plugins = with pkgs; [
+        thunar
+        xfconf
+        tumbler
+        thunar-archive-plugin
+        thunar-volman
+        thunar-media-tags-plugin
+        gvfs
+        glib
+        file-roller
       ];
 
-      # programs.file-roller.enable = true; # enables fileroller for archive plugin
       services.gvfs.enable = true; # Mount, trash, and other functionalities
       services.tumbler.enable = true; # Thumbnail support for images
-    }
-  );
+    };
 }

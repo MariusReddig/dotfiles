@@ -4,12 +4,13 @@
   ...
 }:
 {
-  flake.homeModules.name = moduleWithSystem (
+  flake.homeModules.nvim = moduleWithSystem (
+    {
+      flakeLocation,
+      ...
+    }:
     {
       pkgs,
-      self',
-      inputs',
-      flakeLocation,
       config,
       ...
     }:
@@ -149,7 +150,7 @@
       };
 
       home.activation.linkNvimFiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-        ln -sfr -T ${flakeLocation}/modules/features/home/nvim ~/.config/nvim
+        ln -sfr -T ${flakeLocation}/modules/home/nvim/config ~/.config/nvim
       '';
 
       home.sessionVariables = {
@@ -158,14 +159,4 @@
     }
   );
 
-  perSystem =
-    {
-      pkgs,
-      lib,
-      self',
-      ...
-    }:
-    {
-      packages.hello = pkgs.hello;
-    };
 }
