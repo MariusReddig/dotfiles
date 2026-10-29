@@ -23,7 +23,6 @@
           enable = true;
           extraPackages = with pkgs; [
             mesa
-            clinfo
           ];
         };
         amdgpu = {
