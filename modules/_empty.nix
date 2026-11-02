@@ -2,7 +2,7 @@
 # files/folders starting with "_" are skipped by import-tree) and rename `name`.
 #
 # moduleWithSystem: the OUTER function only gets flake-parts perSystem arguments
-# (self', inputs', flakeLocation, unfreePkgs, ...). The INNER function is the actual
+# (self', inputs', flakeLocation, ...). The INNER function is the actual
 # NixOS module and gets the normal NixOS arguments (pkgs, config, lib, username, ...).
 # Only use moduleWithSystem when you need something from the outer function.
 {

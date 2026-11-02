@@ -25,6 +25,7 @@
           #MTG
           # local.mtg-forge
         ])
+        # Intentionally on unstable: fast-moving, stable lags behind
         ++ (with pkgs.unstable; [
           # Switch emulation
           ryubing

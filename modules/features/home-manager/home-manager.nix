@@ -12,7 +12,15 @@
         useGlobalPkgs = true;
         useUserPackages = true;
         extraSpecialArgs = { inherit username hostname; };
-        users.${username}.imports = with self.homeModules; [ base ];
+        users.${username} = {
+          imports = with self.homeModules; [ base ];
+          # HM generations are a separate profile, nix.gc does not remove them
+          services.home-manager.autoExpire = {
+            enable = true;
+            frequency = "daily";
+            timestamp = "-5 days";
+          };
+        };
       };
     };
 }

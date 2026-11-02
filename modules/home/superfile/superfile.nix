@@ -1,21 +1,16 @@
-{ self, inputs, moduleWithSystem, ... }:
+{ self, moduleWithSystem, ... }:
 {
   flake.homeModules.superfile = moduleWithSystem (
     { flakeLocation, ... }:
       { pkgs, config, ... }:
-      let
-        superfile =
-          inputs.superfile.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        superfileWithoutChecks = superfile.overrideAttrs (old: {
-          doCheck = false;
-          doInstallCheck = false;
-        });
-      in {
+      {
         programs.superfile = {
           enable = true;
-          package = superfileWithoutChecks;
-          metadataPackage = pkgs.unstable.exiftool;
-          zoxidePackage = pkgs.unstable.zoxide;
+          # From nixpkgs instead of the upstream flake: comes from the binary cache,
+          # no local Go build and no extra nixpkgs closure.
+          package = pkgs.superfile;
+          metadataPackage = pkgs.exiftool;
+          zoxidePackage = pkgs.zoxide;
           # settings = builtins.fromTOML (builtins.readFile ./config.toml);
         };
 

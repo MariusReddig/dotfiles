@@ -15,7 +15,7 @@
           xdg-user-dirs
           xdg-user-dirs-gtk
           p7zip
-          unstable.firewalld-gui
+          firewalld-gui
           imagemagick
           direnv
           python312Packages.pyqt6
@@ -31,7 +31,7 @@
           lact
           upower
           fastfetch
-          unstable.openrgb-with-all-plugins
+          openrgb-with-all-plugins
 
           # Fonts
           corefonts
@@ -80,7 +80,7 @@
 
           # Communication
           legcord
-          unstable.fluxer
+          unstable.fluxer # only in the fluxer overlay (unstable)
           # self.packages.${pkgs.stdenv.hostPlatform.system}.stoat
 
           # Development Tools

@@ -18,7 +18,7 @@
         };
         fonts = {
           monospace = {
-            package = pkgs.unstable.nerd-fonts.jetbrains-mono;
+            package = pkgs.nerd-fonts.jetbrains-mono;
             name = "JetBrainsMono Nerd Font";
           };
           serif = config.stylix.fonts.monospace;
