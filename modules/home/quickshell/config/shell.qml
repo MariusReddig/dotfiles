@@ -3,6 +3,10 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
+import "config"
+import "state"
+import "services"
+import "bar"
 
 ShellRoot {
     // One layer surface per monitor; only the focused monitor's pill comes alive.
@@ -14,13 +18,14 @@ ShellRoot {
         }
     }
 
-    // Start the notification daemon and the network monitor at startup.
-    Component.onCompleted: { Notifs.count; Network.online; }
+    // Start the notification daemon, network monitor and wallpaper restore at startup.
+    Component.onCompleted: { Notifs.count; Network.online; Wallpapers.current; }
 
     // ── Hyprland global shortcuts ───────────────────────────────
-    //   bind = SUPER, C, global, quickshell:bar-clock   (see README)
+    //   bind = SUPER, C, global, quickshell:bar-status   (see README)
     GlobalShortcut { name: "bar-workspaces";    description: "Pill: workspaces";    onPressed: BarState.toggle("workspaces") }
-    GlobalShortcut { name: "bar-clock";         description: "Pill: clock";         onPressed: BarState.toggle("clock") }
+    GlobalShortcut { name: "bar-status";        description: "Pill: system status"; onPressed: BarState.toggle("status") }
+    GlobalShortcut { name: "bar-clock";         description: "Pill: system status (old name)"; onPressed: BarState.toggle("status") }
     GlobalShortcut { name: "bar-calendar";      description: "Pill: calendar";      onPressed: BarState.toggle("calendar") }
     GlobalShortcut { name: "bar-launcher";      description: "Pill: app launcher";  onPressed: BarState.toggle("launcher") }
     GlobalShortcut { name: "bar-wallpapers";    description: "Pill: wallpapers";    onPressed: BarState.toggle("wallpapers") }
@@ -40,5 +45,17 @@ ShellRoot {
         function next(): void { BarState.cycle(1); }
         function prev(): void { BarState.cycle(-1); }
         function state(): string { return BarState.phase + ":" + BarState.mode; }
+        // Troubleshooting: which monitor pillbar thinks is focused, and the profile.
+        function debug(): string {
+            return JSON.stringify({
+                phase: BarState.phase,
+                mode: BarState.mode,
+                automatic: BarState.automatic,
+                focusedMonitor: Hyprland.focusedMonitor?.name ?? null,
+                screens: Quickshell.screens.map(s => s.name),
+                host: Host.hostname,
+                profile: Host.profileName
+            }, null, 2);
+        }
     }
 }

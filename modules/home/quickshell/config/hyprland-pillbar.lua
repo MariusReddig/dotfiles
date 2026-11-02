@@ -2,7 +2,7 @@
 -- Put this file next to hyprland.lua and add:   require("hyprland-pillbar")
 
 hl.bind("SUPER+W",           hl.dsp.global("quickshell:bar-workspaces"))
-hl.bind("SUPER+C",           hl.dsp.global("quickshell:bar-clock"))
+hl.bind("SUPER+C",           hl.dsp.global("quickshell:bar-status"))
 hl.bind("SUPER+SHIFT+C",     hl.dsp.global("quickshell:bar-calendar"))
 hl.bind("SUPER+SPACE",       hl.dsp.global("quickshell:bar-launcher"))
 hl.bind("SUPER+SHIFT+SPACE", hl.dsp.global("quickshell:bar-wallpapers"))

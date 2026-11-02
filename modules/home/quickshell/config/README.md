@@ -4,42 +4,91 @@ Invisible until you call it. A dot drops in at the top-centre, then grows into
 whichever view you asked for; switching views morphs the same shape; closing
 collapses it back into the dot and it vanishes.
 
-## Install
+## Layout
 
-    ~/.config/quickshell/pillbar/   ← these files
-    qs -c pillbar                   ← run (or put the files directly in ~/.config/quickshell/ and run `qs`)
-
-Stop any other notification daemon (mako, dunst, swaync) — pillbar is the daemon.
-
-## Hyprland
-
-```ini
-exec-once = qs -c pillbar
-
-bind = SUPER, W,            global, quickshell:bar-workspaces
-bind = SUPER, C,            global, quickshell:bar-clock
-bind = SUPER SHIFT, C,      global, quickshell:bar-calendar
-bind = SUPER, SPACE,        global, quickshell:bar-launcher
-bind = SUPER SHIFT, SPACE,  global, quickshell:bar-wallpapers
-bind = SUPER, M,            global, quickshell:bar-media
-bind = SUPER, T,            global, quickshell:bar-tray
-bind = SUPER, N,            global, quickshell:bar-notifications
-bind = SUPER, TAB,          global, quickshell:bar-next
-bind = SUPER SHIFT, TAB,    global, quickshell:bar-prev
-bind = SUPER, ESCAPE,       global, quickshell:bar-close
-
-# optional: blur behind the pill
-layerrule = blur, pillbar
-layerrule = ignorezero, pillbar
+```
+pillbar/
+├── shell.qml               entry: one bar per monitor, shortcuts, IPC
+├── hyprland-pillbar.lua    keybinds for Hyprland's Lua config
+├── config/
+│   ├── Config.qml          every tunable: sizes, timings, colours, glyphs, paths
+│   └── Host.qml            per-machine profiles (laptop / workstation)
+├── state/
+│   └── BarState.qml        the state machine
+├── bar/
+│   ├── Bar.qml             layer-shell window, input mask, edge reveal, click-outside
+│   └── Pill.qml            the morphing shape + view loader
+├── views/                  one file per state
+│   ├── WorkspacesView.qml
+│   ├── StatusView.qml      time, date, network + battery rings
+│   ├── CalendarView.qml
+│   ├── MediaView.qml
+│   ├── TrayView.qml        quick icons, volume + brightness sliders, app tray
+│   ├── NotificationsView.qml
+│   ├── ToastView.qml
+│   ├── LauncherView.qml
+│   ├── WallpapersView.qml
+│   └── tray/               panels that expand inside the tray view
+│       ├── NetworkPanel.qml
+│       ├── BluetoothPanel.qml
+│       └── AudioPanel.qml
+├── services/               system backends (singletons)
+│   ├── Battery.qml         UPower
+│   ├── Brightness.qml      brightnessctl
+│   ├── Network.qml         NetworkManager / nmcli (Wi-Fi, VPN)
+│   ├── Notifs.qml          notification daemon
+│   └── Wallpapers.qml      scan, apply, save + restore (awww)
+├── components/             reusable UI pieces
+│   ├── ListRow.qml  NotificationCard.qml  PillButton.qml  QuickIcon.qml
+│   ├── RingIcon.qml  SearchHeader.qml  SliderRow.qml  Toggle.qml  ValueSlider.qml
+└── utils/
+    └── Fuzzy.qml           fuzzy matcher
 ```
 
-Same thing over IPC (scripts, other tools):
+Imports between folders are relative (`import "../services"`), so the folder
+works wherever it lives.
 
-    qs -c pillbar ipc call bar toggle calendar
+## Install
+
+    ~/.config/quickshell/pillbar/   ← this folder      → qs -c pillbar
+    ~/.config/quickshell/           ← or its contents  → quickshell
+
+Needed on NixOS:
+
+```nix
+services.upower.enable = true;                 # battery
+networking.networkmanager.enable = true;       # network + VPN
+hardware.bluetooth.enable = true;              # bluetooth
+services.pipewire.enable = true;               # volume
+environment.systemPackages = [ pkgs.brightnessctl pkgs.libnotify ];
+fonts.packages = [ pkgs.nerd-fonts.symbols-only ];
+```
+
+Stop any other notification daemon (mako, dunst, swaync) — pillbar is the daemon.
+For brightnessctl without root, your user needs to be in the `video` group.
+
+## Per-machine profiles (`config/Host.qml`)
+
+One folder for every machine; `Host.qml` decides what each one shows.
+
+1. Map each hostname to a profile in `hosts` (run `hostname` to see yours).
+2. In `profiles`, list only what differs from `defaults`: `battery`,
+   `brightness`, `volume`, `network`, `wifi`, `vpn`, `bluetooth`, `appTray`,
+   and `states` (which states are cycled, in which order).
+3. `PILLBAR_PROFILE=workstation qs -c pillbar` overrides the hostname lookup.
+
+The chosen profile is logged at start: `pillbar: host "…" → profile "…"`.
+
+## Keybinds (Hyprland Lua)
+
+See `hyprland-pillbar.lua`; load it from `hyprland.lua` with
+`require("hyprland-pillbar")`. Over IPC:
+
+    qs -c pillbar ipc call bar toggle status
     qs -c pillbar ipc call bar next
-    qs -c pillbar ipc call bar state      # → "open:calendar"
+    qs -c pillbar ipc call bar state      # → "open:status"
 
-## State machine (`BarState.qml`)
+## State machine (`state/BarState.qml`)
 
 ```
             request(m)              formTimer
@@ -49,76 +98,39 @@ Same thing over IPC (scripts, other tools):
   dissolving ◀────────────┴──── close() ───────┤ morphing ── morphTimer ─▶ open(n)
 ```
 
-* Pressing the key of the view that's open closes it (toggle).
-* Tab / Shift+Tab (when focused) or the mouse wheel on the pill cycle views.
-* Esc, a click anywhere outside the pill, or 5 s without hovering close it
-  (`Config.visibleMs`; launcher and wallpaper picker stay until you're done).
-* Automatic pop-ups: touching the top screen edge, switching workspace (always
-  morphs to the workspaces state) and incoming notifications. These never take
-  the keyboard and never swallow clicks outside the pill.
-
-## States
-
-| state | reachable by | notes |
+| state | reachable by | shows |
 |---|---|---|
-| workspaces, clock, calendar, media, tray, notifications | direct request **and** cycling | cycle order as listed |
-| launcher | direct request only | `toggle launcher`; scrollable, fuzzy search |
-| wallpapers | direct request, or "Wallpapers" entry in the launcher | `toggle wallpapers` |
+| workspaces | cycle, shortcut, workspace switch, top edge | Hyprland workspaces |
+| status | cycle, shortcut | time, date, network strength ring, battery ring (laptops) |
+| calendar | cycle, shortcut | month grid |
+| media | cycle, shortcut | MPRIS player controls |
+| tray | cycle, shortcut | network / Bluetooth / audio icons, volume + brightness sliders, app tray |
+| notifications | cycle, shortcut | notification list |
+| launcher | shortcut only | fuzzy app search, scrollable |
+| wallpapers | shortcut or "Wallpapers" in the launcher | wallpaper grid |
 | toast | automatic | incoming notification while hidden |
 
-**Launcher:** fuzzy search (fzf-style, matched letters highlighted), wheel or
-↑↓ / PgUp PgDn to scroll, Enter launches. "Wallpapers" is listed like an app.
-
-**Wallpapers:** images from `Config.wallpaperDir`, applied with
-`Config.wallpaperCommand` (default `awww img`; needs `awww-daemon` running).
-
-**Tray:** quick-settings icons for network, Bluetooth and volume, then the
-app tray icons. Click a quick icon to expand its panel (the bar stays open
-while a panel is expanded):
-* *Network* (NetworkManager / `nmcli`): wired status, Wi-Fi on/off, scan,
-  connect (password prompt for new secured networks), disconnect, and all VPN
-  / WireGuard connections NetworkManager knows — click to connect/disconnect.
-  A shield badge on the icon means a VPN is up.
-* *Bluetooth* (BlueZ): power, scan, connect/disconnect/pair, battery level.
-* *Volume* (PipeWire): output and mic sliders, mute, output device switch.
-  Scrolling on the volume icon changes the volume directly.
-
-**Media:** any MPRIS player. Space play/pause, ←→ previous/next, ↑↓ switch
-player, click the progress bar to seek.
-
-## Files
-
-| file | role |
-|---|---|
-| `shell.qml` | entry: one surface per monitor, shortcuts, IPC |
-| `Config.qml` | sizes, timings, colours, behaviour toggles |
-| `BarState.qml` | the state machine |
-| `Notifs.qml` | notification server |
-| `Bar.qml` | layer-shell window, input mask, focus grab |
-| `Pill.qml` | the morphing shape + view loader |
-| `View*.qml` | workspaces, clock, calendar, launcher, media, tray, notifications, toast |
-| `Fuzzy.qml` | fuzzy matcher used by the launcher |
-| `Wallpapers.qml` | wallpaper scan + apply |
-| `Network.qml` | NetworkManager backend (status, Wi-Fi, VPN) |
-| `Panel*.qml` | network / Bluetooth / volume panels in the tray state |
-| `QuickIcon.qml`, `ListRow.qml`, `Toggle.qml`, `VolumeSlider.qml` | small UI pieces |
-| `SearchHeader.qml` | search field + state icon row used by launcher and wallpapers |
-
-## Adding a view
-
-1. `ViewFoo.qml` with an implicit size.
-2. Add `"foo"` to `BarState.modes` (cycle order) or `BarState.directModes` (direct only) and a `Component` + map entry in `Pill.qml`.
-3. Optional: `Config.autoHide.foo`, `Config.interactiveModes`, a `GlobalShortcut` in `shell.qml`.
+* Pressing the key of the open view closes it. Tab / wheel cycle views.
+* Esc, a click outside, or 5 s without hovering close it (`Config.visibleMs`).
+* Automatic pop-ups (top edge, workspace switch, toast) never take the keyboard
+  and never swallow clicks.
 
 ## Notes
 
-* State icons use Nerd Font glyphs: install `pkgs.nerd-fonts.symbols-only`
-  (or any Nerd Font and set `Config.iconFont`). Change glyphs in `Config.stateIcons`.
-* Workspace clicks use the Lua dispatcher (`hl.dsp.focus`). On an older
-  Hyprland without Lua dispatch, set `Config.hyprlandLua: false`.
+* **Status:** the battery block only appears when UPower reports a laptop
+  battery. It turns red below `Config.batteryLow` %.
+* **Tray:** the brightness slider only appears when brightnessctl finds a
+  backlight (built-in laptop screens). Pick a specific one with
+  `Config.backlightDevice`. External monitors over DDC aren't supported.
+* **Wallpapers:** saved to `~/.local/state/pillbar/wallpaper` and re-applied at
+  start unless awww already shows it. Needs `awww-daemon` running.
+* Workspace clicks use the Lua dispatcher (`hl.dsp.focus`); on an older
+  Hyprland set `Config.hyprlandLua: false`.
 
-* Only the focused monitor's pill reacts; the others stay hidden.
-* The window is click-through everywhere except the pill (`mask: Region { item: pill }`),
-  so while hidden it doesn't block anything and reserves no space.
-* If right-click tray menus close the bar on your setup, remove `"tray"` from
-  `Config.interactiveModes` (that disables click-outside-to-close for the tray view).
+## Adding a view
+
+1. `views/FooView.qml` with an implicit size.
+2. Add `"foo"` to `BarState.modes` (cycle) or `BarState.directModes` (direct
+   only), and a `Component` + map entry in `bar/Pill.qml`.
+3. Optional: `Config.autoHide.foo`, `Config.stateIcons.foo`, a `GlobalShortcut`
+   in `shell.qml`.
