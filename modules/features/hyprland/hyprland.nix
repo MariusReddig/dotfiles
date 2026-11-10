@@ -17,6 +17,11 @@
         xwayland.enable = true;
       };
 
+      # Without this hyprlock has no /etc/pam.d/hyprlock and falls back to su's
+      # PAM stack, which still works but isn't what should be authenticating a
+      # lock screen.
+      security.pam.services.hyprlock = {};
+
       environment = {
         sessionVariables.NIXOS_OZONE_WL = "1";
         sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";

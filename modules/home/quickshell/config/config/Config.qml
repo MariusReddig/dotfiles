@@ -112,7 +112,9 @@ Singleton {
         batteryCharging: [0xF089C, 0xF089C, 0xF0086, 0xF0087, 0xF0088, 0xF089D, 0xF0089, 0xF089E, 0xF008A, 0xF008B, 0xF0085]
             .map(c => String.fromCodePoint(c)),
         batteryAlert: String.fromCodePoint(0xF0083),
-        plug: String.fromCodePoint(0xF06A5)
+        plug: String.fromCodePoint(0xF06A5),
+        idleInhibit: String.fromCodePoint(0xF0176),    // md-coffee
+        idleInhibitOff: String.fromCodePoint(0xF06CA)  // md-coffee_outline
     })
 
     // ── system status ───────────────────────────────────────────

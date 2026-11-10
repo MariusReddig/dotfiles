@@ -130,4 +130,52 @@ Row {
         title: Battery.percent + "%"
         subtitle: Battery.statusText
     }
+
+    // ── idle inhibit ── (own widget, not StatusItem: clicking performs an
+    // action here instead of just revealing the label)
+    Divider {}
+
+    Row {
+        id: inhibitItem
+        property bool expanded: false
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: inhibitItem.expanded ? 8 : 0
+
+        RingIcon {
+            id: inhibitRing
+            anchors.verticalCenter: parent.verticalCenter
+            scale: inhibitHover.hovered ? 1.1 : 1
+            Behavior on scale { NumberAnimation { duration: 120 } }
+            glyph: IdleInhibit.active ? Config.glyphs.idleInhibit : Config.glyphs.idleInhibitOff
+            value: IdleInhibit.active ? 1 : 0
+            color: IdleInhibit.active ? Config.accent : Config.subtext
+
+            HoverHandler { id: inhibitHover }
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    IdleInhibit.toggle();
+                    inhibitItem.expanded = !inhibitItem.expanded;
+                }
+            }
+        }
+        Column {
+            visible: inhibitItem.expanded
+            anchors.verticalCenter: parent.verticalCenter
+            Text {
+                text: IdleInhibit.active ? "Staying awake" : "Idle as usual"
+                color: Config.text
+                font.family: Config.font
+                font.pixelSize: 13
+                font.weight: Font.DemiBold
+            }
+            Text {
+                text: "Click to toggle"
+                color: Config.subtext
+                font.family: Config.font
+                font.pixelSize: 10
+            }
+        }
+    }
 }
