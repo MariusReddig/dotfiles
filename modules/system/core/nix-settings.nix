@@ -12,19 +12,11 @@
     {
       nix = {
         settings = {
-          # ============== build limits =============== #
-          # Worst case threads = max-jobs * cores. Default max-jobs is "auto"
-          # (= all cores), which with cores = 6 meant up to 120 threads.
-          # 2 * 6 = 12 threads leaves headroom for the desktop. Hosts can override.
           max-jobs = lib.mkDefault 2;
           cores = lib.mkDefault 6;
 
-          # ============== store hygiene =============== #
-          # GC kicks in during a build when free space drops below min-free
-          # and deletes garbage until max-free is available again.
           min-free = 5 * 1024 * 1024 * 1024; # 5 GiB
           max-free = 20 * 1024 * 1024 * 1024; # 20 GiB
-          # Don't keep build-only deps / .drv files alive after GC
           keep-outputs = false;
           keep-derivations = false;
 

@@ -18,6 +18,7 @@
       gnome-keyring
       plymouth
       battery-monitor
+      power-profile-switch
       thunar
       steam
       hyprland

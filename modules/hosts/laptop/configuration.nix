@@ -19,6 +19,7 @@ in
       nixpkgs.hostPlatform = "x86_64-linux";
       system.stateVersion = "24.11"; # Don't remove for compatibility
       networking.hostName = "${username}-${hostname}";
+      networking.networkmanager.wifi.powersave = true;
       documentation.nixos.enable = false;
 
       environment.systemPackages = (
