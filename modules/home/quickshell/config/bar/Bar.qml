@@ -30,6 +30,9 @@ PanelWindow {
     readonly property bool wantsKeyboard: focusedScreen && !BarState.automatic
         && Config.interactiveModes.includes(wanted)
 
+    // launcher/wallpapers are the only views you actually type into.
+    readonly property bool wantsGrab: wantsKeyboard && (wanted === "launcher" || wanted === "wallpapers")
+
     readonly property bool catchClicks: Config.closeOnOutsideClick
         && BarState.shown && !BarState.automatic
 
@@ -39,9 +42,15 @@ PanelWindow {
 
     WlrLayershell.namespace: "pillbar"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: !wantsKeyboard ? WlrKeyboardFocus.None
-        : (wanted === "launcher" || wanted === "wallpapers") ? WlrKeyboardFocus.Exclusive
-        : WlrKeyboardFocus.OnDemand
+    // Only ever OnDemand/None here, never Exclusive: this surface is always
+    // mapped (it's the permanent invisible overlay), and Hyprland's keyboard-
+    // focus restore on release is tied to a layer surface *unmapping* — since
+    // this one never does, toggling Exclusive left the seat's real keyboard
+    // focus stuck on nothing once released (global keybinds still worked,
+    // since those bypass window focus entirely, but typed characters didn't
+    // reach any app until you clicked away and back). HyprlandFocusGrab below
+    // handles the launcher/wallpapers case properly instead.
+    WlrLayershell.keyboardFocus: wantsKeyboard ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     mask: Region {
         item: pill
@@ -49,6 +58,22 @@ PanelWindow {
             Region { item: edge },
             Region { item: backdrop }
         ]
+    }
+
+    // Hyprland's own focus-grab extension: acquires keyboard focus for launcher/
+    // wallpapers and — unlike WlrKeyboardFocus.Exclusive on this surface —
+    // correctly restores it to the previously active window on release.
+    HyprlandFocusGrab {
+        windows: [win]
+        active: win.wantsGrab
+        onCleared: if (win.wantsGrab) BarState.close()
+    }
+
+    // Toggled from the status view. Bound per-monitor since each Bar is its
+    // own layer-shell surface; harmless to engage from more than one.
+    IdleInhibitor {
+        window: win
+        enabled: IdleInhibit.active
     }
 
     // ── click outside → close ───────────────────────────────────
