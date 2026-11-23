@@ -1,3 +1,8 @@
 hl.on("hyprland.start", function()
   hl.dispatch(hl.dsp.focus({ workspace = "1" }))
+  hl.exec_cmd("nextcloud --background")
+  hl.exec_cmd("steam -silent")
+  hl.exec_cmd("zapzap")
+  hl.exec_cmd("legcord")
+  hl.exec_cmd("signal-desktop")
 end)

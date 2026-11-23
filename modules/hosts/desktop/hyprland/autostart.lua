@@ -1,4 +1,7 @@
 hl.on("hyprland.start", function()
+  hl.exec_cmd("nextcloud --background")
+  hl.exec_cmd("steam -silent")
+  hl.exec_cmd("zapzap")
   hl.exec_cmd("legcord --disable-features=WaylandFractionalScaleV1")
   hl.exec_cmd("signal-desktop --disable-features=WaylandFractionalScaleV1")
 end)
