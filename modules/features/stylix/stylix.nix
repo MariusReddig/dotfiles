@@ -73,7 +73,10 @@
           dark = "Papirus";
           light = "Papirus";
         };
-        targets.qt.platform = "qtct";
+        # Qt and GTK color theming comes from wallust (homeModules.wallust)
+        # instead, driven live by the current wallpaper. Stylix keeps
+        # everything else (fonts, cursor, icons, Firefox, Plymouth).
+        targets.qt.enable = false;
         targets.gtk.enable = false;
       };
     };
