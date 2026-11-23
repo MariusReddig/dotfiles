@@ -55,7 +55,6 @@ in
             fuzzel
             kitty
             pferd
-            dunst
             zoxide
             fzf
             stylix
