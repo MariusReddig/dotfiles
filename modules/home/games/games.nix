@@ -1,38 +1,37 @@
 { self, ... }:
 {
-  flake.homeModules.games =
-    { pkgs, ... }: {
-      home.packages =
-        (with pkgs; [
+  flake.homeModules.games = { pkgs, ... }: {
+    home.packages =
+      (with pkgs; [
 
-          forge-mtg
-          linuxKernel.packages.linux_zen.xpadneo
-          # gamescope
+        linuxKernel.packages.linux_zen.xpadneo # controller view
 
-          wineWow64Packages.stable
-          winetricks
-          heroic
+        # Wine stuff
+        wineWow64Packages.stable
+        winetricks
+        umu-launcher
 
-          # Minecraft
-          (prismlauncher.override {
-            jdks = [
-              jdk8
-              jdk17
-              jdk21
-            ];
-          })
+        # Switch emulation
+        eden
 
-          #MTG
-          # local.mtg-forge
-        ])
-        # Intentionally on unstable: fast-moving, stable lags behind
-        ++ (with pkgs.unstable; [
-          # Switch emulation
-          ryubing
+        # Minecraft
+        (prismlauncher.override {
+          jdks = [
+            jdk8
+            jdk17
+            jdk21
+          ];
+        })
 
-          # archipelago stuff
-          archipelago
-        ]);
+        #MTG
+        # local.mtg-forge
+      ])
+      # Intentionally on unstable: fast-moving, stable lags behind
+      ++ (with pkgs.unstable; [
 
-    };
+        # archipelago stuff
+        archipelago
+      ]);
+
+  };
 }
