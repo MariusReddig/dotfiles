@@ -28,6 +28,7 @@
       virt-manager
       gpu-screen-recorder
       flatpak
+      openrgb
       stylix
       home-manager
     ];

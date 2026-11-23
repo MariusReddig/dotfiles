@@ -1,4 +1,5 @@
-# `chwp`: set wallpaper (awww), lockscreen and stylix image for the current host.
+# `chwp`: set wallpaper (awww), lockscreen and stylix image for the current
+# host, and regenerate the wallust-driven Qt/GTK palette from it.
 { moduleWithSystem, ... }:
 {
   flake.homeModules.hyprland = moduleWithSystem (
@@ -78,6 +79,7 @@
               load_loadingscreen
             fi
             awww img "$1" --transition-type "$2"
+            wallust run --skip-sequences "$1"
 
             if [ "$verbose" = true ]; then
               echo "[Info] displaying wallpaper"
