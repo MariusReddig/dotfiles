@@ -52,6 +52,7 @@ in
             zoxide
             fzf
             stylix
+            wallust
             oh-my-posh
             superfile
             balatro

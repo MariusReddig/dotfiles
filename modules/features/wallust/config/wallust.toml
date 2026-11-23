@@ -1,0 +1,15 @@
+# wallust config. Run via `wallust run <image>`, triggered by chwp and the
+# quickshell wallpaper picker whenever the wallpaper changes.
+#
+# Pinned to "dark" so light/dark mode never flips on its own - that stays a
+# manual decision (stylix polarity), independent of the wallpaper.
+style = "dark"
+
+[templates]
+qt5ct = { template = "qtct-colors.conf", target = "~/.config/qt5ct/colors/wallust.conf" }
+qt6ct = { template = "qtct-colors.conf", target = "~/.config/qt6ct/colors/wallust.conf" }
+gtk3  = { template = "gtk3-colors.css",  target = "~/.config/gtk-3.0/colors.css" }
+gtk4  = { template = "gtk4-colors.css",  target = "~/.config/gtk-4.0/colors.css" }
+
+# Nothing to reload here: Qt/GTK apps pick up the new colors.css /
+# qt{5,6}ct color scheme the next time they start, not live.

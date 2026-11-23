@@ -6,7 +6,8 @@ import "../config"
 import "../state"
 
 // Finds images in Config.wallpaperDir (recursively) and applies them with
-// Config.wallpaperCommand.
+// Config.wallpaperCommand, then reruns wallust so the Qt/GTK palette
+// (wallust.toml templates) follows the new wallpaper.
 //
 // The chosen wallpaper is saved to ~/.local/state/pillbar/wallpaper and
 // restored when pillbar starts, so a restart (or a crashed wallpaper daemon)
@@ -29,6 +30,7 @@ Singleton {
     function apply(path) {
         if (!path) return;
         run(path, Config.wallpaperCommand);
+        Quickshell.execDetached(["wallust", "run", "--skip-sequences", path]);
         current = path;
         save.command = ["sh", "-c", 'mkdir -p "$1" && printf "%s" "$2" > "$3"', "sh", stateDir, path, stateFile];
         save.running = true;
