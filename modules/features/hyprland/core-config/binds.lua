@@ -106,7 +106,9 @@ hl.bind(mainMod .. " + D", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.window.kill())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + V", hl.dsp.window.float())
+hl.bind(mainMod .. " + ALT + T", hl.dsp.window.float({ action = "unset" }))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + ALT + C", hl.dsp.window.center())
 hl.bind(mainMod .. " + P", hl.dsp.window.pin())
 
 --Master-layout--
