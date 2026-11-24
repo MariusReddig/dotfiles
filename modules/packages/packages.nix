@@ -9,6 +9,7 @@
         japanese-aesthetic = pkgs.callPackage ./_pkgs/sddm-themes/japanese-aesthetic.nix { };
         forge-mtg = pkgs.callPackage ./_pkgs/forge-mtg/forge-mtg.nix { };
         mpc-autofill = pkgs.callPackage ./_pkgs/mpc-autofill.nix { };
+        judoshiai = pkgs.callPackage ./_pkgs/judoshiai/judoshiai.nix { };
       };
     };
 }

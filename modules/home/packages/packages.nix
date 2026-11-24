@@ -53,7 +53,7 @@
         zapzap
         thunderbird
         nextcloud-client
-        libreoffice-still
+        libreoffice
         gh
         gh-notify
         hub
@@ -82,6 +82,9 @@
         legcord
         unstable.fluxer # only in the fluxer overlay (unstable)
         # self.packages.${pkgs.stdenv.hostPlatform.system}.stoat
+
+        # Sports
+        self.packages.${pkgs.stdenv.hostPlatform.system}.judoshiai
 
         # Development Tools
         python312Packages.pip
